@@ -32,13 +32,11 @@
                             <nav class="main_nav">
                                 <ul>
                                     <li class="hassubs">
-                                        <a href="{{ route('categories') }}">Categories</a>
+                                        <a href="{{ route('categories') }}">Категории</a>
                                         <ul>
-                                            <li><a href="categories.html">Category</a></li>
-                                            <li><a href="categories.html">Category</a></li>
-                                            <li><a href="categories.html">Category</a></li>
-                                            <li><a href="categories.html">Category</a></li>
-                                            <li><a href="categories.html">Category</a></li>
+                                            @foreach(\App\Models\Category::get()->sortBy('id') as $category)
+                                                <li><a href="{{ route('category',[$category->code]) }}">{{ $category->name }}</a></li>
+                                            @endforeach
                                         </ul>
                                     </li>
                                 </ul>
@@ -91,8 +89,12 @@
                                             <li><a href="{{ route('register') }}">Регистрация</a></li>
                                         @endguest
                                         @auth
-                                            <li><a href="{{ route('home') }}">Админ панель</a></li>
-                                            <li><a href="{{ route('get-logout') }}">Выйти</a></li>
+                                            @ifAdmin
+                                                <li><a href="{{ route('home') }}">Админ панель</a></li>
+                                            @else
+                                                <li><a href="{{ route('person.orders.index') }}">Личный кабинет</a></li>
+                                            @endifAdmin
+                                                <li><a href="{{ route('get-logout') }}">Выйти</a></li>
                                         @endauth
                                     </ul>
 

@@ -26,8 +26,5 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        Blade::directive('routeActive', function($routeName) {
-            return "<?php echo Route::currentRouteNamed($routeName) ? 'active' : ''?>";
-        });
     }
 }
