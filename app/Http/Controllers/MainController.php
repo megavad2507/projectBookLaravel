@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class MainController extends Controller
 {
     public function index() {
-        $products = Product::get();
+        $products = Product::orderBy('id','asc')->get();
         return view('index.index',compact('products'));
     }
     public function categories() {

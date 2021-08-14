@@ -18,30 +18,38 @@ use Illuminate\Support\Facades\Route;
 //    return view('index.index');
 //});
 
-Auth::routes([
-    'reset' => false,
-    'confirm' => false,
-    'verify' => false,
+Auth::routes();
+Route::get('/logout','Auth\LoginController@logout')->name('get-logout');
 
-]);
+Route::group([
+    'middleware' => 'auth',
+    'namespace' => 'Admin',
+    'prefix' => 'admin'
+],function() {
+    Route::get('/orders','OrderController@index')->name('home');
+    Route::resource('categories','CategoryController');
+    Route::resource('products','ProductController');
+});
+
+
 Route::get('/','MainController@index')->name('index');
-Route::get('/basket/','BasketController@basket')->name('basket');
-Route::get('/basket/checkout/','BasketController@checkout')->name('checkout');
 
 
-Route::post('/basket/add/{id}','BasketController@basketAdd')->name('basketAdd');
-Route::post('/basket/delete/{id}','BasketController@basketRemove')->name('basketRemove');
-Route::post('/basket/checkout/','BasketController@confirmOrder')->name('confirmOrder');
-Route::get('/catalog/categories/','MainController@categories')->name('categories');
-Route::get('/catalog/{category}/','MainController@category')->name('category');
-Route::get('/catalog/{category}/{product?}/','MainController@product')->name('product');
+Route::group([
+    'prefix' => 'basket'
+], function() {
+    Route::get('/','BasketController@basket')->name('basket');
+    Route::get('/checkout/','BasketController@checkout')->name('checkout');
+    Route::post('/add/{id}','BasketController@basketAdd')->name('basketAdd');
+    Route::post('/delete/{id}','BasketController@basketRemove')->name('basketRemove');
+    Route::post('/checkout/','BasketController@confirmOrder')->name('confirmOrder');
+});
+Route::group([
+    'prefix' => 'catalog'
+], function() {
+    Route::get('/categories/','MainController@categories')->name('categories');
+    Route::get('/{category}/','MainController@category')->name('category');
+    Route::get('/{category}/{product?}/','MainController@product')->name('product');
+});
 
 
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
