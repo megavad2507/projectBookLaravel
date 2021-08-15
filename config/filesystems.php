@@ -29,6 +29,11 @@ return [
     */
 
     'disks' => [
+        //хранилище для фотографий, когда ресетим проект
+        'reset' => [
+            'driver' => 'local',
+            'root' => resource_path('photosForSite')
+        ],
 
         'local' => [
             'driver' => 'local',

@@ -19,10 +19,11 @@ use Illuminate\Support\Facades\Route;
 //});
 
 Auth::routes();
-Route::get('/logout','Auth\LoginController@logout')->name('get-logout');
+
+Route::get('reset','ResetController@reset')->name('resetProject');
 
 Route::middleware(['auth'])->group(function() {
-
+    Route::get('/logout','Auth\LoginController@logout')->name('get-logout');
     Route::group([
         'prefix' => 'person',
         'namespace' => 'Person',

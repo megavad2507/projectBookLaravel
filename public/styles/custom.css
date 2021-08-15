@@ -1,0 +1,84 @@
+.product_content .add_to_basket {
+    text-align: right;
+}
+.product_content .add_to_basket button {
+    width: 40px;
+    height: 40px;
+    border: 1px solid;
+    border-radius: 25px;
+}
+button:hover {
+    cursor: pointer;
+}
+.quantity_buttons button {
+    border: none;
+    background-color: transparent;
+}
+/*********************************
+7. Icon Boxes
+*********************************/
+
+.icon_boxes
+{
+    width: 100%;
+    padding-top: 99px;
+    padding-bottom: 99px;
+    background: #FFFFFF;
+    z-index: 2;
+}
+.icon_box_row
+{
+
+}
+.icon_box
+{
+    width: 100%;
+    text-align: center;
+}
+.icon_box_image
+{
+    width: 75px;
+    height: 75px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.icon_box_image img
+{
+    max-width: 100%;
+}
+.icon_box_title
+{
+    font-size: 18px;
+    font-weight: 500;
+    color: #1b1b1b;
+    margin-top: 33px;
+}
+.icon_box_text
+{
+    margin-top: 20px;
+}
+.product_image {
+    min-height: 255px;
+}
+
+button[type=submit] {
+    border: none;
+    background-color: transparent;
+    height: 100%;
+    position: relative;
+    z-index: 1;
+}
+div.button form {
+    height: 100%;
+}
+
+div.button:after {
+    background-color: #000000;
+}
+
+div.button:hover button {
+    color: #ffffff;
+}
+
+
+
