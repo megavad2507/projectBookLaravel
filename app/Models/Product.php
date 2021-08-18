@@ -11,7 +11,7 @@ class Product extends Model
 //        return $category = Category::find($this->category_id);
 //    }
 
-    protected $fillable = ['code','name','description','picture','price','category_id'];
+    protected $fillable = ['code','name','description','picture','price','category_id','new','hot','sale'];
     public function category() {
         return $this->belongsTo(Category::class)->orderBy('id','asc');
     }
@@ -21,6 +21,28 @@ class Product extends Model
             return $this->price*$this->pivot->quantity;
         }
         return $this->price;
+    }
+
+    public function setNewAttribute($value) {
+        $this->attributes['new'] = $value === 'on' ? 1 : 0;
+    }
+
+    public function setHotAttribute($value) {
+        $this->attributes['hot'] = $value === 'on' ? 1 : 0;
+    }
+
+    public function setSaleAttribute($value) {
+        $this->attributes['sale'] = $value === 'on' ? 1 : 0;
+    }
+    public function isHot() {
+        return $this->hot === 1;
+    }
+
+    public function isNew() {
+        return $this->new === 1;
+    }
+    public function isSale() {
+        return $this->sale === 1;
     }
      use HasFactory;
 }

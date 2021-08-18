@@ -1,5 +1,6 @@
 <div class="product">
     <div class="product_image"><img src="{{ Storage::url($product->picture) }}" alt="{{ $product->name }}"></div>
+    @include('layouts.product_labels')
     <div class="product_content">
         <form action="{{ route('basketAdd',$product) }}" method="POST">
             @csrf

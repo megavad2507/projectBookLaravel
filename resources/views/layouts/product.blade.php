@@ -34,7 +34,9 @@
                 <!-- Product Image -->
                 <div class="col-lg-6">
                     <div class="details_image">
-                        <div class="details_image_large"><img src="{{ Storage::url($product->picture) }}" alt=""><div class="product_extra product_new"><a href="categories.html">New</a></div></div>
+                        <div class="details_image_large"><img src="{{ Storage::url($product->picture) }}" alt="">
+                            @include('layouts.product_labels')
+                        </div>
                         <div class="details_image_thumbnails d-flex flex-row align-items-start justify-content-between">
                             <div class="details_image_thumbnail active" data-image="{{ Storage::url($product->picture) }}"><img src="{{ Storage::url($product->picture) }}" alt=""></div>
                         </div>

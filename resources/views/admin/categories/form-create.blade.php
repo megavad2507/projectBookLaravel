@@ -28,9 +28,7 @@
                 <div class="">
                     <label for="code" class="col-sm col-form-label">Код: </label>
                     <div class="col-sm-6">
-                        @error('code')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        @include('layouts.error', ['fieldName' => 'code'])
                         <input type="text" class="form-control" name="code" id="code" value="{{ old('code', isset($category) ? $category->code : null) }}">
                     </div>
                 </div>
@@ -38,9 +36,7 @@
                 <div class="">
                     <label for="name" class="col-sm col-form-label">Название: </label>
                     <div class="col-sm-6">
-                        @error('name')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        @include('layouts.error', ['fieldName' => 'name'])
                         <input type="text" class="form-control" name="name" id="name" value="{{ old('name', isset($category) ? $category->name : null) }}">
                     </div>
                 </div>
@@ -48,9 +44,7 @@
                 <div class="">
                     <label for="description" class="col-sm col-form-label">Описание: </label>
                     <div class="col-sm-6">
-                        @error('description')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
+                        @include('layouts.error', ['fieldName' => 'description'])
                         <textarea name="description" id="description" cols="72" rows="7">{{ old('description', isset($category) ? $category->description : null) }}</textarea>
                     </div>
                 </div>

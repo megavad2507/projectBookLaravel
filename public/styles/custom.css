@@ -61,7 +61,7 @@ button:hover {
     min-height: 255px;
 }
 
-button[type=submit] {
+div.button button[type=submit] {
     border: none;
     background-color: transparent;
     height: 100%;
@@ -78,6 +78,14 @@ div.button:after {
 
 div.button:hover button {
     color: #ffffff;
+}
+div.product_labels {
+    position: absolute;
+    top: 0;
+}
+div.product_labels a {
+    color: #000000;
+    text-decoration: none;
 }
 
 

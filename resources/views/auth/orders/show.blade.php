@@ -20,11 +20,10 @@
                     @foreach($order->products as $product)
                         <tr>
                             <td>
-                                <a href="{{ route('product',[$product->category_id,$product->id]) }}">
+                                <a href="{{ route('product',[$product->category->code,$product->code]) }}">
                                     <img height="56px" src="{{ Storage::url($product->picture) }}" alt="{{ $product->name }}">
                                     {{ $product->name }}
                                 </a>
-                                {{ $product->name }}
                             </td>
                             <td><span class="badge">{{ $product->pivot->quantity }}</span></td>
                             <td>{{ $product->price }} руб.</td>

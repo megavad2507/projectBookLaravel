@@ -90,6 +90,11 @@ class ProductController extends Controller
             $path = $request->file('picture')->store('products');
             $params['picture'] = $path;
         }
+        foreach (['hot','sale','new'] as $attributeName) {
+            if(!isset($params[$attributeName])) {
+                $params[$attributeName] = 0;
+            }
+        }
         $product->update($params);
         return redirect()->route('products.index');
     }

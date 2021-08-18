@@ -38,6 +38,10 @@
                 <td><img src="{{ Storage::url($product->picture) }}" alt="{{ $product->name }}" height="240px"></td>
             </tr>
         @endisset
+        <tr>
+            <td>Лейблы</td>
+            <td>@include('layouts.product_labels')</td>
+        </tr>
         </thead>
     </table>
 @endsection

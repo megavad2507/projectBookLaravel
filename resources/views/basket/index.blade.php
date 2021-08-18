@@ -53,7 +53,10 @@
                         <!-- Name -->
                         <div class="cart_item_product d-flex flex-row align-items-center justify-content-start">
                             <div class="cart_item_image">
-                                <div><img src="{{ Storage::url($product->picture) }}" alt=""></div>
+                                <div>
+                                    <img src="{{ Storage::url($product->picture) }}" alt="">
+                                </div>
+
                             </div>
                             <div class="cart_item_name_container">
                                 <div class="cart_item_name"><a href="{{ route('product',[$product->category->code,$product->code]) }}">{{ $product->name }}</a></div>

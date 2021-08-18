@@ -18,7 +18,7 @@
               action="{{ route('products.update',$product) }}"
               @else
               action="{{ route('products.store') }}"
-            @endisset
+                @endisset
         >
             <div>
                 @csrf
@@ -28,39 +28,35 @@
                 <div class="">
                     <label for="code" class="col-sm col-form-label">Код: </label>
                     <div class="col-sm-6">
-                        @error('code')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                        <input type="text" class="form-control" name="code" id="code" value="{{ old('code', isset($product) ? $product->code : null) }}">
+                        @include('layouts.error', ['fieldName' => 'code'])
+                        <input type="text" class="form-control" name="code" id="code"
+                               value="{{ old('code', isset($product) ? $product->code : null) }}">
                     </div>
                 </div>
                 <br>
                 <div class="">
                     <label for="name" class="col-sm col-form-label">Название: </label>
                     <div class="col-sm-6">
-                        @error('name')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                        <input type="text" class="form-control" name="name" id="name" value="{{ old('name', isset($product) ? $product->name : null) }}">
+                        @include('layouts.error', ['fieldName' => 'name'])
+                        <input type="text" class="form-control" name="name" id="name"
+                               value="{{ old('name', isset($product) ? $product->name : null) }}">
                     </div>
                 </div>
                 <div class="">
                     <label for="price" class="col-sm col-form-label">Цена: </label>
                     <div class="col-sm-6">
-                        @error('price')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                        <input type="text" class="form-control" name="price" id="price" value="{{ old('price', isset($product) ? $product->price : null) }}">
+                        @include('layouts.error', ['fieldName' => 'price'])
+                        <input type="text" class="form-control" name="price" id="price"
+                               value="{{ old('price', isset($product) ? $product->price : null) }}">
                     </div>
                 </div>
                 <br>
                 <div class="">
                     <label for="description" class="col-sm col-form-label">Описание: </label>
                     <div class="col-sm-6">
-                        @error('description')
-                            <div class="alert alert-danger">{{ $message }}</div>
-                        @enderror
-                        <textarea name="description" id="description" cols="72" rows="7">{{ old('description', isset($product) ? $product->description : null) }}</textarea>
+                        @include('layouts.error', ['fieldName' => 'description'])
+                        <textarea name="description" id="description" cols="72"
+                                  rows="7">{{ old('description', isset($product) ? $product->description : null) }}</textarea>
                     </div>
                 </div>
                 <div class="">
@@ -76,7 +72,7 @@
                                         @endif
                                         @elseif(old('category_id') == $category->id)
                                         selected
-                                    @endisset
+                                        @endisset
                                 >{{$category->name}}</option>
                             @endforeach
                         </select>
@@ -91,6 +87,23 @@
                         </label>
                     </div>
                 </div>
+                <br>
+                @foreach(['hot' => 'Горячее предложение','new' => 'Новинка','sale' => 'Распродажа'] as $attribute => $name)
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <label for="code" class="col-sm col-form-label">{{ $name }}: </label>
+                        </div>
+                        <div class="col-sm-6">
+                            @include('layouts.error', ['fieldName' => $attribute])
+                        <input type="checkbox" class="form-control" name="{{ $attribute }}" id="{{ $attribute }}"
+                            @if(isset($product) && $product->$attribute === 1)
+                                checked="checked"
+                            @endif
+                        >
+                        </div>
+                    </div>
+                    <br>
+                @endforeach
                 <button class="btn btn-success">Сохранить</button>
             </div>
 
