@@ -35,4 +35,5 @@
         </table>
         <a href="{{ route('categories.create') }}" class="btn btn-success" type="button">Добавить категорию </a>
     </div>
+    {{ $categories->links() }}
 @endsection

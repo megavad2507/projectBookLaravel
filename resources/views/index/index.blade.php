@@ -129,10 +129,13 @@
 
     <div class="products">
         <div class="container">
+            @include('layouts.products_filter')
             <div class="row">
+
                 <div class="col">
 
                     <div class="product_grid">
+
                         @foreach($products as $product)
                             @include('layouts.card',compact('product'))
                         @endforeach

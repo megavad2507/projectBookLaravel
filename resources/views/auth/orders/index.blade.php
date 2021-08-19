@@ -46,6 +46,6 @@
                 </tr>
             @endforeach
         </table>
-
+        {{ $orders->links() }}
     </div>
 @endsection

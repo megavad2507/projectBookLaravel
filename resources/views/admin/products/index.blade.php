@@ -38,5 +38,7 @@
             </tbody>
         </table>
         <a href="{{ route('products.create') }}" class="btn btn-success" type="button">Добавить товар</a>
+
     </div>
+    {{ $products->links() }}
 @endsection

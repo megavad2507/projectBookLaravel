@@ -87,6 +87,19 @@ div.product_labels a {
     color: #000000;
     text-decoration: none;
 }
+.filters {
+    margin-bottom: 1em;
+}
+.filters label {
+    color: #000;
 
+}
+.filters label span {
+    display: inline;
+    margin-left: 5px;
+}
+a[disabled] {
+    pointer-events: none;
+}
 
 

@@ -27,14 +27,14 @@
 
     <!-- Products -->
 
-    <div class="products">
+    <div class="products" id="products_list">
         <div class="container">
             <div class="row">
                 <div class="col">
 
                     <!-- Product Sorting -->
                     <div class="sorting_bar d-flex flex-md-row flex-column align-items-md-center justify-content-md-start">
-                        <div class="results">Показано <span>{{ $category->products->count() }}</span> товара</div>
+                        <div class="results">Показано <span>{{ $products->count() }}</span> товара</div>
                         <div class="sorting_container ml-md-auto">
                             <div class="sorting">
                                 <ul class="item_sorting">
@@ -53,22 +53,23 @@
                     </div>
                 </div>
             </div>
+            @include('layouts.products_filter')
             <div class="row">
                 <div class="col">
-
+                    @if($products->count() == 0)
+                        @if(request()->has('price_from'))
+                            По вашему запросу не найдено ни одного товара
+                        @else
+                            В данной категории нет товаров
+                        @endif
+                    @endif
                     <div class="product_grid">
-                        @foreach($category->products as $product)
+                        @foreach($products as $product)
                             @include('layouts.card',['category' => $category,'product' => $product])
                         @endforeach
+                    </div>
+                    {{ $products->links('layouts.pagination',['category' => $category]) }}
 
-                    </div>
-                    <div class="product_pagination">
-                        <ul>
-                            <li class="active"><a href="#">01.</a></li>
-                            <li><a href="#">02.</a></li>
-                            <li><a href="#">03.</a></li>
-                        </ul>
-                    </div>
 
                 </div>
             </div>
