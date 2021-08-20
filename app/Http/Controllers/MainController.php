@@ -10,8 +10,7 @@ use Illuminate\Http\Request;
 class MainController extends Controller
 {
     public function index(Request $request) {
-        $products = Product::orderBy('id','asc')->get();
-
+        $products = Product::with('category')->get();
         return view('index.index',compact('products'));
     }
     public function categories() {
@@ -20,7 +19,7 @@ class MainController extends Controller
     }
     public function category($code, ProductFilterRequest $request) {
         $category = Category::where('code',$code)->first();
-        $productsQuery = Product::query();
+        $productsQuery = Product::with('category');
         $productsQuery->where('category_id',$category->id);
         if($request->filled('price_from')) {
             $productsQuery->where('price','>=',$request->price_from);
@@ -33,7 +32,7 @@ class MainController extends Controller
                 $productsQuery->where($attribute,1);
             }
         }
-        $products = $productsQuery->paginate(1)->withPath('?' . $request->getQueryString());
+        $products = $productsQuery->paginate(3)->withPath('?' . $request->getQueryString());
         return view('category.index',compact(['category','products']));
     }
     public function product($category,$code = null) {
