@@ -85,7 +85,7 @@
                                 @endforeach
                                 <li class="d-flex flex-row align-items-center justify-content-start">
                                     <div class="order_list_title">Конечная стоимость</div>
-                                    <div class="order_list_value ml-auto">{{ $order->getOrderPrice() }}</div>
+                                    <div class="order_list_value ml-auto">{{ $order->calculateOrderPrice() }} руб.</div>
                                 </li>
                             </ul>
                         </div>

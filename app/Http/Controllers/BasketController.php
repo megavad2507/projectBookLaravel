@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BasketController extends Controller
 {
@@ -29,6 +31,8 @@ class BasketController extends Controller
         else {
             session()->flash('warning','Во время заказа заказа произошла ошибка');
         }
+
+        Order::eraseOrderPrice();
         return redirect()->route('index');
     }
 
@@ -49,6 +53,12 @@ class BasketController extends Controller
         else {
             $order->products()->attach($productId);
         }
+        if(Auth::check()) {
+            $order->user_id = Auth::id();
+            $order->save();
+        }
+        $product = Product::find($productId);
+        Order::changeOrderPrice($product->price);
         return redirect()->route('basket');
 
     }
@@ -69,6 +79,8 @@ class BasketController extends Controller
                 $order->products()->detach($productId);;
             }
         }
+        $product = Product::find($productId);
+        Order::changeOrderPrice(-$product->price);
         return redirect()->route('basket');
     }
 

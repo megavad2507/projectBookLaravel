@@ -19,7 +19,7 @@ class MainController extends Controller
     }
     public function category($code, ProductFilterRequest $request) {
         $category = Category::where('code',$code)->first();
-        $productsQuery = Product::with('category');
+        $productsQuery = Product::query();
         $productsQuery->where('category_id',$category->id);
         if($request->filled('price_from')) {
             $productsQuery->where('price','>=',$request->price_from);
@@ -29,7 +29,7 @@ class MainController extends Controller
         }
         foreach(['hot','new','sale'] as $attribute) {
             if($request->has($attribute)) {
-                $productsQuery->where($attribute,1);
+                $productsQuery->$attribute();//scope - дополненеи нашего запроса к бд, дежит в модели продукта называется scopeHit..
             }
         }
         $products = $productsQuery->paginate(3)->withPath('?' . $request->getQueryString());

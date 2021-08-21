@@ -4,7 +4,7 @@
     <div class="product_content">
         <form action="{{ route('basketAdd',$product) }}" method="POST">
             @csrf
-            <div class="product_title"><a href="{{ route('product',[$product->category->code,$product->code]) }}">{{ $product->name }}</a></div>
+            <div class="product_title"><a href="{{ route('product',[isset($category) ? $category->code : $product->category->code,$product->code]) }}">{{ $product->name }}</a></div>
             <div class="add_to_basket">
                 <button type="submit">
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>

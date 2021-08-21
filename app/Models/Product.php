@@ -23,6 +23,16 @@ class Product extends Model
         return $this->price;
     }
 
+    public function scopeHot($query) {
+        return $query->where('hot',1);
+    }
+    public function scopeNew($query) {
+        return $query->where('new',1);
+    }
+    public function scopeSale($query) {
+        return $query->where('sale',1);
+    }
+
     public function setNewAttribute($value) {
         $this->attributes['new'] = $value === 'on' ? 1 : 0;
     }

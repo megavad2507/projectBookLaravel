@@ -14,7 +14,7 @@ class Order extends Model
         return $this->belongsToMany(Product::class)->withPivot('quantity')->withTimestamps()->orderBy('id');
     }
 
-    public function getOrderPrice() {
+    public function calculateOrderPrice() {
         $sum = 0;
         foreach($this->products as $product) {
             $sum += $product->getAmountPrice();
@@ -22,6 +22,17 @@ class Order extends Model
         return $sum;
     }
 
+    public static function changeOrderPrice($changeValue) {
+        session(['full_order_sum' => self::getOrderPrice() + $changeValue]);
+    }
+
+    public static function getOrderPrice() {
+        return $sum = session('full_order_sum',0);
+    }
+
+    public static function eraseOrderPrice() {
+        session()->forget('full_order_sum');
+    }
     public function getUser() {
         return $this->belongsTo(User::class);
     }
@@ -41,5 +52,8 @@ class Order extends Model
         }
     }
 
+    public function scopeActive($query) {
+        return $query->where('status',1);
+    }
     use HasFactory;
 }

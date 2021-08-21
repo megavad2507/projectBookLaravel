@@ -18,11 +18,9 @@ class BasketIsNotEmpty
     public function handle(Request $request, Closure $next)
     {
         $orderId = session('orderId');
-        if(!is_null($orderId)) {
-            $order = Order::findOrFail($orderId);
-            if($order->products->count() > 0) {
-                return $next($request);
-            }
+        if(!is_null($orderId) && Order::getOrderPrice() > 0) {
+            return $next($request);
+
         }
         return redirect()->route('index');
 
