@@ -135,7 +135,7 @@
                             @endforeach
                             <li class="d-flex flex-row align-items-center justify-content-start">
                                 <div class="cart_total_title">Конечная стоимость</div>
-                                <div class="cart_total_value ml-auto">{{ $order->getOrderPrice() }} руб.</div>
+                                <div class="cart_total_value ml-auto">{{ $order->calculateOrderPrice() }} руб.</div>
                             </li>
                         </ul>
                     </div>

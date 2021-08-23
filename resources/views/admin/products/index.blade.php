@@ -10,6 +10,7 @@
                 <th>Код</th>
                 <th>Название</th>
                 <th>Цена</th>
+                <th>Кол</th>
                 <th>Категория</th>
                 <th>Действие</th>
             </tr>
@@ -21,6 +22,7 @@
                     <td>{{ $product->code }}</td>
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->price }}</td>
+                    <td>{{ $product->quantity }}</td>
                     <td>{{ $product->category->name }}</td>
                     <td>
                         <div class="btn-group" role="group">

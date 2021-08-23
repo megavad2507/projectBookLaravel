@@ -31,7 +31,7 @@
                     <td>{{ $order->name }}</td>
                     <td>{{ $order->phone }}</td>
                     <td>{{ $order->created_at->format('H:m d.m.y') }}</td>
-                    <td>{{ $order->getOrderPrice() }}</td>
+                    <td>{{ $order->calculateOrderPrice() }} руб.</td>
                     <td>
                         <div class="btn-group" role="group">
                             <a type="button" class="btn btn-success"

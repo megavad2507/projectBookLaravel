@@ -962,6 +962,9 @@ section
 	color: #44a038;
 	margin-left: 5px;
 }
+.in_stock_container span.unavailable {
+	color: #ff3226;
+}
 .details_name
 {
 	font-size: 24px;

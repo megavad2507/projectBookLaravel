@@ -5,8 +5,9 @@
         <form action="{{ route('basketAdd',$product) }}" method="POST">
             @csrf
             <div class="product_title"><a href="{{ route('product',[isset($category) ? $category->code : $product->category->code,$product->code]) }}">{{ $product->name }}</a></div>
+
             <div class="add_to_basket">
-                <button type="submit">
+                <button type="submit" @if(!$product->isAvailable()) title="Товар не доступен для покупки" disabled @endif>
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                 </button>
             </div>

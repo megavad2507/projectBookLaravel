@@ -72,11 +72,11 @@ div.button form {
     height: 100%;
 }
 
-div.button:after {
+div.button:not(.disabled):after {
     background-color: #000000;
 }
 
-div.button:hover button {
+div.button:not(.disabled):hover button {
     color: #ffffff;
 }
 div.product_labels {

@@ -51,8 +51,12 @@
 
                         <!-- In Stock -->
                         <div class="in_stock_container">
-                            <div class="availability">Availability:</div>
-                            <span>In Stock</span>
+                            <div class="availability">Наличие:</div>
+                            @if($product->isAvailable())
+                                <span>В наличии</span>
+                            @else
+                                <span class="unavailable">Не в наличии</span>
+                            @endif
                         </div>
                         <div class="details_text">
                             <p>{{ $product->description }}</p>
@@ -68,10 +72,10 @@
                                     <div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
                                 </div>
                             </div>
-                            <div class="button cart_button">
+                            <div class="button cart_button @if(!$product->isAvailable()) disabled @endif">
                                 <form action="{{ route('basketAdd',$product) }}" method="POST">
                                     @csrf
-                                    <button type="submit">Добавить в корзину</button>
+                                    <button type="submit" @if(!$product->isAvailable()) title="Товар не доступен для покупки" disabled @endif>Добавить в корзину</button>
                                 </form>
 
                             </div>

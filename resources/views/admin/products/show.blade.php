@@ -25,6 +25,10 @@
             <td>{{ $product->price }}</td>
         </tr>
         <tr>
+            <td>Количество</td>
+            <td>{{ $product->quantity }}</td>
+        </tr>
+        <tr>
             <td>Категория</td>
             <td>{{ $product->category->name }}</td>
         </tr>

@@ -52,6 +52,15 @@
                 </div>
                 <br>
                 <div class="">
+                    <label for="price" class="col-sm col-form-label">Количество: </label>
+                    <div class="col-sm-6">
+                        @include('layouts.error', ['fieldName' => 'quantity'])
+                        <input type="text" class="form-control" name="quantity" id="quantity"
+                               value="{{ old('quantity', isset($product) ? $product->quantity : null) }}">
+                    </div>
+                </div>
+                <br>
+                <div class="">
                     <label for="description" class="col-sm col-form-label">Описание: </label>
                     <div class="col-sm-6">
                         @include('layouts.error', ['fieldName' => 'description'])

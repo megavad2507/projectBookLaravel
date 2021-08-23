@@ -36,7 +36,7 @@ class MainController extends Controller
         return view('category.index',compact(['category','products']));
     }
     public function product($category,$code = null) {
-        $product = Product::where('code',$code)->first();
+        $product = Product::byCode($code)->first();
         return view('layouts.product',compact('product'));
     }
 

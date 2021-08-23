@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
@@ -11,7 +12,8 @@ class Product extends Model
 //        return $category = Category::find($this->category_id);
 //    }
 
-    protected $fillable = ['code','name','description','picture','price','category_id','new','hot','sale'];
+    use SoftDeletes;
+    protected $fillable = ['code','name','description','picture','price','category_id','new','hot','sale','quantity'];
     public function category() {
         return $this->belongsTo(Category::class)->orderBy('id','asc');
     }
@@ -32,6 +34,9 @@ class Product extends Model
     public function scopeSale($query) {
         return $query->where('sale',1);
     }
+    public function scopeByCode($query,$code) {
+        return $query->where('code',$code);
+    }
 
     public function setNewAttribute($value) {
         $this->attributes['new'] = $value === 'on' ? 1 : 0;
@@ -44,6 +49,11 @@ class Product extends Model
     public function setSaleAttribute($value) {
         $this->attributes['sale'] = $value === 'on' ? 1 : 0;
     }
+
+    public function isAvailable() {
+        return $this->quantity > 0 && !$this->trashed();
+    }
+
     public function isHot() {
         return $this->hot === 1;
     }
