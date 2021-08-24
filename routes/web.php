@@ -59,13 +59,13 @@ Route::group([
     'prefix' => 'basket',
     'middleware' => 'auth'
 ], function() {
-    Route::post('/add/{id}','BasketController@basketAdd')->name('basketAdd');
+    Route::post('/add/{product}','BasketController@basketAdd')->name('basketAdd');
     Route::group([
         'middleware' => 'basket_not_empty'
     ], function() {
         Route::get('/','BasketController@basket')->name('basket');
         Route::get('/checkout/','BasketController@checkout')->name('checkout');
-        Route::post('/delete/{id}','BasketController@basketRemove')->name('basketRemove');
+        Route::post('/delete/{product}','BasketController@basketRemove')->name('basketRemove');
         Route::post('/checkout/','BasketController@confirmOrder')->name('confirmOrder');
     });
 });

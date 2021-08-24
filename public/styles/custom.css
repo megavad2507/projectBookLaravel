@@ -75,6 +75,13 @@ div.button form {
 div.button:not(.disabled):after {
     background-color: #000000;
 }
+button.disabled i {
+    color: #989898;
+}
+
+button.disabled {
+    cursor: default;
+}
 
 div.button:not(.disabled):hover button {
     color: #ffffff;

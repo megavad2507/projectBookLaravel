@@ -74,7 +74,7 @@
                                         <form action="{{ route('basketAdd',$product->id) }}" method="POST">
                                             @csrf
                                             <div id="quantity_inc_button" class="quantity_inc quantity_control">
-                                                <button type="submit"><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+                                                <button type="submit" @if(!$product->orderMoreItems()) class="disabled" disabled title="На нашем складе только {{ $product->quantity." ".$product->name }}"  @endif><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
                                             </div>
                                         </form>
                                         <form action="{{ route('basketRemove',$product) }}" method="POST">

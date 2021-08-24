@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Classes\Basket;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -64,5 +65,8 @@ class Product extends Model
     public function isSale() {
         return $this->sale === 1;
     }
-     use HasFactory;
+    public function orderMoreItems() {
+        return !($this->pivot->quantity == $this->quantity);
+    }
+    use HasFactory;
 }
