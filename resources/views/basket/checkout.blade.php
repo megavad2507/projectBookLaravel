@@ -47,13 +47,18 @@
                                     <div class="col-xl-12">
                                         <!-- Name -->
                                         <label for="checkout_name">Имя*</label>
-                                        <input type="text" name="name" id="checkout_name" class="checkout_input" required="required">
+                                        <input type="text" name="name" id="checkout_name" class="checkout_input" value="{{ $user->name }}" required="required">
                                     </div>
                                 </div>
                                 <div>
                                     <!-- Phone no -->
                                     <label for="checkout_phone">Номер телефона*</label>
-                                    <input type="phone" name="phone" id="checkout_phone" class="checkout_input" required="required">
+                                    <input type="tel" name="phone" id="checkout_phone" class="checkout_input" required="required">
+                                </div>
+                                <div>
+                                    <!-- Phone no -->
+                                    <label for="checkout_email">Email*</label>
+                                    <input type="email" name="email" id="checkout_email" value="{{ $user->email }}" class="checkout_input"  required="required">
                                 </div>
                                 <div class="button order_button">
                                     <button type="submit">Place Order</button>

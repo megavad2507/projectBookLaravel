@@ -32,7 +32,7 @@
                     @endforeach
                     <tr>
                         <td colspan="3">Общая стоимость:</td>
-                        <td>{{ $order->getOrderPrice() }} руб.</td>
+                        <td>{{ $order->calculateOrderPrice() }} руб.</td>
                     </tr>
                     </tbody>
                 </table>

@@ -17,11 +17,12 @@ class BasketController extends Controller
     }
     public function checkout() {
         $order = (new Basket())->getOrder();
-        return view('basket.checkout',compact('order'));
+        $user = Auth::user();
+        return view('basket.checkout',compact('order','user'));
     }
 
     public function confirmOrder(Request $request) {
-        if((new Basket())->saveOrder($request->name,$request->phone)) {
+        if((new Basket())->saveOrder($request->name,$request->phone,$request->email)) {
             session()->flash('success','Ваш заказ принят в обработку!');
         }
         else {
