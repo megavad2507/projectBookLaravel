@@ -72,13 +72,26 @@
                                     <div id="quantity_dec_button" class="quantity_dec quantity_control"><i class="fa fa-chevron-down" aria-hidden="true"></i></div>
                                 </div>
                             </div>
-                            <div class="button cart_button @if(!$product->isAvailable()) disabled @endif">
-                                <form action="{{ route('basketAdd',$product) }}" method="POST">
-                                    @csrf
+                            @if($product->isAvailable())
+                                <div class="button cart_button">
+                                    <form action="{{ route('basketAdd',$product) }}" method="POST">
+                                        @csrf
+                                        <button type="submit">Добавить в корзину</button>
+                                    </form>
+                                </div>
+                            @else
+                                <div class="button cart_button @if(!$product->isAvailable()) disabled @endif">
                                     <button type="submit" @if(!$product->isAvailable()) title="Товар не доступен для покупки" disabled @endif>Добавить в корзину</button>
+                                </div>
+                                <form action="{{ route('subscribe',$product) }}" method="POST" class="form-pre-order">
+                                    @include('layouts.error', ['fieldName' => 'email'])
+                                    @csrf
+                                    <input type="text" name="email" class="checkout_input product_quantity clearfix pd-l-0" placeholder="Введите email" value="{{ Auth::check() ? Auth::user()->email : ''}}">
+                                    <div class="button cart_button"><button type="submit">Сообщить мне о поступлении товара</button></div>
+
                                 </form>
 
-                            </div>
+                            @endif
                         </div>
 
                         <!-- Share -->

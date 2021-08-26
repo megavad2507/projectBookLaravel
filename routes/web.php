@@ -53,7 +53,7 @@ Route::middleware(['auth'])->group(function() {
 
 
 Route::get('/','MainController@index')->name('index');
-
+Route::post('subscription/{product}',"MainController@subscribe")->name("subscribe");
 
 Route::group([
     'prefix' => 'basket',

@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProductFilterRequest;
+use App\Http\Requests\SubscriptionRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
 {
@@ -38,6 +41,15 @@ class MainController extends Controller
     public function product($category,$code = null) {
         $product = Product::byCode($code)->first();
         return view('layouts.product',compact('product'));
+    }
+    public function subscribe(SubscriptionRequest $request, Product $product) {
+        $name = Auth::check() ? Auth::user()->name : '';
+        Subscription::create([
+            "email" => $request->email,
+            "name" => $name,
+            "product_id" => $product->id
+        ]);
+        return redirect()->back();
     }
 
 

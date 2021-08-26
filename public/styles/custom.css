@@ -108,5 +108,11 @@ div.product_labels a {
 a[disabled] {
     pointer-events: none;
 }
+.form-pre-order {
+    margin-top: 2rem;
+}
+.pd-l-0 {
+    padding-left: 0;
+}
 
 

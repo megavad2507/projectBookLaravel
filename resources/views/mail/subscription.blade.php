@@ -1,0 +1,1 @@
+<p>Уважаемые {{ $name ? $name : 'клиент' }}, товар <b>{{ $product->name }}</b> появился в наличии. Было добавлено всего {{ $product->quantity }} штук, поторопитесь!</p><p><a href="{{ route('product',[$product->category->code,$product->code]) }}">Посмотреть товар {{ $product->name }}</a></p>
