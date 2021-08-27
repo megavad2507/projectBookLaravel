@@ -20,6 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('locale/{locale}','MainController@changeLocale')->name('locale');
+
 Route::get('reset','ResetController@reset')->name('resetProject');
 
 Route::middleware(['auth'])->group(function() {

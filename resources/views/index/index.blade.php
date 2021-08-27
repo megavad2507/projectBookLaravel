@@ -4,7 +4,6 @@
     <link rel="stylesheet" type="text/css" href="styles/responsive.css">
     <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
 @endpush
-@section('title','Интернет-магазин')
     <!-- Home -->
 @section('content')
     <div class="home">

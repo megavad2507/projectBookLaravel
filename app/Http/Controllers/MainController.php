@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
@@ -49,6 +50,17 @@ class MainController extends Controller
             "name" => $name,
             "product_id" => $product->id
         ]);
+        return redirect()->back();
+    }
+
+    public function changeLocale($locale) {
+        $availableLocales = config('app.locales');
+        if(!in_array($locale,$availableLocales)) {
+            $locale = config('app.locale');
+        }
+        App::setLocale($locale);
+        session(['locale' => $locale]);
+
         return redirect()->back();
     }
 

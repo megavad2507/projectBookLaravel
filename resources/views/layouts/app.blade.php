@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>@yield('title','Интернет магазин')</title>
+    <title>@yield('title', __('main.online_shop'))</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="Sublime project">
@@ -32,7 +32,7 @@
                             <nav class="main_nav">
                                 <ul>
                                     <li class="hassubs">
-                                        <a href="{{ route('categories') }}">Категории</a>
+                                        <a href="{{ route('categories') }}">@lang('main.categories')</a>
                                         <ul>
                                             @foreach(\App\Models\Category::get()->sortBy('id') as $category)
                                                 <li><a href="{{ route('category',[$category->code]) }}">{{ $category->name }}</a></li>
@@ -40,6 +40,14 @@
                                         </ul>
                                     </li>
                                     <li><a href="{{ route('resetProject') }}">Сбросить проект в начальное положение</a></li>
+                                    <li class="hassubs">
+                                        <span>{{ session('locale') }}</span>
+                                        <ul>
+                                            @foreach(config('app.locales') as $key => $name)
+                                                <li><a href="{{ route('locale',$key) }}" {{ $key == session('locale') ? 'disabled' : '' }}>{{ $key }}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
                                 </ul>
                             </nav>
                             <div class="header_extra ml-auto">

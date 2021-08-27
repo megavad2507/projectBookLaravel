@@ -114,5 +114,8 @@ a[disabled] {
 .pd-l-0 {
     padding-left: 0;
 }
+.main_nav {
+    margin-left: 2rem;
+}
 
 

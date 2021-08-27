@@ -1,0 +1,1 @@
+<?phpreturn [    'online_shop' => 'Online shop',    'categories' => 'Сategories',    'properties' => [        'new' => 'New',        'hot' => 'Hot',        'sale' => 'Sale',        'price_from' => 'Price from',        'price_to' => 'to'    ],    'filter_find' => 'Find',    'filter_reset' => 'Reset',];

@@ -1,0 +1,1 @@
+<?phpreturn [    'online_shop' => 'Интернет магазин',    'categories' => 'Категории',    'properties' => [        'new' => 'Новинка',        'hot' => 'Горячее предложение',        'sale' => 'Распродажа',        'price_from' => 'Цена от',        'price_to' => 'до'    ],    'filter_find' => 'Найти',    'filter_reset' => 'Сбросить',];

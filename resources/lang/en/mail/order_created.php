@@ -1,0 +1,1 @@
+<?phpreturn [    'dear' => 'Dear',    'your_order' => 'your order',    'created' => 'created',    'image' => 'Image',    'name' => 'Name',    'price' => 'Price',    'quantity' => 'Quantity',    'full_cost' => 'Full cost',    'final_cost' => 'Final cost',];
