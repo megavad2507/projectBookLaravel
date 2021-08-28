@@ -69,7 +69,7 @@ class ProductsTableSeeder extends Seeder
             [
                 'name' => 'Наушники Beats Audio',
                 'code' => 'beats_audio',
-                'description' => 'Отличный классический iPhone',
+                'description' => 'Отличный звук от Dr. Dre',
                 'price' => '20221',
                 'category_id' => 2,
                 'picture' => 'products/beats.jpeg',

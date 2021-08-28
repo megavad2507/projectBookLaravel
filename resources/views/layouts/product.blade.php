@@ -15,8 +15,8 @@
                     <div class="row">
                         <div class="col">
                             <div class="home_content">
-                                <div class="home_title">{{ $product->category->name }}<span>.</span></div>
-                                <div class="home_text"><p>{{ $product->category->description }}</p></div>
+                                <div class="home_title">{{ $product->category->__('name') }}<span>.</span></div>
+                                <div class="home_text"><p>{{ $product->category->__('description') }}</p></div>
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                 <!-- Product Content -->
                 <div class="col-lg-6">
                     <div class="details_content">
-                        <div class="details_name">{{ $product->name }}</div>
+                        <div class="details_name">{{ $product->__('name') }}</div>
                         <div class="details_price">{{ $product->price }} руб.</div>
 
                         <!-- In Stock -->
@@ -59,7 +59,7 @@
                             @endif
                         </div>
                         <div class="details_text">
-                            <p>{{ $product->description }}</p>
+                            <p>{{ $product->__'(description') }}</p>
                         </div>
 
                         <!-- Product Quantity -->
@@ -115,7 +115,7 @@
                         <div class="reviews_title"><a href="#">Reviews <span>(1)</span></a></div>
                     </div>
                     <div class="description_text">
-                        <p>{{ $product->description }}</p>
+                        <p>{{ $product->__('description') }}</p>
                     </div>
                 </div>
             </div>

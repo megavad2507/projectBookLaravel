@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Classes\Basket;
+use App\Models\Traits\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,8 +14,9 @@ class Product extends Model
 //        return $category = Category::find($this->category_id);
 //    }
 
-    use SoftDeletes;
-    protected $fillable = ['code','name','description','picture','price','category_id','new','hot','sale','quantity'];
+    use SoftDeletes, Translatable;
+    protected $fillable = ['code','name','description','picture','price','category_id','new','hot','sale','quantity',
+                           'name_en', 'description_en'];
     public function category() {
         return $this->belongsTo(Category::class)->orderBy('id','asc');
     }

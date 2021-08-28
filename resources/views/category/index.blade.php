@@ -3,7 +3,7 @@
     <link rel="stylesheet" type="text/css" href="/styles/category.css">
     <link rel="stylesheet" type="text/css" href="/styles/category_responsive.css">
 @endpush
-@section('title',$category->name)
+@section('title',$category->__('name')
 @section('content')
     <!-- Home -->
 
@@ -15,8 +15,8 @@
                     <div class="row">
                         <div class="col">
                             <div class="home_content">
-                                <div class="home_title">{{ $category->name }}<span>.</span></div>
-                                <div class="home_text"><p>{{ $category->description }}</p></div>
+                                <div class="home_title">{{ $category->__('name') }}<span>.</span></div>
+                                <div class="home_text"><p>{{ $category->__('description') }}</p></div>
                             </div>
                         </div>
                     </div>

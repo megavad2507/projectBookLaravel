@@ -34,7 +34,7 @@
                             <div class="category">
                                 <div class="category_image"><img src="{{ Storage::url($category->picture) }}" alt=""></div>
                                 <div class="category_content">
-                                    <div class="category_title"><a href="/catalog/{{ $category->code }}/">{{ $category->name }}</a></div>
+                                    <div class="category_title"><a href="/catalog/{{ $category->code }}/">{{ $category->__('name') }}</a></div>
                                 </div>
                             </div>
                         @endforeach

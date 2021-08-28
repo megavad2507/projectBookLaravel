@@ -42,6 +42,15 @@
                                value="{{ old('name', isset($product) ? $product->name : null) }}">
                     </div>
                 </div>
+                <br>
+                <div class="">
+                    <label for="name" class="col-sm col-form-label">Название на английском: </label>
+                    <div class="col-sm-6">
+                        @include('layouts.error', ['fieldName' => 'name_en'])
+                        <input type="text" class="form-control" name="name_en" id="name_en"
+                               value="{{ old('name', isset($product) ? $product->name_en : null) }}">
+                    </div>
+                </div>
                 <div class="">
                     <label for="price" class="col-sm col-form-label">Цена: </label>
                     <div class="col-sm-6">
@@ -66,6 +75,15 @@
                         @include('layouts.error', ['fieldName' => 'description'])
                         <textarea name="description" id="description" cols="72"
                                   rows="7">{{ old('description', isset($product) ? $product->description : null) }}</textarea>
+                    </div>
+                </div>
+                <br>
+                <div class="">
+                    <label for="description" class="col-sm col-form-label">Описание на английском: </label>
+                    <div class="col-sm-6">
+                        @include('layouts.error', ['fieldName' => 'description_en'])
+                        <textarea name="description_en" id="description_en" cols="72"
+                                  rows="7">{{ old('description', isset($product) ? $product->description_en : null) }}</textarea>
                     </div>
                 </div>
                 <div class="">

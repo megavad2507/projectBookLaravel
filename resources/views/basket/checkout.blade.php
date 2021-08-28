@@ -84,7 +84,7 @@
                             <ul class="order_list">
                                 @foreach($order->products as $product)
                                     <li class="d-flex flex-row align-items-center justify-content-start">
-                                        <div class="order_list_title">{{ $product->name }} x {{ $product->pivot->quantity }}</div>
+                                        <div class="order_list_title">{{ $product->__('name') }} x {{ $product->pivot->quantity }}</div>
                                         <div class="order_list_value ml-auto">{{ $product->getAmountPrice() }} руб.</div>
                                     </li>
                                 @endforeach

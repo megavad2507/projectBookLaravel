@@ -35,7 +35,7 @@
                                         <a href="{{ route('categories') }}">@lang('main.categories')</a>
                                         <ul>
                                             @foreach(\App\Models\Category::get()->sortBy('id') as $category)
-                                                <li><a href="{{ route('category',[$category->code]) }}">{{ $category->name }}</a></li>
+                                                <li><a href="{{ route('category',[$category->code]) }}">{{ $category->__('name') }}</a></li>
                                             @endforeach
                                         </ul>
                                     </li>

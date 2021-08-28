@@ -59,7 +59,7 @@
 
                             </div>
                             <div class="cart_item_name_container">
-                                <div class="cart_item_name"><a href="{{ route('product',[$product->category->code,$product->code]) }}">{{ $product->name }}</a></div>
+                                <div class="cart_item_name"><a href="{{ route('product',[$product->category->code,$product->code]) }}">{{ $product->__('name') }}</a></div>
                             </div>
                         </div>
                         <!-- Price -->
@@ -74,7 +74,7 @@
                                         <form action="{{ route('basketAdd',$product->id) }}" method="POST">
                                             @csrf
                                             <div id="quantity_inc_button" class="quantity_inc quantity_control">
-                                                <button type="submit" @if(!$product->orderMoreItems()) class="disabled" disabled title="На нашем складе только {{ $product->quantity." ".$product->name }}"  @endif><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
+                                                <button type="submit" @if(!$product->orderMoreItems()) class="disabled" disabled title="На нашем складе только {{ $product->quantity." ".$product->__('name') }}"  @endif><i class="fa fa-chevron-up" aria-hidden="true"></i></button>
                                             </div>
                                         </form>
                                         <form action="{{ route('basketRemove',$product) }}" method="POST">
@@ -129,7 +129,7 @@
                         <ul>
                             @foreach($order->products as $product)
                                 <li class="d-flex flex-row align-items-center justify-content-start">
-                                    <div class="cart_total_title">{{ $product->name }} x {{ $product->pivot->quantity }}</div>
+                                    <div class="cart_total_title">{{ $product->__('name') }} x {{ $product->pivot->quantity }}</div>
                                     <div class="cart_total_value ml-auto">{{ $product->getAmountPrice() }}</div>
                                 </li>
                             @endforeach
