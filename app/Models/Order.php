@@ -26,10 +26,10 @@ class Order extends Model
     }
 
     public static function changeOrderPrice($changeValue) {
-        session(['full_order_sum' => self::getOrderPrice() + $changeValue]);
+        session(['full_order_sum' => self::getOrderPrice() + floatval($changeValue)]);
     }
 
-    public static function getOrderPrice() {
+    public static function getOrderPrice() : float {
         return $sum = session('full_order_sum',0);
     }
 

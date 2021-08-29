@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 Route::get('locale/{locale}','MainController@changeLocale')->name('locale');
+Route::get('currency{currency}','MainController@changeCurrency')->name('currency');
 
 Route::get('reset','ResetController@reset')->name('resetProject');
 

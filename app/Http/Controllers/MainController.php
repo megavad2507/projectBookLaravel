@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProductFilterRequest;
 use App\Http\Requests\SubscriptionRequest;
 use App\Models\Category;
+use App\Models\Currency;
 use App\Models\Product;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
@@ -61,6 +62,12 @@ class MainController extends Controller
         App::setLocale($locale);
         session(['locale' => $locale]);
 
+        return redirect()->back();
+    }
+
+    public function changeCurrency($currencyCode) {
+        $currency = Currency::byCode($currencyCode)->firstOrFail();
+        session(['currency' => $currency->code]);
         return redirect()->back();
     }
 

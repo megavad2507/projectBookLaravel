@@ -11,7 +11,7 @@
                     <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                 </button>
             </div>
-            <div class="product_price">{{ $product->price }} р.</div>
+            <div class="product_price">{{ $product->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</div>
         </form>
     </div>
 </div>

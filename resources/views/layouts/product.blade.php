@@ -47,7 +47,7 @@
                 <div class="col-lg-6">
                     <div class="details_content">
                         <div class="details_name">{{ $product->__('name') }}</div>
-                        <div class="details_price">{{ $product->price }} руб.</div>
+                        <div class="details_price">{{ $product->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</div>
 
                         <!-- In Stock -->
                         <div class="in_stock_container">
@@ -59,7 +59,7 @@
                             @endif
                         </div>
                         <div class="details_text">
-                            <p>{{ $product->__'(description') }}</p>
+                            <p>{{ $product->__('description') }}</p>
                         </div>
 
                         <!-- Product Quantity -->

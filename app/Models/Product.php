@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Classes\Basket;
 use App\Models\Traits\Translatable;
+use App\Services\CurrencyConversion;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -23,10 +24,11 @@ class Product extends Model
 
     public function getAmountPrice() {
         if(!is_null($this->pivot)) {
-            return $this->price*$this->pivot->quantity;
+            return floatval($this->price)*$this->pivot->quantity;
         }
         return $this->price;
     }
+
 
     public function scopeHot($query) {
         return $query->where('hot',1);
@@ -69,6 +71,9 @@ class Product extends Model
     }
     public function orderMoreItems() {
         return !($this->pivot->quantity == $this->quantity);
+    }
+    public function getPriceAttribute($value) {
+        return round(CurrencyConversion::convert($value),2);
     }
     use HasFactory;
 }

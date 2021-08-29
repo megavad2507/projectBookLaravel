@@ -48,6 +48,14 @@
                                             @endforeach
                                         </ul>
                                     </li>
+                                    <li class="hassubs">
+                                        <a href="">{{ \App\Services\CurrencyConversion::getCurrencySymbol() }}</a>
+                                        <ul>
+                                            @foreach(\App\Services\CurrencyConversion::getCurrencies() as $currency)
+                                                <li><a href="{{ route('currency',$currency['code']) }}">{{ $currency['symbol'] }}</a></li>
+                                            @endforeach
+                                        </ul>
+                                    </li>
                                 </ul>
                             </nav>
                             <div class="header_extra ml-auto">
