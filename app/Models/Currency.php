@@ -12,8 +12,17 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Currency extends Model
 {
+    protected $fillable = ['rate'];
     public function scopeByCode($query,$code) {
         return $query->where('code',$code);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isMain(): bool
+    {
+        return $this->is_main == 1;
     }
     use HasFactory;
 }
