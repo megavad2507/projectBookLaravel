@@ -69,7 +69,7 @@
                             <div class="product_quantity_container">
                                 <div class="product_quantity clearfix">
                                     <span>Кол-во</span>
-                                    <input id="quantity_input" type="text" pattern="[0-9]*" value="{{ $product->pivot->quantity }}">
+                                    <input id="quantity_input" type="text" pattern="[0-9]*" value="{{ $product->quantityInOrder }}">
                                     <div class="quantity_buttons">
                                         <form action="{{ route('basketAdd',$product->id) }}" method="POST">
                                             @csrf
@@ -129,7 +129,7 @@
                         <ul>
                             @foreach($order->products as $product)
                                 <li class="d-flex flex-row align-items-center justify-content-start">
-                                    <div class="cart_total_title">{{ $product->__('name') }} x {{ $product->pivot->quantity }}</div>
+                                    <div class="cart_total_title">{{ $product->__('name') }} x {{ $product->quantityInOrder }}</div>
                                     <div class="cart_total_value ml-auto">{{ $product->getAmountPrice() }}</div>
                                 </li>
                             @endforeach

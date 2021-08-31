@@ -23,10 +23,11 @@ class Product extends Model
     }
 
     public function getAmountPrice() {
-        if(!is_null($this->pivot)) {
-            return floatval($this->price)*$this->pivot->quantity;
-        }
-        return $this->price;
+        return $this->price * $this->quantityInOrder;
+    }
+
+    public function getOrderPrice() {
+        return $this->pivot->price * $this->pivot->quantity;
     }
 
 
@@ -70,7 +71,7 @@ class Product extends Model
         return $this->sale === 1;
     }
     public function orderMoreItems() {
-        return !($this->pivot->quantity == $this->quantity);
+        return !($this->quantityInOrder == $this->quantity);
     }
     public function getPriceAttribute($value) {
         return round(CurrencyConversion::convert($value),2);

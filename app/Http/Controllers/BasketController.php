@@ -12,7 +12,7 @@ class BasketController extends Controller
 {
     public function basket() {
 //        session(['orderId' => 11]);
-        $order = (new Basket())->getOrder();
+        $order = (new Basket(true))->getOrder();
         return view('basket.index',compact('order'));
     }
     public function checkout() {
@@ -29,7 +29,7 @@ class BasketController extends Controller
             session()->flash('warning','Во время заказа заказа произошла ошибка');
         }
 
-        Order::eraseOrderPrice();
+//        Order::eraseOrderPrice();
         return redirect()->route('index');
     }
 

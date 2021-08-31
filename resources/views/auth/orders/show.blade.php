@@ -26,13 +26,13 @@
                                 </a>
                             </td>
                             <td><span class="badge">{{ $product->pivot->quantity }}</span></td>
-                            <td>{{ $product->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</td>
-                            <td>{{ $product->getAmountPrice() }} руб.</td>
+                            <td>{{ $product->pivot->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</td>
+                            <td>{{ $product->getOrderPrice() }} {{ $order->currency->symbol }}</td>
                         </tr>
                     @endforeach
                     <tr>
                         <td colspan="3">Общая стоимость:</td>
-                        <td>{{ $order->calculateOrderPrice() }} руб.</td>
+                        <td>{{ $order->sum }} {{ $order->currency->symbol }}</td>
                     </tr>
                     </tbody>
                 </table>
