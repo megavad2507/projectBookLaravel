@@ -26,7 +26,7 @@
                                 </a>
                             </td>
                             <td><span class="badge">{{ $product->pivot->quantity }}</span></td>
-                            <td>{{ $product->pivot->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</td>
+                            <td>{{ $product->pivot->price }} {{ $currencySymbol }}</td>
                             <td>{{ $product->getOrderPrice() }} {{ $order->currency->symbol }}</td>
                         </tr>
                     @endforeach

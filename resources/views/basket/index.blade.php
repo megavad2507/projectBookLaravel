@@ -63,7 +63,7 @@
                             </div>
                         </div>
                         <!-- Price -->
-                        <div class="cart_item_price">{{ $product->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</div>
+                        <div class="cart_item_price">{{ $product->price }} {{ $currencySymbol }}</div>
                         <!-- Quantity -->
                         <div class="cart_item_quantity">
                             <div class="product_quantity_container">
@@ -89,7 +89,7 @@
                             </div>
                         </div>
                         <!-- Total -->
-                        <div class="cart_item_total">{{ $product->getAmountPrice() }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</div>
+                        <div class="cart_item_total">{{ $product->getAmountPrice() }} {{ $currencySymbol }}</div>
                     </div>
                 @endforeach
 
@@ -135,7 +135,7 @@
                             @endforeach
                             <li class="d-flex flex-row align-items-center justify-content-start">
                                 <div class="cart_total_title">Конечная стоимость</div>
-                                <div class="cart_total_value ml-auto">{{ $order->calculateOrderPrice() }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</div>
+                                <div class="cart_total_value ml-auto">{{ $order->calculateOrderPrice() }} {{ $currencySymbol }}</div>
                             </li>
                         </ul>
                     </div>

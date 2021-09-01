@@ -19,8 +19,7 @@ class MainController extends Controller
         return view('index.index',compact('products'));
     }
     public function categories() {
-        $categories = Category::get();
-        return view('categories.index',compact('categories'));
+        return view('categories.index');
     }
     public function category($code, ProductFilterRequest $request) {
         $category = Category::where('code',$code)->first();

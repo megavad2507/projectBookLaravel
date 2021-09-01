@@ -85,12 +85,12 @@
                                 @foreach($order->products as $product)
                                     <li class="d-flex flex-row align-items-center justify-content-start">
                                         <div class="order_list_title">{{ $product->__('name') }} x {{ $product->quantityInOrder }}</div>
-                                        <div class="order_list_value ml-auto">{{ $product->getAmountPrice() }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</div>
+                                        <div class="order_list_value ml-auto">{{ $product->getAmountPrice() }} {{ $currencySymbol }}</div>
                                     </li>
                                 @endforeach
                                 <li class="d-flex flex-row align-items-center justify-content-start">
                                     <div class="order_list_title">Конечная стоимость</div>
-                                    <div class="order_list_value ml-auto">{{ $order->calculateOrderPrice() }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</div>
+                                    <div class="order_list_value ml-auto">{{ $order->calculateOrderPrice() }} {{ $currencySymbol }}</div>
                                 </li>
                             </ul>
                         </div>

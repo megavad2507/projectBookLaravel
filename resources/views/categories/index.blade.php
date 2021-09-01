@@ -28,7 +28,6 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-
                     <div class="category_grid">
                         @foreach($categories as $category)
                             <div class="category">

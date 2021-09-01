@@ -47,7 +47,7 @@
                 <div class="col-lg-6">
                     <div class="details_content">
                         <div class="details_name">{{ $product->__('name') }}</div>
-                        <div class="details_price">{{ $product->price }} {{ App\Services\CurrencyConversion::getCurrencySymbol() }}</div>
+                        <div class="details_price">{{ $product->price }} {{ $currencySymbol }}</div>
 
                         <!-- In Stock -->
                         <div class="in_stock_container">
@@ -116,6 +116,16 @@
                     </div>
                     <div class="description_text">
                         <p>{{ $product->__('description') }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <h2>Популярные товары</h2>
+                    <div class="product_grid">
+                        @foreach($bestProducts as $product)
+                            @include('layouts.card',compact('product'))
+                        @endforeach
                     </div>
                 </div>
             </div>

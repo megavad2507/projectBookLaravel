@@ -34,7 +34,7 @@
                                     <li class="hassubs">
                                         <a href="{{ route('categories') }}">@lang('main.categories')</a>
                                         <ul>
-                                            @foreach(\App\Models\Category::get()->sortBy('id') as $category)
+                                            @foreach($categories as $category)
                                                 <li><a href="{{ route('category',[$category->code]) }}">{{ $category->__('name') }}</a></li>
                                             @endforeach
                                         </ul>
@@ -49,9 +49,9 @@
                                         </ul>
                                     </li>
                                     <li class="hassubs">
-                                        <a href="">{{ \App\Services\CurrencyConversion::getCurrencySymbol() }}</a>
+                                        <a href="">{{ $currencySymbol }}</a>
                                         <ul>
-                                            @foreach(\App\Services\CurrencyConversion::getCurrencies() as $currency)
+                                            @foreach($currencies as $currency)
                                                 <li><a href="{{ route('currency',$currency['code']) }}">{{ $currency['symbol'] }}</a></li>
                                             @endforeach
                                         </ul>
