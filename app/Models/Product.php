@@ -22,6 +22,14 @@ class Product extends Model
         return $this->belongsTo(Category::class)->orderBy('id','asc');
     }
 
+    public function skus() {
+        return $this->hasMany(Sku::class);
+    }
+
+    public function properties() {
+        return $this->belongsToMany(Property::class);
+    }
+
     public function getAmountPrice() {
         return $this->price * $this->quantityInOrder;
     }
