@@ -25,12 +25,8 @@
             <td>{{ $product->name_en }}</td>
         </tr>
         <tr>
-            <td>Цена</td>
-            <td>{{ $product->price }}</td>
-        </tr>
-        <tr>
-            <td>Количество</td>
-            <td>{{ $product->quantity }}</td>
+            <td>Количество ТП</td>
+            <td></td>
         </tr>
         <tr>
             <td>Категория</td>

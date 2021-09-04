@@ -9,8 +9,7 @@
                 <th>#</th>
                 <th>Код</th>
                 <th>Название</th>
-                <th>Цена</th>
-                <th>Кол</th>
+                <th style="width:20px">Кол-во ТП</th>
                 <th>Категория</th>
                 <th>Действие</th>
             </tr>
@@ -21,13 +20,13 @@
                     <td>{{ $product->id }}</td>
                     <td>{{ $product->code }}</td>
                     <td>{{ $product->name }}</td>
-                    <td>{{ $product->price }}</td>
-                    <td>{{ $product->quantity }}</td>
+                    <td style="width:20px"></td>
                     <td>{{ $product->category->name }}</td>
                     <td>
                         <div class="btn-group" role="group">
                             <form action="{{ route('products.destroy',$product) }}" method="POST">
                                 <a type="button" href="{{ route('products.show',$product) }}" class="btn btn-success">Открыть</a>
+                                <a type="button" href="{{ route('skus.index',$product) }}" class="btn btn-success">SKU</a>
                                 <a type="button" href="{{ route('products.edit',$product) }}" class="btn btn-warning">Редактировать</a>
                                 @method('DELETE')
                                 <input type="submit" class="btn btn-danger" value="Удалить">

@@ -17,7 +17,7 @@ class PropertyOptionController extends Controller
      */
     public function index(Property $property)
     {
-        $propertyOptions = PropertyOption::orderBy('id','asc')->paginate(10);
+        $propertyOptions = $property->options()->orderBy('id','asc')->paginate(10);
         return view('admin.property_options.index',compact('property','propertyOptions'));
     }
 

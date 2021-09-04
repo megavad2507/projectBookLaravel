@@ -51,23 +51,6 @@
                                value="{{ old('name', isset($product) ? $product->name_en : null) }}">
                     </div>
                 </div>
-                <div class="">
-                    <label for="price" class="col-sm col-form-label">Цена: </label>
-                    <div class="col-sm-6">
-                        @include('layouts.error', ['fieldName' => 'price'])
-                        <input type="text" class="form-control" name="price" id="price"
-                               value="{{ old('price', isset($product) ? $product->price : null) }}">
-                    </div>
-                </div>
-                <br>
-                <div class="">
-                    <label for="price" class="col-sm col-form-label">Количество: </label>
-                    <div class="col-sm-6">
-                        @include('layouts.error', ['fieldName' => 'quantity'])
-                        <input type="text" class="form-control" name="quantity" id="quantity"
-                               value="{{ old('quantity', isset($product) ? $product->quantity : null) }}">
-                    </div>
-                </div>
                 <br>
                 <div class="">
                     <label for="description" class="col-sm col-form-label">Описание: </label>
@@ -131,6 +114,27 @@
                     </div>
                     <br>
                 @endforeach
+                <br>
+                <div class="">
+                    <label for="category-name" class="col-sm col-form-label">Свойства: </label>
+                    <div class="col-sm-6">
+                        <select name="property_id[]" id="property_id" class="form-control" multiple>
+
+                            @foreach($properties as $property)
+                                <option value="{{ $property->id }}"
+                                        @isset($product)
+                                            @if($product->properties->contains($property->id))
+                                                selected
+                                            @elseif($product->properties->contains(old('property_id')))
+                                                selected
+                                            @endif
+                                        @endisset
+                                >{{$property->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <br>
                 <button class="btn btn-success">Сохранить</button>
             </div>
 
