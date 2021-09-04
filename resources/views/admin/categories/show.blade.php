@@ -1,5 +1,5 @@
 @extends('admin.app')
-@section('title','Изменить категорию '.$category->name)
+@section('title','Просмотр категории '.$category->name)
 @section('content')
     <h1>Категория {{ $category->name }}</h1>
     <table class="table">

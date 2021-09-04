@@ -32,10 +32,10 @@
 
                     @ifAdmin
                         <li class="nav-item @routeActive('home')"><a href="{{ route('home') }}" class="nav-link">Заказы</a></li>
-                        <li class="nav-item @routeActive('categories.index')"><a href="{{ route('categories.index') }}" class="nav-link">Категории</a></li>
-                        <li class="nav-item @routeActive('products.index')"><a href="{{ route('products.index') }}" class="nav-link">Товары</a></li>
-                        <li class="nav-item"><a href="" class="nav-link"></a></li>
-                    @else
+                        <li class="nav-item @routeActive('categories.*')"><a href="{{ route('categories.index') }}" class="nav-link">Категории</a></li>
+                        <li class="nav-item @routeActive('products.*')"><a href="{{ route('products.index') }}" class="nav-link">Товары</a></li>
+                        <li class="nav-item @routeActive('properties.*')"><a href="{{ route('properties.index') }}" class="nav-link">Свойства</a></li>
+                @else
                         <li class="nav-item @routeActive('person.orders*')"><a href="{{ route('person.orders.index') }}" class="nav-link">Мои заказы</a></li>
                     @endifAdmin
                 </ul>
