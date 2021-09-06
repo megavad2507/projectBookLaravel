@@ -43,7 +43,7 @@ class SkuController extends Controller
     {
         $params = $request->all();
         $params['product_id'] = $request->product->id;
-        if(Sku::isNotCurrentSKUExist($params['property_id'])) {
+        if(Sku::isNotCurrentSKUExist($params)) {
             $sku = Sku::create($params);
             $sku->propertyOptions()->sync($request->property_id);
             return redirect()->route('skus.index',$product);
@@ -94,7 +94,7 @@ class SkuController extends Controller
     {
         $params = $request->all();
         $params['product_id'] = $request->product->id;
-        if(Sku::isNotCurrentSKUExist($params['property_id']) || $sku->isSKUChanged($params['property_id'])) {
+        if(Sku::isNotCurrentSKUExist($params) || $sku->isSKUChanged($params['property_id'])) {
             $sku->update($params);
             $sku->propertyOptions()->sync($request->property_id);
             return redirect()->route('skus.index',$product);

@@ -3,7 +3,7 @@
     <link rel="stylesheet" type="text/css" href="/styles/category.css">
     <link rel="stylesheet" type="text/css" href="/styles/category_responsive.css">
 @endpush
-@section('title',$category->__('name')
+@section('title',$category->__('name'))
 @section('content')
     <!-- Home -->
 
@@ -34,7 +34,7 @@
 
                     <!-- Product Sorting -->
                     <div class="sorting_bar d-flex flex-md-row flex-column align-items-md-center justify-content-md-start">
-                        <div class="results">Показано <span>{{ $products->count() }}</span> товара</div>
+                        <div class="results">Показано <span>{{ $skus->count() }}</span> товара</div>
                         <div class="sorting_container ml-md-auto">
                             <div class="sorting">
                                 <ul class="item_sorting">
@@ -56,7 +56,7 @@
             @include('layouts.products_filter')
             <div class="row">
                 <div class="col">
-                    @if($products->count() == 0)
+                    @if($skus->count() == 0)
                         @if(request()->has('price_from'))
                             По вашему запросу не найдено ни одного товара
                         @else
@@ -64,12 +64,11 @@
                         @endif
                     @endif
                     <div class="product_grid">
-                        @foreach($products as $product)
-                            @include('layouts.card',['category' => $category,'product' => $product])
+                        @foreach($skus as $sku)
+                            @include('layouts.card',['category' => $category,'sku' => $sku])
                         @endforeach
                     </div>
-                    {{ $products->links('layouts.pagination',['category' => $category]) }}
-
+                    {{ $skus->links('layouts.pagination',['category' => $category]) }}
 
                 </div>
             </div>

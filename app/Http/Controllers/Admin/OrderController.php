@@ -29,8 +29,8 @@ class OrderController extends Controller
         return view('auth.orders.index',compact('orders'));
     }
 
-    public function showOrder($orderId) {
-        $order = Order::find($orderId);
-        return view('auth.orders.show',compact('order'));
+    public function showOrder(Order $order) {
+        $skus = $order->skus;
+        return view('auth.orders.show',compact('order','skus'));
     }
 }

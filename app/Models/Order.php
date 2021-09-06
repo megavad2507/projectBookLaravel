@@ -3,19 +3,20 @@
 namespace App\Models;
 
 use App\Mail\OrderCreated;
+use App\Models\Sku;
 use App\Services\CurrencyConversion;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-use App\Models\Product;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
 class Order extends Model
 {
     protected $fillable = ['user_id','status','name','phone','email','currency_id','sum'];
-    public function products() {
-        return $this->belongsToMany(Product::class)->withPivot(['quantity','price'])->withTimestamps()->orderBy('id');
+
+    public function skus() {
+        return $this->belongsToMany(Sku::class)->withPivot(['quantity','price'])->withTimestamps()->orderBy('id');
     }
 
     public function currency() {
@@ -24,16 +25,16 @@ class Order extends Model
 
     public function calculateOrderPrice() {
         $sum = 0;
-        foreach($this->products as $product) {
-            $sum += $product->getAmountPrice();
+        foreach($this->skus as $sku) {
+            $sum += $sku->getAmountPrice();
         }
         return $sum;
     }
 
     public  function getOrderPrice() : float {
         $sum = 0;
-        foreach($this->products as $product) {
-            $sum += $product->getAmountPrice();
+        foreach($this->skus as $sku) {
+            $sum += $sku->getAmountPrice();
         }
         return $sum;
     }
@@ -54,11 +55,11 @@ class Order extends Model
         $this->currency_id = CurrencyConversion::getCurrentCurrencyFromSession()->id;
         $this->sum = $this->getOrderPrice();
         $this->save();
-        $products = $this->products;
-        foreach($products as $productInOrder) {
-            $pivot = $this->products()->attach($productInOrder,[
-                'quantity' => $productInOrder->quantityInOrder,
-                'price' => $productInOrder->price
+        $skus = $this->skus;
+        foreach($skus as $skuInOrder) {
+            $pivot = $this->skus()->attach($skuInOrder,[
+                'quantity' => $skuInOrder->quantityInOrder,
+                'price' => $skuInOrder->price
             ]);
         }
         session()->forget('order');
@@ -67,7 +68,7 @@ class Order extends Model
     }
 
     public function scopeActive($query) {
-        return $query->where('status',1)->with('products');
+        return $query->where('status',1)->with('skus');
     }
     use HasFactory;
 }

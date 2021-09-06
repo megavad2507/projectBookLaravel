@@ -82,10 +82,10 @@
                                 <div class="order_list_value ml-auto">Стоимость</div>
                             </div>
                             <ul class="order_list">
-                                @foreach($order->products as $product)
+                                @foreach($order->skus as $sku)
                                     <li class="d-flex flex-row align-items-center justify-content-start">
-                                        <div class="order_list_title">{{ $product->__('name') }} x {{ $product->quantityInOrder }}</div>
-                                        <div class="order_list_value ml-auto">{{ $product->getAmountPrice() }} {{ $currencySymbol }}</div>
+                                        <div class="order_list_title">{{ $sku->product->__('name') }} x {{ $sku->quantityInOrder }}</div>
+                                        <div class="order_list_value ml-auto">{{ $sku->getAmountPrice() }} {{ $currencySymbol }}</div>
                                     </li>
                                 @endforeach
                                 <li class="d-flex flex-row align-items-center justify-content-start">

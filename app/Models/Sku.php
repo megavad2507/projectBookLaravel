@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\Traits\Translatable;
+use App\Services\CurrencyConversion;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Sku extends Model
 {
@@ -16,8 +19,8 @@ class Sku extends Model
     public function propertyOptions() {
         return $this->belongsToMany(PropertyOption::class,'sku_property_option')->withTimestamps();
     }
-    protected static function getOptionsSkus() {
-        $skus = self::get();
+    protected static function getOptionsSkus($productId) {
+        $skus = self::where('product_id',$productId)->get();
         $resultArray = [];
         foreach($skus as $sku) {
             foreach($sku->propertyOptions as $option) {
@@ -26,11 +29,11 @@ class Sku extends Model
         }
         return $resultArray;
     }
-    public static function isNotCurrentSKUExist($optionsIds): bool
+    public static function isNotCurrentSKUExist($options): bool
     {
-        $existsOptionsSku = self::getOptionsSkus();
+        $existsOptionsSku = self::getOptionsSkus($options['product_id']);
         foreach($existsOptionsSku as $sku) {
-            if(empty(array_diff($optionsIds,$sku))) return false;
+            if(empty(array_diff($options['property_id'],$sku))) return false;
         }
         return true;
 
@@ -41,6 +44,21 @@ class Sku extends Model
             $tmpArray[$option->property_id] = $option->id;
         }
         return empty(array_diff($tmpArray,$optionsIds));
+    }
+    public function isAvailable() {
+        return $this->quantity > 0 && !$this->product->trashed();
+    }
+    public function getAmountPrice() {
+        return $this->price * $this->quantityInOrder;
+    }
+    public function orderMoreItems() {
+        return !($this->quantityInOrder == $this->quantity);
+    }
+    public function getPriceAttribute($value) {
+        return round(CurrencyConversion::convert($value),2);
+    }
+    public function getOrderPrice() {
+        return $this->pivot->price * $this->pivot->quantity;
     }
 
     use HasFactory;

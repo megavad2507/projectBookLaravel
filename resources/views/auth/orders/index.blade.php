@@ -36,9 +36,9 @@
                         <div class="btn-group" role="group">
                             <a type="button" class="btn btn-success"
                                @ifAdmin
-                                    href="{{ route('orders.show',[$order]) }}
+                                    href="{{ route('orders.show',$order) }}
                                @else
-                                   href="{{ route('person.orders.show',[$order]) }}
+                                   href="{{ route('person.orders.show',$order) }}
                                @endifAdmin
                            ">Открыть</a>
                         </div>

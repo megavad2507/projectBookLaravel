@@ -7,6 +7,7 @@ use App\Http\Requests\SubscriptionRequest;
 use App\Models\Category;
 use App\Models\Currency;
 use App\Models\Product;
+use App\Models\Sku;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -15,40 +16,56 @@ use Illuminate\Support\Facades\Auth;
 class MainController extends Controller
 {
     public function index(Request $request) {
-        $products = Product::with('category')->get();
-        return view('index.index',compact('products'));
+        $skusQuery = Sku::query();
+//        $products = Product::with('category')->get();
+        $skus = $skusQuery->paginate(8);
+        return view('index.index',compact('skus'));
     }
     public function categories() {
         return view('categories.index');
     }
     public function category($code, ProductFilterRequest $request) {
         $category = Category::where('code',$code)->first();
-        $productsQuery = Product::query();
-        $productsQuery->where('category_id',$category->id);
+        $skusQuery = Sku::with(['product','product.category']);
+//        $productsQuery = Product::query();
+//        $productsQuery->where('category_id',$category->id);
+//        foreach(['hot','new','sale'] as $attribute) {
+//            if($request->has($attribute)) {
+//                $productsQuery->$attribute();//scope - дополненеи нашего запроса к бд, дежит в модели продукта называется scopeHit..
+//            }
+//        }
+//        $products = $productsQuery->get();
+//        $skusQuery = Sku::query();
         if($request->filled('price_from')) {
-            $productsQuery->where('price','>=',$request->price_from);
+            $skusQuery->where('price','>=',$request->price_from);
         }
         if($request->filled('price_to')) {
-            $productsQuery->where('price','<=',$request->price_to);
+            $skusQuery->where('price','<=',$request->price_to);
         }
         foreach(['hot','new','sale'] as $attribute) {
             if($request->has($attribute)) {
-                $productsQuery->$attribute();//scope - дополненеи нашего запроса к бд, дежит в модели продукта называется scopeHit..
+                $skusQuery->whereHas(
+                    'product', function ($query) use ($attribute) {
+                    $query->$attribute();
+                });//scope - дополненеи нашего запроса к бд, дежит в модели продукта называется scopeHit..
             }
         }
-        $products = $productsQuery->paginate(3)->withPath('?' . $request->getQueryString());
-        return view('category.index',compact(['category','products']));
+        $skus = $skusQuery->paginate(8)->withPath('?' . $request->getQueryString());
+        return view('category.index',compact(['category','skus']));
     }
-    public function product($category,$code = null) {
-        $product = Product::byCode($code)->first();
-        return view('layouts.product',compact('product'));
+    public function sku($categoryCode,$productCode,Sku $sku) {
+        $product = $sku->product;
+        if($product->code != $productCode || $product->category->code != $categoryCode) {
+            abort(404);
+        }
+        return view('layouts.product',compact('sku'));
     }
-    public function subscribe(SubscriptionRequest $request, Product $product) {
+    public function subscribe(SubscriptionRequest $request, Sku $sku) {
         $name = Auth::check() ? Auth::user()->name : '';
         Subscription::create([
             "email" => $request->email,
             "name" => $name,
-            "product_id" => $product->id
+            "sku_id" => $sku->id
         ]);
         return redirect()->back();
     }

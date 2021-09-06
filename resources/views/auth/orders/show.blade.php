@@ -17,17 +17,22 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($order->products as $product)
+                    @foreach($skus as $sku)
                         <tr>
                             <td>
-                                <a href="{{ route('product',[$product->category->code,$product->code]) }}">
-                                    <img height="56px" src="{{ Storage::url($product->picture) }}" alt="{{ $product->name }}">
-                                    {{ $product->name }}
+                                <a href="{{ route('sku',[$sku->product->category->code,$sku->product->code,$sku]) }}">
+                                    <img height="56px" src="{{ Storage::url($sku->product->picture) }}" alt="{{ $sku->product->name }}">
+                                    {{ $sku->product->__('name') }}
+                                    @isset($sku->product->properties)
+                                        @foreach($sku->propertyOptions as $propertyOption)
+                                            <span>{{ $propertyOption->property->__('name') }}: {{ $propertyOption->__('name') }}</span>
+                                        @endforeach
+                                    @endisset
                                 </a>
                             </td>
-                            <td><span class="badge">{{ $product->pivot->quantity }}</span></td>
-                            <td>{{ $product->pivot->price }} {{ $currencySymbol }}</td>
-                            <td>{{ $product->getOrderPrice() }} {{ $order->currency->symbol }}</td>
+                            <td><span class="badge">{{ $sku->pivot->quantity }}</span></td>
+                            <td>{{ $sku->pivot->price }} {{ $currencySymbol }}</td>
+                            <td>{{ $sku->getOrderPrice() }} {{ $order->currency->symbol }}</td>
                         </tr>
                     @endforeach
                     <tr>

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Classes\Basket;
 use App\Models\Order;
-use App\Models\Product;
+use App\Models\Sku;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,14 +33,14 @@ class BasketController extends Controller
         return redirect()->route('index');
     }
 
-    public function basketAdd(Product $product){
-        (new Basket(true))->addProduct($product);
+    public function basketAdd(Sku $sku){
+        (new Basket(true))->addSku($sku);
         return redirect()->route('basket');
 
     }
 
-    public function basketRemove(Product $product) {
-        (new Basket())->removeProduct($product);
+    public function basketRemove(Sku $sku) {
+        (new Basket())->removeSku($sku);
         return redirect()->route('basket');
     }
 

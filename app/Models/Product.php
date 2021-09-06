@@ -30,14 +30,6 @@ class Product extends Model
         return $this->belongsToMany(Property::class,'property_product')->withTimestamps();
     }
 
-    public function getAmountPrice() {
-        return $this->price * $this->quantityInOrder;
-    }
-
-    public function getOrderPrice() {
-        return $this->pivot->price * $this->pivot->quantity;
-    }
-
 
     public function scopeHot($query) {
         return $query->where('hot',1);
@@ -78,11 +70,6 @@ class Product extends Model
     public function isSale() {
         return $this->sale === 1;
     }
-    public function orderMoreItems() {
-        return !($this->quantityInOrder == $this->quantity);
-    }
-    public function getPriceAttribute($value) {
-        return round(CurrencyConversion::convert($value),2);
-    }
+
     use HasFactory;
 }

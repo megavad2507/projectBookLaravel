@@ -39,7 +39,7 @@
                                             @endforeach
                                         </ul>
                                     </li>
-                                    <li><a href="{{ route('resetProject') }}">Сбросить проект в начальное положение</a></li>
+{{--                                    <li><a href="{{ route('resetProject') }}">Сбросить проект в начальное положение</a></li>--}}
                                     <li class="hassubs">
                                         <span>{{ session('locale') }}</span>
                                         <ul>

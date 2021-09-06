@@ -33,7 +33,7 @@ Route::middleware(['auth'])->group(function() {
         'as' => 'person.'
     ], function() {
         Route::get('/orders','OrderController@index')->name('orders.index');
-        Route::get('/orders/{id}','OrderController@showOrder')->name('orders.show');
+        Route::get('/orders/{order}','OrderController@showOrder')->name('orders.show');
     });
 
     Route::group([
@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function() {
             'middleware' => 'is_admin'
         ],function() {
             Route::get('/orders','OrderController@index')->name('home');
-            Route::get('/orders/{id}','OrderController@showOrder')->name('orders.show');
+            Route::get('/orders/{order}','OrderController@showOrder')->name('orders.show');
         });
         Route::resource('categories','CategoryController');
         Route::resource('products','ProductController');
@@ -59,19 +59,19 @@ Route::middleware(['auth'])->group(function() {
 
 
 Route::get('/','MainController@index')->name('index');
-Route::post('subscription/{product}',"MainController@subscribe")->name("subscribe");
+Route::post('subscription/{sku}',"MainController@subscribe")->name("subscribe");
 
 Route::group([
     'prefix' => 'basket',
     'middleware' => 'auth'
 ], function() {
-    Route::post('/add/{product}','BasketController@basketAdd')->name('basketAdd');
+    Route::post('/add/{sku}','BasketController@basketAdd')->name('basketAdd');
     Route::group([
         'middleware' => 'basket_not_empty'
     ], function() {
         Route::get('/','BasketController@basket')->name('basket');
         Route::get('/checkout/','BasketController@checkout')->name('checkout');
-        Route::post('/delete/{product}','BasketController@basketRemove')->name('basketRemove');
+        Route::post('/delete/{sku}','BasketController@basketRemove')->name('basketRemove');
         Route::post('/checkout/','BasketController@confirmOrder')->name('confirmOrder');
     });
 });
@@ -80,7 +80,8 @@ Route::group([
 ], function() {
     Route::get('/categories/','MainController@categories')->name('categories');
     Route::get('/{category}/','MainController@category')->name('category');
-    Route::get('/{category}/{product?}/','MainController@product')->name('product');
+    Route::get('/{category}/{product}/{sku}','MainController@sku')->name('sku');
+
 });
 
 
