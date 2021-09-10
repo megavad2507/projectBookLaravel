@@ -1,7 +1,7 @@
 @extends('admin.app')
 @section('title','Изменить товар '.$product->name)
 @section('content')
-    <h1>Категория {{ $product->name }}</h1>
+    <h1>Товар {{ $product->name }}</h1>
     <table class="table">
         <thead>
         <tr>

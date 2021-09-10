@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Mail;
 
 class Order extends Model
 {
-    protected $fillable = ['user_id','status','name','phone','email','currency_id','sum'];
+    protected $fillable = ['user_id','status','name','phone','email','currency_id','sum','coupon_id'];
 
     public function skus() {
         return $this->belongsToMany(Sku::class)->withPivot(['quantity','price'])->withTimestamps()->orderBy('id');
@@ -21,6 +21,10 @@ class Order extends Model
 
     public function currency() {
         return $this->belongsTo(Currency::class);
+    }
+
+    public function coupon() {
+        return $this->belongsTo(Coupon::class);
     }
 
     public function calculateOrderPrice() {
