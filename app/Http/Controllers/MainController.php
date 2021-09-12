@@ -17,7 +17,6 @@ class MainController extends Controller
 {
     public function index(Request $request) {
         $skusQuery = Sku::query();
-//        $products = Product::with('category')->get();
         $skus = $skusQuery->paginate(8);
         return view('index.index',compact('skus'));
     }
@@ -27,15 +26,6 @@ class MainController extends Controller
     public function category($code, ProductFilterRequest $request) {
         $category = Category::where('code',$code)->first();
         $skusQuery = Sku::with(['product','product.category']);
-//        $productsQuery = Product::query();
-//        $productsQuery->where('category_id',$category->id);
-//        foreach(['hot','new','sale'] as $attribute) {
-//            if($request->has($attribute)) {
-//                $productsQuery->$attribute();//scope - дополненеи нашего запроса к бд, дежит в модели продукта называется scopeHit..
-//            }
-//        }
-//        $products = $productsQuery->get();
-//        $skusQuery = Sku::query();
         if($request->filled('price_from')) {
             $skusQuery->where('price','>=',$request->price_from);
         }

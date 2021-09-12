@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Services\CurrencyConversion;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Coupon extends Model
 {
@@ -27,17 +29,40 @@ class Coupon extends Model
     public function setOnlyOnceAttribute($value) {
         $this->attributes['only_once'] = $value === 'on' ? 1 : 0;
     }
-    public function getTypeAttribute($value) {
-        return $value == 0 ? '%' : 'Абсолютный';
-    }
 
 
     public function isAbsolute() {
-        return $this->type == 1;
+        return $this->type === 1;
     }
+
 
     public function isOnlyOnce() {
         return $this->only_once == 1;
+    }
+
+    public function isAvailableForUse() {
+        $this->refresh();
+        if(!is_null($this->expired_at)) {
+            return $this->expired_at->gte(Carbon::now());
+        }
+        else {
+            if($this->isOnlyOnce()) {
+                if($this->orders()->where('user_id',Auth::id())->count() === 0) {
+                    return true;
+                }
+                return false;
+            }
+            return true;
+        }
+    }
+
+    public function applyCost($price) {
+        if($this->isAbsolute()) {
+            return round($price - CurrencyConversion::convert($this->value,$this->currency->code,session('currency')),2);
+        }
+        else {
+            return $price - ($price * $this->value / 100);
+        }
     }
 
     use HasFactory;

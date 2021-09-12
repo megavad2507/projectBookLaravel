@@ -19,8 +19,8 @@
                 <tr>
                     <td>{{ $coupon->id }}</td>
                     <td>{{ $coupon->code }}</td>
-                    <td>{{ $coupon->type }}</td>
-                    <td>{{ $coupon->expired_at->format('d.m.Y') }}</td>
+                    <td>@if($coupon->isAbsolute()) {{ $coupon->currency->symbol }} @else % @endif</td>
+                    <td>{{ isset($coupon->expired_at) ? $coupon->expired_at->format('d.m.Y') : 'Бессрочно' }}</td>
                     <td>{{ $coupon->description }}</td>
                     <td>
                         <div class="btn-group" role="group">

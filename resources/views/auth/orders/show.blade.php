@@ -39,6 +39,13 @@
                         <td colspan="3">Общая стоимость:</td>
                         <td>{{ $order->sum }} {{ $order->currency->symbol }}</td>
                     </tr>
+                    @if($order->hasCoupon())
+                        <tr>
+                            <td colspan="2">Был использован купон</td>
+                            <td>{{ $order->coupon->code}}</td>
+                            <td>{{ $order->coupon->description }}</td>
+                        </tr>
+                    @endif
                     </tbody>
                 </table>
             </div>

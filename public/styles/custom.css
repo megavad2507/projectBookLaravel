@@ -146,4 +146,7 @@ a[disabled] {
 {
     color: #1b1b1b;
 }
+.old-price {
+    text-decoration: line-through;
+}
 

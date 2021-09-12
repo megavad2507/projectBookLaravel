@@ -81,7 +81,7 @@
                             </div>
                             @if($sku->isAvailable())
                                 <div class="button cart_button">
-                                    <form action="{{ route('basketAdd',$sku->product) }}" method="POST">
+                                    <form action="{{ route('basketAdd',$sku) }}" method="POST">
                                         @csrf
                                         <button type="submit">Добавить в корзину</button>
                                     </form>

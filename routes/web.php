@@ -74,6 +74,8 @@ Route::group([
         Route::get('/checkout/','BasketController@checkout')->name('checkout');
         Route::post('/delete/{sku}','BasketController@basketRemove')->name('basketRemove');
         Route::post('/checkout/','BasketController@confirmOrder')->name('confirmOrder');
+        Route::post('/coupon','BasketController@setCoupon')->name('setCoupon');
+        Route::post('/coupon/delete/{coupon}','BasketController@deleteCoupon')->name('deleteCoupon');
     });
 });
 Route::group([

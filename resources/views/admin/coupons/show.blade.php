@@ -20,7 +20,11 @@
             <td>Описание</td>
             <td>{{ $coupon->description }}</td>
         </tr>
-        @if(isset($coupon->currency))
+        <tr>
+            <td>Скидка</td>
+            <td>{{ $coupon->value }} @if($coupon->isAbsolute()) {{ $coupon->currency->symbol }} @else % @endif</td>
+        </tr>
+        @isset($coupon->currency)
             <tr>
                 <td>Валюта</td>
                 <td>{{ $coupon->currency->code }}</td>
@@ -40,7 +44,7 @@
         </tr>
         <tr>
             <td>Дейсвтителен до:</td>
-            <td>{{ $coupon->expired_at->format('d.m.Y') }}</td>
+            <td>{{ isset($coupon->expired_at) ? $coupon->expired_at->format('d.m.Y') : 'Бессрочно'  }}</td>
         </tr>
         </thead>
     </table>

@@ -27,11 +27,16 @@ class Order extends Model
         return $this->belongsTo(Coupon::class);
     }
 
-    public function calculateOrderPrice() {
+    public function calculateOrderPrice($withCoupon = false) {
         $sum = 0;
         foreach($this->skus as $sku) {
             $sum += $sku->getAmountPrice();
         }
+
+        if($withCoupon && $this->hasCoupon()) {
+            $sum = $this->coupon->applyCost($sum);
+        }
+
         return $sum;
     }
 
@@ -57,7 +62,7 @@ class Order extends Model
         $this->status = 1;
         $this->user_id = Auth::user()->id;
         $this->currency_id = CurrencyConversion::getCurrentCurrencyFromSession()->id;
-        $this->sum = $this->getOrderPrice();
+        $this->sum = $this->calculateOrderPrice(true);
         $this->save();
         $skus = $this->skus;
         foreach($skus as $skuInOrder) {
@@ -73,6 +78,15 @@ class Order extends Model
 
     public function scopeActive($query) {
         return $query->where('status',1)->with('skus');
+    }
+
+    public function hasCoupon() {
+        return isset($this->coupon);
+    }
+
+    public function hasAvailableCoupon() {
+//        $coupon = Coupon::where('code',$this->coupon->code)->first();
+        return isset($this->coupon) && $this->coupon->isAvailableForUse();
     }
     use HasFactory;
 }

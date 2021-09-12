@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <br>
-                @foreach(['type' => 'Абсолютное значение','only_once' => 'Многоразове применение'] as $attribute => $name)
+                @foreach(['type' => 'Абсолютное значение','only_once' => 'Может быть использован только один раз'] as $attribute => $name)
                     <div class="form-group row">
                         <div class="col-sm-2">
                             <label for="{{ $attribute }}" class="col-sm col-form-label">{{ $name }}: </label>
@@ -86,7 +86,7 @@
                     <div class="col-sm-6">
                         @include('layouts.error', ['fieldName' => 'expired_at'])
                         <input type="date" class="form-control" name="expired_at" id="expired_at"
-                               value="{{ old('expired_at', isset($coupon) ? $coupon->expired_at->format('Y-m-d') : null) }}">
+                               value="{{ old('expired_at', isset($coupon->expired_at) ? $coupon->expired_at->format('Y-m-d') : null) }}">
                     </div>
                 </div>
                 <br>

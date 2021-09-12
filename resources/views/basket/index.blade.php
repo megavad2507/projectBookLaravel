@@ -110,14 +110,34 @@
             <div class="col-lg-4">
                 <!-- Coupon Code -->
                 <div class="coupon">
-                    <div class="section_title">Coupon code</div>
-                    <div class="section_subtitle">Enter your coupon code</div>
-                    <div class="coupon_form_container">
-                        <form action="#" id="coupon_form" class="coupon_form">
-                            <input type="text" class="coupon_input" required="required">
-                            <button class="button coupon_button"><span>Apply</span></button>
+                    <div class="section_title">Купон</div>
+                    @if(session()->has('warning'))
+                        <p class="alert alert-warning">{{ session()->get('warning') }}</p>
+                    @endif
+                    @if(!$order->hasCoupon())
+                        @if(session()->has('delete_coupon'))
+                            <p class="alert alert-danger">{{ session()->get('delete_coupon') }}</p>
+                        @endif
+                        <div class="section_subtitle">Введите код купона</div>
+                        <div class="coupon_form_container">
+                            @include('layouts.error', ['fieldName' => 'coupon'])
+                            <form method="POST" action="{{ route('setCoupon') }}" id="coupon_form" class="coupon_form">
+                                @csrf
+                                <input type="text" name="coupon" class="coupon_input">
+                                <button type="submit" class="button coupon_button"><span>Применить</span></button>
+                            </form>
+                        </div>
+
+                    @else
+                        @if(session()->has('success'))
+                            <p class="alert alert-success">{{ session()->get('success') }}</p>
+                        @endif
+                        <form method="POST" action="{{ route('deleteCoupon',$order->coupon) }}" id="coupon_form" class="coupon_form">
+                            @csrf
+                            <button type="submit" class="btn btn-danger"><span>Удалить купон</span></button>
                         </form>
-                    </div>
+                        <div class="alert alert-success">Вы испльзуете купон {{ $order->coupon->code }}</div>
+                    @endif
                 </div>
             </div>
 
@@ -130,12 +150,18 @@
                             @foreach($order->skus as $sku)
                                 <li class="d-flex flex-row align-items-center justify-content-start">
                                     <div class="cart_total_title">{{ $sku->product->__('name') }} x {{ $sku->quantityInOrder }}</div>
-                                    <div class="cart_total_value ml-auto">{{ $sku->getAmountPrice() }}</div>
+                                    <div class="cart_total_value ml-auto">{{ $sku->getAmountPrice() }} {{ $currencySymbol }}</div>
                                 </li>
                             @endforeach
                             <li class="d-flex flex-row align-items-center justify-content-start">
                                 <div class="cart_total_title">Конечная стоимость</div>
-                                <div class="cart_total_value ml-auto">{{ $order->calculateOrderPrice() }} {{ $currencySymbol }}</div>
+                                @if($order->hasCoupon())
+                                    <div class="cart_total_value ml-auto old-price">{{ $order->calculateOrderPrice() }} {{ $currencySymbol }}</div>
+                                    <div class="cart_total_value ml-auto">{{ $order->calculateOrderPrice(true) }} {{ $currencySymbol }}</div>
+                                @else
+                                    <div class="cart_total_value ml-auto">{{ $order->calculateOrderPrice() }} {{ $currencySymbol }}</div>
+
+                                @endif
                             </li>
                         </ul>
                     </div>

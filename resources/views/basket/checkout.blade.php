@@ -90,7 +90,7 @@
                                 @endforeach
                                 <li class="d-flex flex-row align-items-center justify-content-start">
                                     <div class="order_list_title">Конечная стоимость</div>
-                                    <div class="order_list_value ml-auto">{{ $order->calculateOrderPrice() }} {{ $currencySymbol }}</div>
+                                    <div class="order_list_value ml-auto">{{ $order->calculateOrderPrice(true) }} {{ $currencySymbol }}</div>
                                 </li>
                             </ul>
                         </div>
