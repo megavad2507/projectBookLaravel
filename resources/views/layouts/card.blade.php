@@ -7,11 +7,11 @@
             <div class="product_title">
                 <a href="{{ route('sku',[isset($category) ? $category->code : $sku->product->category->code,$sku->product->code,$sku]) }}">
                     {{ $sku->product->__('name') }}
-                    @isset($sku->product->properties)
+                    @if(!is_null($sku->product->properties) && isset($sku->product->properties))
                         @foreach($sku->propertyOptions as $propertyOption)
                             <h4>{{ $propertyOption->property->__('name') }}: {{ $propertyOption->__('name') }}</h4>
                         @endforeach
-                    @endisset
+                    @endif
                 </a>
             </div>
 

@@ -12,13 +12,24 @@ class Sku extends Model
 {
     protected $fillable = ['product_id','quantity','price'];
 
+    protected $visible = ['id','quantity','price','product_name'];
+
     public function product() {
         return $this->belongsTo(Product::class);
+    }
+
+    public function scopeAvailable($query) {
+        return $query->where('quantity','>',0);
     }
 
     public function propertyOptions() {
         return $this->belongsToMany(PropertyOption::class,'sku_property_option')->withTimestamps();
     }
+
+    public function property() {
+        return $this->hasManyThrough('App\Models\Property','App\Models\PropertyOption','property_id','id');
+    }
+
     protected static function getOptionsSkus($productId) {
         $skus = self::where('product_id',$productId)->get();
         $resultArray = [];
@@ -59,6 +70,10 @@ class Sku extends Model
     }
     public function getOrderPrice() {
         return $this->pivot->price * $this->pivot->quantity;
+    }
+
+    public function getProductNameAttribute() {
+        return $this->product->name;
     }
 
     use HasFactory;

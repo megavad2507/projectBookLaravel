@@ -17,7 +17,11 @@ class MainController extends Controller
 {
     public function index(Request $request) {
         $skusQuery = Sku::query();
-        $skus = $skusQuery->paginate(8);
+        $skus = $skusQuery
+            ->with('product')
+            ->with('propertyOptions')
+            ->with('property')
+            ->paginate(8);
         return view('index.index',compact('skus'));
     }
     public function categories() {
