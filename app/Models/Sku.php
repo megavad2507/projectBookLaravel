@@ -26,7 +26,7 @@ class Sku extends Model
         return $this->belongsToMany(PropertyOption::class,'sku_property_option')->withTimestamps();
     }
 
-    public function property() {
+    public function properties() {
         return $this->hasManyThrough('App\Models\Property','App\Models\PropertyOption','property_id','id');
     }
 

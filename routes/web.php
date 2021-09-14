@@ -53,6 +53,8 @@ Route::middleware(['auth'])->group(function() {
         Route::resource('properties',"PropertyController");
         Route::resource('properties/{property}/property_options',"PropertyOptionController");
         Route::resource('coupons','CouponController');
+        Route::resource('merchants','MerchantController');
+        Route::get('merchants/{merchant}/update_token','MerchantController@updateToken')->name('merchants.update_token');
     });
 });
 

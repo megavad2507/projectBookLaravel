@@ -8,8 +8,8 @@
                 <a href="{{ route('sku',[isset($category) ? $category->code : $sku->product->category->code,$sku->product->code,$sku]) }}">
                     {{ $sku->product->__('name') }}
                     @if(!is_null($sku->product->properties) && isset($sku->product->properties))
-                        @foreach($sku->propertyOptions as $propertyOption)
-                            <h4>{{ $propertyOption->property->__('name') }}: {{ $propertyOption->__('name') }}</h4>
+                        @foreach($sku->propertyOptions as $i => $propertyOption)
+                            <h4>{{ $sku->product->properties[$i]->__('name') }}: {{ $propertyOption->__('name') }}</h4>
                         @endforeach
                     @endif
                 </a>

@@ -20,7 +20,7 @@ class MainController extends Controller
         $skus = $skusQuery
             ->with('product')
             ->with('propertyOptions')
-            ->with('property')
+            ->with('properties')
             ->paginate(8);
         return view('index.index',compact('skus'));
     }
