@@ -30,6 +30,12 @@ class Sku extends Model
         return $this->hasManyThrough('App\Models\Property','App\Models\PropertyOption','property_id','id');
     }
 
+    public function scopeGetProperties($query) {
+        return $query
+            ->with('product')
+            ->with('propertyOptions');
+    }
+
     protected static function getOptionsSkus($productId) {
         $skus = self::where('product_id',$productId)->get();
         $resultArray = [];
@@ -74,6 +80,24 @@ class Sku extends Model
 
     public function getProductNameAttribute() {
         return $this->product->name;
+    }
+
+    public function leadProductPageForm() {
+        $propArray = array();
+        foreach($this->propertyOptions as $i => $propOption) {
+            $propArray[$this->product->properties[$i]->code] = [
+                'prop_id' => $this->product->properties[$i]->id,
+                'name' => $this->product->properties[$i]->__('name'),
+                'values' => [
+                    'id' => $propOption->id,
+                    'name' => $propOption->__('name'),
+                ],
+            ];
+        }
+        return [
+            'product_id' => $this->product->id,
+            'properties' =>$propArray,
+        ];
     }
 
     use HasFactory;

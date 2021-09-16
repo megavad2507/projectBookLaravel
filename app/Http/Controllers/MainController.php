@@ -16,13 +16,14 @@ use Illuminate\Support\Facades\Auth;
 class MainController extends Controller
 {
     public function index(Request $request) {
+        $products = Product::paginate(8);
+//        dd($products);
         $skusQuery = Sku::query();
         $skus = $skusQuery
-            ->with('product')
-            ->with('propertyOptions')
-            ->with('properties')
-            ->paginate(8);
-        return view('index.index',compact('skus'));
+            ->getProperties()->paginate(8);
+//        dd($skus);
+
+        return view('index.index',compact('products'));
     }
     public function categories() {
         return view('categories.index');
@@ -47,12 +48,21 @@ class MainController extends Controller
         $skus = $skusQuery->paginate(8)->withPath('?' . $request->getQueryString());
         return view('category.index',compact(['category','skus']));
     }
+    public function product($categoryCode,$productCode) {
+        $product = Product::getSkus()->byCode($productCode)->first()->groupSku();
+        dd($product);
+        if($product->code != $productCode || $product->category->code != $categoryCode) {
+            abort(404);
+        }
+
+        return view('layouts.product',compact('product'));
+    }
     public function sku($categoryCode,$productCode,Sku $sku) {
         $product = $sku->product;
         if($product->code != $productCode || $product->category->code != $categoryCode) {
             abort(404);
         }
-        return view('layouts.product',compact('sku'));
+        return view('layouts.sku',compact('sku'));
     }
     public function subscribe(SubscriptionRequest $request, Sku $sku) {
         $name = Auth::check() ? Auth::user()->name : '';

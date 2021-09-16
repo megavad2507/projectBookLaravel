@@ -85,6 +85,7 @@ Route::group([
 ], function() {
     Route::get('/categories/','MainController@categories')->name('categories');
     Route::get('/{category}/','MainController@category')->name('category');
+    Route::get('/{category}/{product}/','MainController@product')->name('product');
     Route::get('/{category}/{product}/{sku}','MainController@sku')->name('sku');
 
 });

@@ -128,15 +128,15 @@
 
     <div class="products">
         <div class="container">
-            {{ $skus->links('layouts.pagination') }}
+            {{ $products->links('layouts.pagination') }}
             <div class="row">
 
                 <div class="col">
 
                     <div class="product_grid">
 
-                        @foreach($skus as $sku)
-                            @include('layouts.card',compact('sku'))
+                        @foreach($products as $product)
+                            @include('layouts.card_product',compact('product'))
                         @endforeach
 
                     </div>

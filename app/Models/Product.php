@@ -23,7 +23,7 @@ class Product extends Model
     }
 
     public function skus() {
-        return $this->hasMany(Sku::class);
+        return $this->hasMany(Sku::class)->getProperties();
     }
 
     public function properties() {
@@ -69,6 +69,33 @@ class Product extends Model
     }
     public function isSale() {
         return $this->sale === 1;
+    }
+
+    public function scopeGetSkus($query)
+    {
+        return $query->with('skus');
+    }
+
+    public function groupSku() {
+        $properties = $this->properties;
+        $tmp = array();
+        $tmpPickedIds = array();
+        foreach($this->skus->map->leadProductPageForm() as $sku) {
+            foreach($sku['properties'] as $code => $prop) {
+                if(!in_array($code,array_keys($tmp))) {
+                    $tmpPickedIds[] = $prop['values']['id'];
+                    $prop['values'] = array($prop['values']);
+                    $tmp[$code] = $prop;
+                }
+                elseif(!in_array($prop['values']['id'],$tmpPickedIds)) {
+                    $tmpPickedIds[] = $prop['values']['id'];
+                    $tmp[$code]['values'][] = $prop['values'];
+                }
+            }
+
+        }
+        $this->skus_properties = $tmp;
+        return collect($this);
     }
 
     use HasFactory;
