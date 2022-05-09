@@ -36,7 +36,7 @@
                         <li class="nav-item @routeActive('products.*')"><a href="{{ route('products.index') }}" class="nav-link">Товары</a></li>
                         <li class="nav-item @routeActive('properties.*')"><a href="{{ route('properties.index') }}" class="nav-link">Свойства</a></li>
                         <li class="nav-item @routeActive('coupons.*')"><a href="{{ route('coupons.index') }}" class="nav-link">Купоны</a></li>
-                        <li class="nav-item @routeActive('merchants.*')"><a href="{{ route('merchants.index') }}" class="nav-link">Поставщики</a></li>
+                        <li class="nav-item @routeActive('banners.*')"><a href="{{ route('banners.index') }}" class="nav-link">Баннеры</a></li>
                     @else
                         <li class="nav-item @routeActive('person.orders*')"><a href="{{ route('person.orders.index') }}" class="nav-link">Мои заказы</a></li>
                     @endifAdmin

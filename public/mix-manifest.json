@@ -1,0 +1,13 @@
+{
+    "/assets/js/main-map.js": "/assets/js/main-map.js",
+    "/assets/js/vendor/app.js": "/assets/js/vendor/app.js",
+    "/assets/css/style.css": "/assets/css/style.css",
+    "/assets/css/custom.css": "/assets/css/custom.css",
+    "/assets/css/simple-line-icons.css": "/assets/css/simple-line-icons.css",
+    "/assets/css/ionicons.min.css": "/assets/css/ionicons.min.css",
+    "/assets/css/fontawesome.min.css": "/assets/css/fontawesome.min.css",
+    "/assets/css/bootstrap.min.css": "/assets/css/bootstrap.min.css",
+    "/assets/css/plugins/plugins.css": "/assets/css/plugins/plugins.css",
+    "/assets/css/plugins/jquery-ui.min.css": "/assets/css/plugins/jquery-ui.min.css",
+    "/assets/js/vendor/libs.js": "/assets/js/vendor/libs.js"
+}

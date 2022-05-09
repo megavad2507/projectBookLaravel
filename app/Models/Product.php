@@ -43,6 +43,9 @@ class Product extends Model
     public function scopeByCode($query,$code) {
         return $query->where('code',$code);
     }
+    public function scopeByName($query,$name) {
+        return $query->where('name','ilike','%'.$name.'%');
+    }
 
     public function setNewAttribute($value) {
         $this->attributes['new'] = $value === 'on' ? 1 : 0;
@@ -76,11 +79,11 @@ class Product extends Model
         return $query->with('skus');
     }
 
-    public function groupSku() {
-        $properties = $this->properties;
+    public function groupSku(array $propertiesArray) {
+        $properties = $this->properties()->with('properties');
         $tmp = array();
         $tmpPickedIds = array();
-        foreach($this->skus->map->leadProductPageForm() as $sku) {
+        foreach($this->skus->map->leadProductPageForm($propertiesArray) as $sku) {
             foreach($sku['properties'] as $code => $prop) {
                 if(!in_array($code,array_keys($tmp))) {
                     $tmpPickedIds[] = $prop['values']['id'];
@@ -95,7 +98,18 @@ class Product extends Model
 
         }
         $this->skus_properties = $tmp;
-        return collect($this);
+        return $this;
+    }
+
+    public function getRangePrices() {
+        $minPrice = 0;
+        $maxPrice = 0;
+        foreach($this->skus as $sku) {
+            $minPrice = $minPrice == 0 ? $sku->price : ($minPrice > $sku->price ? $sku->price : $minPrice);
+            $maxPrice = $sku->price > $maxPrice ? $sku->price : $maxPrice;
+        }
+        $this->min_price = $minPrice;
+        $this->max_price = $maxPrice;
     }
 
     use HasFactory;

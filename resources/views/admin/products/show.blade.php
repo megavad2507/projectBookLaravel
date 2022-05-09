@@ -26,7 +26,7 @@
         </tr>
         <tr>
             <td>Количество ТП</td>
-            <td></td>
+            <td>{{ $product->skus->count() }}</td>
         </tr>
         <tr>
             <td>Категория</td>

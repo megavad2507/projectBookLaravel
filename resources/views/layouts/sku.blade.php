@@ -48,13 +48,33 @@
                     <div class="details_content">
                         <div class="details_name">{{ $sku->product->__('name') }}</div>
                         <div class="details_price">{{ $sku->price }} {{ $currencySymbol }}</div>
-                        @isset($sku->product->properties)
-                            <div class="details_name">
-                                @foreach($sku->propertyOptions as $propertyOption)
-                                    <h4>{{ $propertyOption->property->__('name') }}: {{ $propertyOption->__('name') }}</h4>
-                                @endforeach
-                            </div>
-                    @endisset
+{{--                        @dd($sku->getOtherIdSkus($sku->prop))--}}
+                        <br>
+{{--                        @dd($sku)--}}
+                        @foreach($product->skus_properties as $sku_prop)
+
+                            <b>{{ $sku_prop['name']}}</b>
+                            @foreach($sku_prop['values'] as $value)
+{{--                                @dump($sku->isCurrentSku(['prop_id' => $sku_prop['prop_id'],'value' => $value['id']]))--}}
+                                @if($sku->isCurrentSku(['prop_id' => $sku_prop['prop_id'],'value' => $value['id']]))
+                                    <div class="btn btn-outline-success">{{ $value['name'] }}</div>
+                                @else
+                                    <a href="{{ route('sku',[$sku->product->category->code,$sku->product->code,$sku->getSkuIdByOptions(['prop_id' => $sku_prop['prop_id'],'value' => $value['id']])]) }}">
+                                        <div class="btn btn-light">{{ $value['name'] }}</div>
+                                    </a>
+                                @endif
+                                
+                            @endforeach
+                            <br>
+                        {{--                            @dump($sku_prop)--}}
+                    @endforeach
+{{--                        @isset($sku->product->properties)--}}
+{{--                            <div class="details_name">--}}
+{{--                                @foreach($sku->propertyOptions as $propertyOption)--}}
+{{--                                    <h4>{{ $propertyOption->property->__('name') }}: {{ $propertyOption->__('name') }}</h4>--}}
+{{--                                @endforeach--}}
+{{--                            </div>--}}
+{{--                        @endisset--}}
 
                         <!-- In Stock -->
                         <div class="in_stock_container">
@@ -126,16 +146,16 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <h2>Популярные товары</h2>
-                    <div class="product_grid">
-                        @foreach($bestProducts as $sku)
-                            @include('layouts.card',compact('sku'))
-                        @endforeach
-                    </div>
-                </div>
-            </div>
+{{--            <div class="row">--}}
+{{--                <div class="col">--}}
+{{--                    <h2>Популярные товары</h2>--}}
+{{--                    <div class="product_grid">--}}
+{{--                        @foreach($bestProducts as $sku)--}}
+{{--                            @include('layouts.card',compact('sku'))--}}
+{{--                        @endforeach--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
         </div>
     </div>
 @endsection

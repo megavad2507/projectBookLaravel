@@ -16,13 +16,10 @@ use Illuminate\Support\Facades\Auth;
 class MainController extends Controller
 {
     public function index(Request $request) {
-        $products = Product::paginate(8);
-//        dd($products);
-        $skusQuery = Sku::query();
-        $skus = $skusQuery
-            ->getProperties()->paginate(8);
-//        dd($skus);
-
+        $products = Product::with('category')->with('skus')->paginate(8);
+        $products->map(function($item) {
+            return $item->getRangePrices();
+        });
         return view('index.index',compact('products'));
     }
     public function categories() {
@@ -50,19 +47,21 @@ class MainController extends Controller
     }
     public function product($categoryCode,$productCode) {
         $product = Product::getSkus()->byCode($productCode)->first()->groupSku();
-        dd($product);
-        if($product->code != $productCode || $product->category->code != $categoryCode) {
-            abort(404);
-        }
+//        dd($product);
+//        if($product->code != $productCode || $product->category->code != $categoryCode) {
+//            abort(404);
+//        }
 
         return view('layouts.product',compact('product'));
     }
     public function sku($categoryCode,$productCode,Sku $sku) {
-        $product = $sku->product;
+        $product = $sku->product->groupSku($sku->getCurrentProperties());
         if($product->code != $productCode || $product->category->code != $categoryCode) {
             abort(404);
         }
-        return view('layouts.sku',compact('sku'));
+        $sku->prop = $sku->getCurrentProperties();
+//        $sku->otherSkus = $sku->getOtherIdSkus($sku->getCurrentProperties());
+        return view('layouts.sku',compact('sku','product'));
     }
     public function subscribe(SubscriptionRequest $request, Sku $sku) {
         $name = Auth::check() ? Auth::user()->name : '';

@@ -65,7 +65,7 @@
                     @endif
                     <div class="product_grid">
                         @foreach($skus as $sku)
-                            @include('layouts.card',['category' => $category,'sku' => $sku])
+                            @include('layouts.card_sku',['category' => $category,'sku' => $sku])
                         @endforeach
                     </div>
                     {{ $skus->links('layouts.pagination',['category' => $category]) }}

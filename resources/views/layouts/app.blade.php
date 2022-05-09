@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <title>@yield('title', __('main.online_shop'))</title>
     <meta charset="utf-8">
@@ -129,19 +129,8 @@
         </div>
 
         <!-- Search Panel -->
-        <div class="search_panel trans_300">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <div class="search_panel_content d-flex flex-row align-items-center justify-content-end">
-                            <form action="#">
-                                <input type="text" class="search_input" placeholder="Search" required="required">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('layouts.search_panel')
+
 
         <!-- Social -->
         <div class="header_social">
@@ -299,6 +288,7 @@
     </footer>
 </div>
 @stack('scripts')
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/styles/bootstrap4/popper.js"></script>
     <script src="/styles/bootstrap4/bootstrap.min.js"></script>

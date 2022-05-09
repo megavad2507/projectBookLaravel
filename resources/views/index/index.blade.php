@@ -1,171 +1,93 @@
-@extends('layouts.app')
-@push('css')
-    <link rel="stylesheet" type="text/css" href="styles/main_styles.css">
-    <link rel="stylesheet" type="text/css" href="styles/responsive.css">
-    <link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
-@endpush
-    <!-- Home -->
+@extends('layouts.main_layout')
 @section('content')
-    <div class="home">
-        <div class="home_slider_container">
+    @include('layouts.banners')
 
-            <!-- Home Slider -->
-            <div class="owl-carousel owl-theme home_slider">
 
-                <!-- Slider Item -->
-                <div class="owl-item home_slider_item">
-                    <div class="home_slider_background" style="background-image:url(images/home_slider_1.jpg)"></div>
-                    <div class="home_slider_content_container">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="home_slider_content"  data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
-                                        <div class="home_slider_title">A new Online Shop experience.</div>
-                                        <div class="home_slider_subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros. Sed viverra velit venenatis fermentum luctus.</div>
-                                        <div class="button button_light home_button"><a href="#">Shop Now</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Slider Item -->
-                <div class="owl-item home_slider_item">
-                    <div class="home_slider_background" style="background-image:url(images/home_slider_1.jpg)"></div>
-                    <div class="home_slider_content_container">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="home_slider_content"  data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
-                                        <div class="home_slider_title">A new Online Shop experience.</div>
-                                        <div class="home_slider_subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros. Sed viverra velit venenatis fermentum luctus.</div>
-                                        <div class="button button_light home_button"><a href="#">Shop Now</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Slider Item -->
-                <div class="owl-item home_slider_item">
-                    <div class="home_slider_background" style="background-image:url(images/home_slider_1.jpg)"></div>
-                    <div class="home_slider_content_container">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="home_slider_content"  data-animation-in="fadeIn" data-animation-out="animate-out fadeOut">
-                                        <div class="home_slider_title">A new Online Shop experience.</div>
-                                        <div class="home_slider_subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros. Sed viverra velit venenatis fermentum luctus.</div>
-                                        <div class="button button_light home_button"><a href="#">Shop Now</a></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Home Slider Dots -->
-
-            <div class="home_slider_dots_container">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <div class="home_slider_dots">
-                                <ul id="home_slider_custom_dots" class="home_slider_custom_dots">
-                                    <li class="home_slider_custom_dot active">01.</li>
-                                    <li class="home_slider_custom_dot">02.</li>
-                                    <li class="home_slider_custom_dot">03.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Ads -->
-
-    <div class="avds">
-        <div class="avds_container d-flex flex-lg-row flex-column align-items-start justify-content-between">
-            <div class="avds_small">
-                <div class="avds_background" style="background-image:url(images/avds_small.jpg)"></div>
-                <div class="avds_small_inner">
-                    <div class="avds_discount_container">
-                        <img src="images/discount.png" alt="">
-                        <div>
-                            <div class="avds_discount">
-                                <div>20<span>%</span></div>
-                                <div>Discount</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="avds_small_content">
-                        <div class="avds_title">Smart Phones</div>
-                        <div class="avds_link"><a href="categories.html">See More</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="avds_large">
-                <div class="avds_background" style="background-image:url(images/avds_large.jpg)"></div>
-                <div class="avds_large_container">
-                    <div class="avds_large_content">
-                        <div class="avds_title">Professional Cameras</div>
-                        <div class="avds_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus. Sed nec molestie eros. Sed viver ra velit venenatis fermentum luctus.</div>
-                        <div class="avds_link avds_link_large"><a href="categories.html">See More</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Products -->
-
-    <div class="products">
+    <!-- staic media start -->
+    <section class="static-media-section bg-white pt-70 pb-40">
         <div class="container">
-            {{ $products->links('layouts.pagination') }}
             <div class="row">
+                <div class="col-md-4 col-sm-6 mb-30">
+                    <div class="d-flex static-media2 flex-column">
+                        <img class="align-self-center mb-20" src="{{ asset('img/icon/2.png') }}" alt="icon">
+                        <div class="media-body text-center">
+                            <h4 class="title text-uppercase text-dark mb-25">Free Shipping Worldwide</h4>
+                            <p class="text">Mirum est notare quam littera gothica, quam nunc putamus parum claram</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-30">
+                    <div class="d-flex static-media2 flex-column">
+                        <img class="align-self-center mb-20" src="{{ asset('img/icon/3.png') }}" alt="icon">
+                        <div class="media-body text-center">
+                            <h4 class="title text-uppercase text-dark mb-25">Money Back Guarantee</h4>
+                            <p class="text">Mirum est notare quam littera gothica, quam nunc putamus parum claram</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6 mb-30">
+                    <div class="d-flex static-media2 flex-column">
+                        <img class="align-self-center mb-20" src="{{ asset('img/icon/4.png') }}" alt="icon">
+                        <div class="media-body text-center">
+                            <h4 class="title text-uppercase text-dark mb-25">Support 24/7</h4>
+                            <p class="text">Mirum est notare quam littera gothica, quam nunc putamus parum claram</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- staic media end -->
 
-                <div class="col">
-
-                    <div class="product_grid">
-
+    <!-- new arrival section start -->
+    <section class="popular-slider2 theme1 bg-light2 px-xl-4 pt-70 pt-xl-0 mb-70">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-xl-2 d-xl-flex align-items-xl-center">
+                    <div class="section-title text-center text-xl-start pb-30">
+                        <hr class="hr d-none d-xl-block">
+                        <h2 class="title text-dark text-capitalize mb-20">Recommended <span class="d-xl-block">For
+                                You</span> </h2>
+                        <p class="text">Shop for home decor at Purus for less. From decorative pillows, curtains, and
+                            lighting. Free shipping on orders over $35 and free store pickup. </p>
+                    </div>
+                </div>
+                <div class="col-xl-10">
+                    <div class="popular-slider-init2 products-slider slick-nav">
                         @foreach($products as $product)
-                            @include('layouts.card_product',compact('product'))
+                            <div class="slider-item">
+                                @include('layouts.card_sku',compact('product'))
+                            </div>
                         @endforeach
-
                     </div>
-
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+    <!-- new arrival section end -->
+    @include('layouts.new_products')
 
-    <!-- Ad -->
-
-    <div class="avds_xl">
+    <!-- common-banner start -->
+    <div class="common-banner pb-70 bg-white">
         <div class="container">
             <div class="row">
-                <div class="col">
-                    <div class="avds_xl_container clearfix">
-                        <div class="avds_xl_background" style="background-image:url(images/avds_xl.jpg)"></div>
-                        <div class="avds_xl_content">
-                            <div class="avds_title">Amazing Devices</div>
-                            <div class="avds_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a ultricies metus.</div>
-                            <div class="avds_link avds_xl_link"><a href="categories.html">See More</a></div>
+                <div class="col-12">
+                    <div class="position-relative zoom-in overflow-hidden">
+                        <div class="banner-thumb banner-lagre">
+                            <img src="{{ asset('img/banner/3.jpg') }}" alt="banner-thumb-naile">
+                        </div>
+                        <div class="banner-content banner-content-large">
+                            <p class="text text-uppercase text-dark mb-10">Black Friday</p>
+                            <h4 class="title text-capitalize text-dark">Save Up To
+                                <span class="d-block d-inline-sm-block mt-10 mt-md-20">50% Off</span> </h4>
+                            <a class="view-link text-capitalize mt-25" href="shop-grid-4-column.html">View
+                                collection
+                                <span class="ion-android-arrow-dropright-circle theme-color"></span></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <!-- common-banner end -->
 @endsection
-@push('scripts')
-    <script src="styles/bootstrap4/popper.js"></script>
-    <script src="styles/bootstrap4/bootstrap.min.js"></script>
-@endpush

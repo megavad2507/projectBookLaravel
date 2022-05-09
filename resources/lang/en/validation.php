@@ -151,6 +151,10 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'email' => __('auth.email_field'),
+        'name' => __('auth.name_field'),
+        'password' => __('auth.password_field')
+    ]
 
 ];

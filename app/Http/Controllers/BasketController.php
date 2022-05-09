@@ -6,6 +6,7 @@ use App\Classes\Basket;
 use App\Http\Requests\SetCouponRequest;
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\Product;
 use App\Models\Sku;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -47,6 +48,32 @@ class BasketController extends Controller
         (new Basket(true))->addSku($sku);
         return redirect()->route('basket');
 
+    }
+
+    public function basketAddModal($productId) {
+        $product = Product::where('id',$productId)->first();
+        $sku = Sku::where('product_id',$product->id)->getAvailable()->first();
+        $product->groupSku($sku->getCurrentProperties());
+
+        return view('modals.basket_add',compact('product'));
+    }
+
+    public function searchSku(Request $request) {
+        $data = json_decode($request->get('data'));
+        $productId = $request->get('product_id');
+        $product = Product::where('id',$productId)->first();
+        $sku = self::searchSkuMethod($data,$productId);
+        $product->groupSku($sku->getCurrentProperties());
+
+        return array("PRODUCT" => $product->skus_properties,"SKU" => $sku);
+    }
+
+    private static function searchSkuMethod($data,$productId) {
+
+        $query = Sku::query()->with('properties')->with('propertyOptions');
+        $query->where('product_id',$productId);
+        $query->getByProperties($data);
+        return $query->first();
     }
 
     public function basketRemove(Sku $sku) {

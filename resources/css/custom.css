@@ -1,0 +1,14 @@
+form.add-to-basket {
+    display: contents !important;
+}
+.product_labels .badge:nth-child(2) {
+    left: 55px;
+}
+.product_labels .badge:nth-child(3) {
+    left: 105px;
+}
+
+.hidden {
+    display: none;
+    overflow: hidden;
+}
