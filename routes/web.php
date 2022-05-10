@@ -64,7 +64,7 @@ Route::middleware(['auth'])->group(function() {
 
 Route::get('/','MainController@index')->name('index');
 Route::post('subscription/{sku}',"MainController@subscribe")->name("subscribe");
-
+Route::get('/basket/modal/unauthorized','BasketController@basketUnauthorizedModal')->name('basketUnauthorized');
 Route::group([
     'prefix' => 'basket',
     'middleware' => 'auth'

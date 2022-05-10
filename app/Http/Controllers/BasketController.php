@@ -52,10 +52,14 @@ class BasketController extends Controller
 
     public function basketAddModal($productId) {
         $product = Product::where('id',$productId)->first();
-        $sku = Sku::where('product_id',$product->id)->getAvailable()->first();
+        $sku = Sku::where('product_id',$productId)->getAvailable()->first();
         $product->groupSku($sku->getCurrentProperties());
 
         return view('modals.basket_add',compact('product'));
+    }
+
+    public function basketUnauthorizedModal() {
+        return view('modals.basket_add');
     }
 
     public function searchSku(Request $request) {

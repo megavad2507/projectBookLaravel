@@ -33,5 +33,13 @@ return [
     'in_stock' => 'In stock',
     'not_in_stock' => 'Not in stock',
     'filter_price' => 'Price',
-    'all_product_quantity' => 'There Are :quantity Products.'
+    'all_product_quantity' => 'There Are :quantity Products.',
+    'basket_add_choose_SKU' => 'Select the offer you would like to purchase',
+    'basket_quantity' => 'In your cart :quantity of items',
+    'basket_continue_shopping' => 'Continue shopping',
+    'basket_add_to_cart' => 'Add to cart',
+    'quantity' => 'Quantity',
+    'basket_amount' => '<strong>Total amount of goods:</strong> :price',
+    'basket_add_unauthorized_title' => 'Authorisation Error',
+    'basket_add_unauthorized' => 'In order to purchase goods, you must register <a href=":link"><b>Register</b></a>'
 ];

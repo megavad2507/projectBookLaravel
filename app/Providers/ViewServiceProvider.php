@@ -44,9 +44,18 @@ class ViewServiceProvider extends ServiceProvider
             }
             else {
                 $quantityInBasket = $basketOrder->skus->count();
-
             }
             $view->with('quantityInBasket',$quantityInBasket);
+        });
+        View::composer(['modals.basket_add'],function($view){
+            $basketOrder = (new Basket())->getOrder();
+            if(!is_object($basketOrder)) {
+                $basketAmount = 0;
+            }
+            else {
+                $basketAmount = $basketOrder->skus->sum(function($sku){return $sku->price;});
+            }
+            $view->with('basketAmount',$basketAmount);
         });
 
     }

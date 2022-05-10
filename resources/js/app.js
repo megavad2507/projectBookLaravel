@@ -30,29 +30,40 @@ require('./bootstrap');
 // const app = new Vue({
 //     el: '#app',
 // });
+function trans(key, replace = {}) {
+    var translation = key.split('.').reduce((t, i) => t[i] || null, window.translations);
+
+    for (var placeholder in replace) {
+        translation = translation.replace(`:${placeholder}`, replace[placeholder]);
+    }
+    return translation;
+}
 window.axios = require('axios');
 $('button[data-bs-target="#add-to-cart"]').click(function(e) {
     let productId = $(this).attr('data-product-id');
     axios.get('/basket/modal/' + productId)
         .then((response) => {
             $('.modal-basket').html(response.data);
-
         })
         .catch((error) => {
-            console.log(error);
+            if(error.response.status == 401) {
+                axios.get('/basket/modal/unauthorized')
+                    .then((response) => {
+                        $('.modal-basket').html(response.data);
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+            }
         })
 });
 function resize_product_elements(element,element_item_class) {
     element.each(function() {
         let max_height = 0;
         const items = $(this).find(element_item_class);
-        console.log(element_item_class)
         $(items).each(function() {
-            console.log($(this))
             const this_height = $(this).find('.first-img').height();
-            console.log($(this).find('.first-img').innerHeight())
             max_height = this_height > max_height ? this_height : max_height;
-            console.log(this_height);
         });
         $(items).each(function () {
             // $(this).find('.first-img').height(max_height);

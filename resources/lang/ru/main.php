@@ -33,5 +33,13 @@ return [
     'in_stock' => 'В наличии',
     'not_in_stock' => 'Не в наличии',
     'filter_price' => 'Цена',
-    'all_product_quantity' => 'Всего :quantity товаров'
+    'all_product_quantity' => 'Всего :quantity товаров',
+    'basket_add_choose_SKU' => 'Выберите торговое предложение, которое хотите приобрести',
+    'basket_quantity' => 'В вашей корзине :quantity товаров',
+    'basket_continue_shopping' => 'Продолжить покупки',
+    'basket_add_to_cart' => 'Добавить в корзину',
+    'quantity' => 'Количество',
+    'basket_amount' => '<strong>Общая сумма товаров:</strong> :price',
+    'basket_add_unauthorized_title' => 'Ошибка авторизации',
+    'basket_add_unauthorized' => 'Для того, чтобы приоберси товары необходимо зарегистрироваться <a href=":link"><b>Зарегистрироваться</b></a>'
 ];

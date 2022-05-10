@@ -27,7 +27,7 @@ class Product extends Model
     }
 
     public function properties() {
-        return $this->belongsToMany(Property::class,'property_product')->withTimestamps();
+        return $this->belongsToMany(Property::class,'property_product')->orderBy('id','asc')->withTimestamps();
     }
 
 
@@ -80,7 +80,7 @@ class Product extends Model
     }
 
     public function groupSku(array $propertiesArray) {
-        $properties = $this->properties()->with('properties');
+        $properties = $this->properties()->with(['properties','skus']);
         $tmp = array();
         $tmpPickedIds = array();
         foreach($this->skus->map->leadProductPageForm($propertiesArray) as $sku) {

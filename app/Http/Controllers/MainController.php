@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Auth;
 class MainController extends Controller
 {
     public function index(Request $request) {
-        $products = Product::with('category')->with('skus')->paginate(8);
+        $products = Product::with('category')->with('skus')->orderBy('id')->paginate(8);
         $products->map(function($item) {
             return $item->getRangePrices();
         });
@@ -108,6 +108,7 @@ class MainController extends Controller
                 $query->whereIn("id",$skuIds);
             });
         }
+        $productQuery->whereHas('skus')->exists();
         $products = $productQuery->paginate(9);
         $products->map(function($item) {
             return $item->getRangePrices();
