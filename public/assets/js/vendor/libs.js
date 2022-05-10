@@ -70,7 +70,19 @@ var $blogInit=$(".blog-init");$blogInit.slick({autoplay:false,autoplaySpeed:1000
 $(".product-sync-init").slick({slidesToShow:1,slidesToScroll:1,infinite:true,draggable:false,arrows:false,dots:false,fade:true,asNavFor:".product-sync-nav"});$(".product-sync-nav").slick({dots:false,arrows:true,infinite:true,prevArrow:'<button class="slick-prev"><i class="fas fa-chevron-left"></i></button>',nextArrow:'<button class="slick-next"><i class="fas fa-chevron-right"></i></button>',slidesToShow:4,slidesToScroll:1,asNavFor:".product-sync-init",focusOnSelect:true,draggable:false});//   product-syncing 2
 $(".product-sync-init2").slick({slidesToShow:1,slidesToScroll:1,infinite:true,draggable:false,arrows:false,dots:false,fade:true,asNavFor:".product-sync-nav2"});$(".product-sync-nav2").slick({dots:false,arrows:true,infinite:true,prevArrow:'<button class="slick-prev"><i class="fas fa-arrow-left"></i></button>',nextArrow:'<button class="slick-next"><i class="fas fa-arrow-right"></i></button>',slidesToShow:4,slidesToScroll:1,asNavFor:".product-sync-init2",focusOnSelect:true,draggable:false});//   tooltip
 var tooltipTriggerList=[].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));var tooltipList=tooltipTriggerList.map(function(tooltipTriggerEl){return new bootstrap.Tooltip(tooltipTriggerEl);});// slider-range
-$("#slider-range").slider({range:true,min:0,max:100,values:[0,100],slide:function slide(event,ui){$("#amount").val("€"+ui.values[0]+" - €"+ui.values[1]);}});$("#amount").val("€"+$("#slider-range").slider("values",0)+" - €"+$("#slider-range").slider("values",1));// slider-range end
+// var minPrice = $("#amount").attr('min-value');
+// var maxPrice = $("#amount").attr('max-value');
+// console.log(minPrice);
+// $("#slider-range").slider({
+//   range: true,
+//   min: minPrice,
+//   max: maxPrice,
+//   values: [minPrice,maxPrice],
+//   slide: function slide(event, ui) {
+//     $("#amount").val(ui.values[0] + " - " + ui.values[1]);
+//   }
+// });
+// $("#amount").val($("#slider-range").slider("values", 0) + " - " + $("#slider-range").slider("values", 1)); // slider-range end
 //  bs tab
 $('a[data-bs-toggle="pill"]').on("shown.bs.tab",function(e){e.target;e.relatedTarget;$(".slick-slider").slick("setPosition");});// bs modal
 $(".modal").on("shown.bs.modal",function(e){$(".slick-slider").slick("setPosition");});//  comment  scroll down

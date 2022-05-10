@@ -656,17 +656,19 @@
   var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl);
   }); // slider-range
-
-  $("#slider-range").slider({
-    range: true,
-    min: 0,
-    max: 100,
-    values: [0, 100],
-    slide: function slide(event, ui) {
-      $("#amount").val("€" + ui.values[0] + " - €" + ui.values[1]);
-    }
-  });
-  $("#amount").val("€" + $("#slider-range").slider("values", 0) + " - €" + $("#slider-range").slider("values", 1)); // slider-range end
+  // var minPrice = $("#amount").attr('min-value');
+  // var maxPrice = $("#amount").attr('max-value');
+  // console.log(minPrice);
+  // $("#slider-range").slider({
+  //   range: true,
+  //   min: minPrice,
+  //   max: maxPrice,
+  //   values: [minPrice,maxPrice],
+  //   slide: function slide(event, ui) {
+  //     $("#amount").val(ui.values[0] + " - " + ui.values[1]);
+  //   }
+  // });
+  // $("#amount").val($("#slider-range").slider("values", 0) + " - " + $("#slider-range").slider("values", 1)); // slider-range end
   //  bs tab
 
   $('a[data-bs-toggle="pill"]').on("shown.bs.tab", function (e) {

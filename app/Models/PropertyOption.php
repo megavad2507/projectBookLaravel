@@ -9,13 +9,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class PropertyOption extends Model
 {
-    protected $fillable = ['property_id','name','name_en'];
+    protected $fillable = ['property_id','name','name_en','code'];
 
     public function property() {
         return $this->belongsTo(Property::class);
     }
     public function skus() {
-        return $this->belongsToMany(Sku::class);
+        return $this->belongsToMany(Sku::class,'sku_property_option');
     }
 
     use HasFactory, SoftDeletes, Translatable;

@@ -29,9 +29,9 @@ class ViewServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::composer(['layouts.main_layout','layouts.app','categories.index'],CategoriesComposer::class);
+        View::composer(['layouts.main_layout','layouts.app','categories.index','category.index'],CategoriesComposer::class);
         View::composer(['layouts.main_layout','layouts.app','admin.coupons.form-create'],CurrenciesComposer::class);
-        View::composer('*',BestProductsComposer::class);
+//        View::composer('*',BestProductsComposer::class);
         View::composer('*',function($view) {
             $currencySymbol = CurrencyConversion::getCurrencySymbol();
             $view->with('currencySymbol',$currencySymbol);

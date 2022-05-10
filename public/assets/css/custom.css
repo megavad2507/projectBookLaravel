@@ -12,4 +12,26 @@ form.add-to-basket {
     display: none;
     overflow: hidden;
 }
+.unavailability-list p span {
+    color: #d41e11;
+}
+.blog-ctry-menu li a::before {
+    content: none !important;
+}
+.button-filter {
+    width: 100%;
+}
+.price_input {
+    border: 0;
+    color: #292929;
+    font-size: 14px;
+    margin: 0 0 20px;
+}
+.theme1 .badge-warning {
+    color: #ffffff;
+    background-color: #efbe0d !important;
+}
+.grid-view-list .first-img {
+    max-width: 600px;
+}
 

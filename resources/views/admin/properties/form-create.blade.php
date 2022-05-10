@@ -41,6 +41,13 @@
                         <input type="text" class="form-control" name="name_en" id="name_en" value="{{ old('name', isset($property) ? $property->name_en : null) }}">
                     </div>
                 </div>
+                <div class="">
+                    <label for="name" class="col-sm col-form-label">Код: </label>
+                    <div class="col-sm-6">
+                        @include('layouts.error', ['fieldName' => 'code'])
+                        <input type="text" class="form-control" name="code" id="code" value="{{ old('name', isset($property) ? $property->code : null) }}">
+                    </div>
+                </div>
                 <br>
                 <button class="btn btn-success">Сохранить</button>
             </div>
