@@ -41,5 +41,6 @@ return [
     'quantity' => 'Количество',
     'basket_amount' => '<strong>Общая сумма товаров:</strong> :price',
     'basket_add_unauthorized_title' => 'Ошибка авторизации',
-    'basket_add_unauthorized' => 'Для того, чтобы приоберси товары необходимо зарегистрироваться <a href=":link"><b>Зарегистрироваться</b></a>'
+    'basket_add_unauthorized' => 'Для того, чтобы приоберси товары необходимо зарегистрироваться <a href=":link"><b>Зарегистрироваться</b></a>',
+    'out_of_stock' => 'Товар закончился!',
 ];

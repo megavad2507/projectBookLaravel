@@ -71,7 +71,7 @@
                                     <span>Кол-во</span>
                                     <input id="quantity_input" type="text" pattern="[0-9]*" value="{{ $sku->quantityInOrder }}">
                                     <div class="quantity_buttons">
-                                        <form action="{{ route('basketAdd',$sku->id) }}" method="POST">
+                                        <form action="{{ route('basketAdd',[$sku->id,1]) }}" method="POST">
                                             @csrf
                                             <div id="quantity_inc_button" class="quantity_inc quantity_control">
                                                 <button type="submit" @if(!$sku->orderMoreItems()) class="disabled" disabled title="На нашем складе только {{ $sku->quantity." ".$sku->product->__('name') }}"  @endif><i class="fa fa-chevron-up" aria-hidden="true"></i></button>

@@ -8,6 +8,14 @@ form.add-to-basket {
     left: 105px;
 }
 
+.product_labels .badge.detail-page:nth-child(2) {
+    left: 75px;
+}
+
+.product_labels .badge.detail-page:nth-child(3) {
+    left: 130px;
+}
+
 .hidden {
     display: none;
     overflow: hidden;
@@ -33,4 +41,38 @@ form.add-to-basket {
 }
 .grid-view-list .first-img {
     max-width: 600px;
+}
+.theme-btn--dark2 {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+}
+.theme-btn--dark2 i {
+    font-size: 20px;
+}
+
+/* Preloader */
+#preloader {
+    display: none;
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-color:#fff;/* change if the mask should be a color other than white */
+    z-index:99; /* makes sure it stays on top */
+    opacity: 0.7;
+}
+
+#status {
+    display: none;
+    width:64px;
+    height:64px;
+    position:absolute;
+    left:50%;
+    top:50%;
+    background-image:url('/assets/img/preloader.gif');
+    background-repeat:no-repeat;
+    background-position:center;
+    margin:-36px 0 0 -36px; /* is width and height divided by two */
 }

@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Classes\Basket;
+use App\Models\Sku;
 use App\Services\CurrencyConversion;
 use App\ViewComposers\BestProductsComposer;
 use App\ViewComposers\CategoriesComposer;
@@ -56,6 +57,13 @@ class ViewServiceProvider extends ServiceProvider
                 $basketAmount = $basketOrder->skus->sum(function($sku){return $sku->price;});
             }
             $view->with('basketAmount',$basketAmount);
+        });
+        View::composer(['layouts.quantity_product_block'],function($view) {
+            $basketObject = (new Basket());
+            $basketOrder = $basketObject->getOrder();
+            if(is_object($basketOrder)) {
+                $view->with(['basketOrder' => $basketOrder,'basketObject' => $basketObject]);
+            }
         });
 
     }

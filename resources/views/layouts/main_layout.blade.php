@@ -669,8 +669,5 @@
 <!-- <script src="assets/js/vendor/vendor.min.js"></script>
 <script src="assets/js/plugins/plugins.min.js"></script>
 <script src="assets/js/main.js"></script> -->
-<script>
-    var translations = {!! \Cache::get('translations') !!};
-</script>
 
 </body>

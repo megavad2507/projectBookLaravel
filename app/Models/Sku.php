@@ -44,17 +44,24 @@ class Sku extends Model
             ->with('product')
             ->with('propertyOptions');
     }
-
+    //принимает массив $data - где ключи - id свойств, а значения - id значений свойств
     public function scopeGetByProperties($query,$data) {;
-        if(!is_array($data)) {
-            $data = (array)$data;
-        }
-        $valuesIds = array_values($data);
-        $propIds = array_keys($data);
-        $query->whereHas('propertyOptions',function ($query) use ($propIds,$valuesIds) {
-            $query->whereIn('property_options.id',$valuesIds)->whereIn('property_id',$propIds);
-//                $query->where('property_options.id',$value_id)->where('property_id',$prop_id);
+//        if(!is_array($data)) {
+//            $data = (array)$data;
+//        }
+//        $valuesIds = array_values($data);
+//        $propIds = array_keys($data);
+//        $query->whereHas('propertyOptions',function ($query) use ($propIds,$valuesIds) {
+//            $query->whereIn('property_options.id',$valuesIds)->whereIn('property_id',$propIds);
+////                $query->where('property_options.id',$value_id)->where('property_id',$prop_id);
+//            });
+//
+//        return $query;
+        foreach($data as $prop_id => $value_id) {
+            $query->whereHas('propertyOptions',function ($query) use ($prop_id,$value_id) {
+                $query->where('property_options.id',$value_id)->where('property_id',$prop_id);
             });
+        }
         return $query;
     }
 
@@ -153,7 +160,7 @@ class Sku extends Model
     public function leadProductPageForm(array $propertiesArray)
     {
         $propArray = array();
-        $keysArray = array_keys($propertiesArray);
+//        $propIds = array_keys($propertiesArray);
         for($i = 0;$i < $this->propertyOptions->count();$i++) {
             $option = $this->propertyOptions()->where('property_id',$this->product->properties[$i]->id)->first();
             $tmp = $propertiesArray;
@@ -161,7 +168,13 @@ class Sku extends Model
             $tmp[$this->product->properties[$i]->id] = $option->id;
             $skuQuery = Sku::query();
             $sku = $skuQuery->where('product_id',$this->product->id)->getByProperties($tmp)->first();
-
+            $current = false;//флаг, что проверяемые свойства являются выбранными пользователем на детальной странице товара
+            $propId  = $this->product->properties[$i]->id;
+            if(array_key_exists($propId,$propertiesArray))  {
+                if($option->id == $propertiesArray[$this->product->properties[$i]->id]) {
+                    $current = true;
+                }
+            }
             $propArray[$this->product->properties[$i]->code] = [
                 'prop_id' => $this->product->properties[$i]->id,
                 'name' => $this->product->properties[$i]->__('name'),
@@ -169,8 +182,10 @@ class Sku extends Model
                     'id' => $option->id,
                     'name' => $option->__('name'),
                     'available' => $sku->isAvailable(),
+                    'current' => $current
                 ]
             ];
+
 
         }
         return [

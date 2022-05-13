@@ -44,18 +44,28 @@ class BasketController extends Controller
         return redirect()->route('index');
     }
 
-    public function basketAdd(Sku $sku){
-        (new Basket(true))->addSku($sku);
+    public function basketAdd(Sku $sku,$quantity){
+        (new Basket(true))->addSku($sku,$quantity);
         return redirect()->route('basket');
 
     }
 
-    public function basketAddModal($productId) {
+    public function basketAddModal($productId,$quantity,$serializeFormData = null) {
         $product = Product::where('id',$productId)->first();
-        $sku = Sku::where('product_id',$productId)->getAvailable()->first();
+        if($serializeFormData != null) {
+            $jsonData = (json_decode($serializeFormData,true));
+            $propData = array();
+            foreach($jsonData as $data) {
+                $propData[$data['name']] = $data['value'];
+            }
+            $sku = Sku::where('product_id',$productId)->getByProperties($propData)->first();
+        }
+        else {
+            $sku = Sku::where('product_id',$productId)->getAvailable()->first();
+        }
         $product->groupSku($sku->getCurrentProperties());
 
-        return view('modals.basket_add',compact('product'));
+        return view('modals.basket_add',compact('product','sku','quantity'));
     }
 
     public function basketUnauthorizedModal() {

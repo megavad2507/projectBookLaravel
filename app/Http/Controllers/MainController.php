@@ -170,5 +170,23 @@ class MainController extends Controller
         return redirect()->back();
     }
 
+    public function getSkuByProperties($productId,$data) {
+        $data = json_decode($data,true);
+        foreach($data as $key => $val) {
+            if(is_null($val)) {
+                unset($data[$key]);
+            }
+        }
+        $sku = Sku::where('product_id',$productId)->getByProperties($data)->first();
+        $product = $sku->product->groupSku($sku->getCurrentProperties());
+        $sku->prop = $sku->getCurrentProperties();
+        $htmlProductFooter = view('layouts.product_footer',compact('product','sku'))->render()
+            . '<script src="'.asset("js/vendor/app.js").'"></script>';
+        ;
+//        $htmlForm = view('layouts.sku_variable_form',compact('product','sku'))->render();
+//        $htmlCartButton = view('layouts.add_to_cart_button',compact('product','sku'))->render();
+        return array("price" => $sku->price,"quantity" => $sku->quantity,"htmlProductFooter" => $htmlProductFooter);
+    }
+
 
 }

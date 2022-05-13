@@ -41,5 +41,6 @@ return [
     'quantity' => 'Quantity',
     'basket_amount' => '<strong>Total amount of goods:</strong> :price',
     'basket_add_unauthorized_title' => 'Authorisation Error',
-    'basket_add_unauthorized' => 'In order to purchase goods, you must register <a href=":link"><b>Register</b></a>'
+    'basket_add_unauthorized' => 'In order to purchase goods, you must register <a href=":link"><b>Register</b></a>',
+    'out_of_stock' => 'The product is over!',
 ];

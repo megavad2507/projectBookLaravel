@@ -65,13 +65,14 @@ Route::middleware(['auth'])->group(function() {
 Route::get('/','MainController@index')->name('index');
 Route::post('subscription/{sku}',"MainController@subscribe")->name("subscribe");
 Route::get('/basket/modal/unauthorized','BasketController@basketUnauthorizedModal')->name('basketUnauthorized');
+Route::get('/get-sku/{productId}/{data}','MainController@getSkuByProperties')->name('getSkuByProperties');
 Route::group([
     'prefix' => 'basket',
     'middleware' => 'auth'
 ], function() {
     Route::get('/modal/get-sku','BasketController@searchSku');
-    Route::post('/add/{sku}','BasketController@basketAdd')->name('basketAdd');
-    Route::get('/modal/{productId}','BasketController@basketAddModal')->name('basketAddModal');
+    Route::post('/add/{sku}/{quantity}','BasketController@basketAdd')->name('basketAdd');
+    Route::get('/modal/{productId}/{quantity}/{serializeFormData?}','BasketController@basketAddModal')->name('basketAddModal');
     Route::group([
         'middleware' => 'basket_not_empty'
     ], function() {

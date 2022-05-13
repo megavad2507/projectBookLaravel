@@ -21,21 +21,35 @@
                         </div>
                         <div class="col-md-6 mb-2 mb-md-0">
                             <h4 class="product-name">{{ $product->__('name') }}</h4>
-                            <h5 class="price"> <span class="price-value">{{ $product->skus->first()->price }}</span> {{ $currencySymbol }}</h5>
+                            <h5 class="price"> <span class="price-value">{{ $sku->price }}</span> {{ $currencySymbol }}</h5>
                             <div class="product-properties">
                                 @foreach($product->skus_properties as $prop_name => $property)
                                     <div class="product-size d-flex align-items-center mt-30">
                                         <h6 class="title">
                                             <select name="{{ $prop_name }}" id="{{ $property['prop_id'] }}">
                                                 @foreach($property['values'] as $value)
-                                                    <option value="{{ $value['id'] }}" {{ $value['available'] === true ? '' : 'disabled' }}>{{ $value['name'] }}</option>
+                                                    <option {{ $value['current'] === true ? 'selected' : '' }} value="{{ $value['id'] }}" {{ $value['available'] === true ? '' : 'disabled' }}>{{ $value['name'] }}</option>
                                                 @endforeach
                                             </select>
                                         </h6>
                                     </div>
                                 @endforeach
                             </div>
-                            <h6 class="quantity"><strong>@lang('main.quantity'):</strong>&nbsp;1</h6>
+                            <div class="product-count style">
+                                <h6 class="quantity mb-20"><strong>@lang('main.quantity'):</strong></h6>
+                                @php
+                                    $buttonId = 'set-quantity-modal'
+                                @endphp
+                                @include('layouts.quantity_product_block',compact('buttonId'))
+{{--                                <div class="count d-flex">--}}
+{{--                                    <input id="set-quantity-modal" type="number" min="1" max="{{ $sku->quantity }}" step="1" value="{{ $quantity > $sku->quantity ? $sku->quantity : $quantity }}">--}}
+{{--                                    <div class="button-group">--}}
+{{--                                        <button class="count-btn increment"><i class="fas fa-chevron-up"></i></button>--}}
+{{--                                        <button class="count-btn decrement"><i class="fas fa-chevron-down"></i></button>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -46,7 +60,7 @@
                         <div class="cart-content-btn">
                             <button type="button" class="btn theme-btn--dark1 btn--md mt-4"
                                     data-bs-dismiss="modal">@lang('main.basket_continue_shopping')</button>
-                            <form class="add-to-basket" action="{{ route('basketAdd',$product->skus->first()->id) }}" method="POST">
+                            <form class="add-to-basket" action="{{ route('basketAdd',[$sku->id,$quantity]) }}" method="POST">
                                 @csrf
                                 <button class="btn theme-btn--dark1 btn--md mt-4"><i
                                             class="ion-checkmark-round" type="submit"></i>@lang('main.basket_add_to_cart')</button>
@@ -79,6 +93,11 @@
                 $('h5 .price-value').html(response.data.SKU.price);
                 let actionHref = $('.add-to-basket').attr('action');
                 $('.add-to-basket').attr('action',actionHref.replaceAll(/(\d)+$/g,response.data.SKU.id));
+                let quantityInput = $('#set-quantity-modal');
+                if(response.data.SKU.quantity < quantityInput.val()) {
+                    quantityInput.val(response.data.SKU.quantity);
+                }
+                quantityInput.attr('max',response.data.SKU.quantity);
                 let productData = response.data.PRODUCT;
                 Object.keys(productData).forEach(function(key) {
                     let item = productData[key];
@@ -96,5 +115,52 @@
                 });
             })
         })
+    </script>
+    <script>
+        if(typeof addToBasketChangeQuantity !== "function") {
+            function addToBasketChangeQuantity(value) {
+                const addToBasketButton = $('.add-to-basket');
+                const addToBasketHref = addToBasketButton.prop('action');
+                console.log(addToBasketHref);
+                console.log(addToBasketButton);
+                const newHref = addToBasketHref.replace(/\d+$/,value);
+                console.log(newHref);
+                addToBasketButton.prop('action',newHref);
+            }
+        }
+    </script>
+    <script>
+        function addQuantityInputModal() {
+            $('.product-count .button-group .count-btn.increment').click(function () {
+                let inputQuantity;
+                if ($(this).parents('.modal-body').length !== 0) {
+                    inputQuantity = $('#set-quantity-modal');
+                    const quantityVal = parseInt(inputQuantity.val());
+
+                    const maxQuantity = parseInt(inputQuantity.attr('max'));
+                    if (quantityVal < maxQuantity) {
+                        inputQuantity.val(quantityVal + 1);
+                    }
+                    addToBasketChangeQuantity(inputQuantity.val());
+                }
+            });
+        }
+
+        function removeQuantityInputModal() {
+            $('.product-count .button-group .count-btn.decrement').click(function () {
+                let inputQuantity;
+                if ($(this).parents('.modal-body').length !== 0) {
+                    inputQuantity = $('#set-quantity-modal');
+                    const quantityVal = parseInt(inputQuantity.val());
+                    const minQuantity = parseInt(inputQuantity.attr('min'));
+                    if (quantityVal > minQuantity) {
+                        inputQuantity.val(quantityVal - 1);
+                    }
+                }
+                addToBasketChangeQuantity(inputQuantity.val());
+            });
+        }
+        addQuantityInputModal();
+        removeQuantityInputModal();
     </script>
 @endisset
