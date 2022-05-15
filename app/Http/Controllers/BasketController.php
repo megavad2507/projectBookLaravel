@@ -75,11 +75,13 @@ class BasketController extends Controller
     public function searchSku(Request $request) {
         $data = json_decode($request->get('data'));
         $productId = $request->get('product_id');
+        $quantity = $request->get('quantity');
         $product = Product::where('id',$productId)->first();
         $sku = self::searchSkuMethod($data,$productId);
         $product->groupSku($sku->getCurrentProperties());
+        $href = route('basketAdd',[$sku->id,$quantity]);
 
-        return array("PRODUCT" => $product->skus_properties,"SKU" => $sku);
+        return array("PRODUCT" => $product->skus_properties,"SKU" => $sku,"HREF" => $href);
     }
 
     private static function searchSkuMethod($data,$productId) {
@@ -95,14 +97,40 @@ class BasketController extends Controller
         return redirect()->route('basket');
     }
 
+    public function setQuantity(Sku $sku, $quantity) {
+        $basket = (new Basket());
+        $order = $basket->getOrder();
+        $isSuccessful = $basket->setQuantity($sku,$quantity);
+        if($isSuccessful) {
+            return ["success" => true,
+                "html" => view('basket.basket_block',compact('order'))->render() .
+                    '<script src="'.asset("js/vendor/app.js").'"></script>'
+            ];
+        }
+        return ["success" => false];
+    }
+
+    public function deleteSkuFromBasket(Sku $sku) {
+        $basket = (new Basket());
+        $order = $basket->getOrder();
+        $isSuccessful = $basket->removeSkuFromBasket($sku);
+        if($isSuccessful) {
+            return ["success" => true,
+                "html" => view('basket.basket_block',compact('order'))->render() .
+                    '<script src="'.asset("js/vendor/app.js").'"></script>'
+            ];
+        }
+        return ["success" => false];
+    }
+
     public function setCoupon(SetCouponRequest $request) {
         $coupon = Coupon::where('code',$request->coupon)->first();
         if($coupon->isAvailableForUse()) {
             (new Basket())->setCoupon($coupon);
-            session()->flash('success','Вы успешно добавили купон ' . $coupon->code);
+            session()->flash('success',__('cart.success_add_coupon',['coupon' => $coupon->code]));
         }
         else {
-            session()->flash('warning','Вы не можете использовать купон ' . $coupon->code);
+            session()->flash('warning',__('cart.cant_use_coupon',['coupon' => $coupon->code]));
         }
         return redirect()->route('basket');
     }

@@ -38,6 +38,7 @@ class Sku extends Model
             'App\Models\PropertyOption', 'property_id', 'id');
     }
 
+
     public function scopeGetProperties($query)
     {
         return $query
@@ -69,6 +70,7 @@ class Sku extends Model
         return $query->where('quantity', '>' ,0);
     }
 
+
     protected static function getOptionsSkus($productId)
     {
         $skus = self::where('product_id', $productId)->get();
@@ -87,6 +89,7 @@ class Sku extends Model
             return [$item['property_id'] => $item['id']];
         })->sortKeys()->toArray();
     }
+
 
     public function isCurrentSku($options) {
         $currentSkuOptions = $this->getCurrentProperties();

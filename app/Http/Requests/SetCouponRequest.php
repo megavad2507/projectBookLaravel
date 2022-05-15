@@ -24,13 +24,13 @@ class SetCouponRequest extends FormRequest
     public function rules()
     {
         return [
-            'coupon' => 'required|min:6|max:8|exists:coupons,code'
+            'coupon' => 'required|min:6|max:20|exists:coupons,code'
         ];
     }
 
     public function messages() {
         return  [
-            'coupon.*' => 'Такого купона не существует!',
+            'coupon.*' => __('cart.not_exist_coupon'),
         ];
     }
 }

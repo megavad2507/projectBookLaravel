@@ -70,13 +70,15 @@ Route::group([
     'prefix' => 'basket',
     'middleware' => 'auth'
 ], function() {
-    Route::get('/modal/get-sku','BasketController@searchSku');
+    Route::get('/modal/get-sku','BasketController@searchSku')->name('getSkuModal');
     Route::post('/add/{sku}/{quantity}','BasketController@basketAdd')->name('basketAdd');
     Route::get('/modal/{productId}/{quantity}/{serializeFormData?}','BasketController@basketAddModal')->name('basketAddModal');
     Route::group([
         'middleware' => 'basket_not_empty'
     ], function() {
         Route::get('/','BasketController@basket')->name('basket');
+        Route::get('/deleteSku/{sku}','BasketController@deleteSkuFromBasket')->name('basketDeleteSku');
+        Route::get('/setQuantity/{sku}/{quantity}','BasketController@setQuantity')->name('setQuantity');
         Route::get('/checkout/','BasketController@checkout')->name('checkout');
         Route::post('/delete/{sku}','BasketController@basketRemove')->name('basketRemove');
         Route::post('/checkout/','BasketController@confirmOrder')->name('confirmOrder');

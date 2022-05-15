@@ -87,7 +87,46 @@ var tooltipTriggerList=[].slice.call(document.querySelectorAll('[data-bs-toggle=
 $('a[data-bs-toggle="pill"]').on("shown.bs.tab",function(e){e.target;e.relatedTarget;$(".slick-slider").slick("setPosition");});// bs modal
 $(".modal").on("shown.bs.modal",function(e){$(".slick-slider").slick("setPosition");});//  comment  scroll down
 $("#write-comment").on("click",function(e){e.preventDefault();$("html, body").animate({scrollTop:$(".theme-btn--dark3").offset().top+750},500,"linear");});//   counter
-$(".count").each(function(){var count=$(this),input=count.find('input[type="number"]'),increament=count.find(".increment"),decreament=count.find(".decrement"),minValue=input.attr("min"),maxValue=input.attr("max");increament.on("click",function(){var oldValue=parseFloat(input.val());if(oldValue>=maxValue){var newVal=oldValue;}else{var newVal=oldValue+1;}count.find("input").val(newVal);count.find("input").trigger("change");});decreament.on("click",function(){var oldValue=parseFloat(input.val());if(oldValue<=minValue){var newVal=oldValue;}else{var newVal=oldValue-1;}count.find("input").val(newVal);count.find("input").trigger("change");});});// SscrollUp
+// $(".count").each(function () {
+//   var count = $(this),
+//       input = count.find('input[type="number"]'),
+//       increament = count.find(".increment"),
+//       decreament = count.find(".decrement"),
+//       minValue = input.attr("min"),
+//       maxValue = input.attr("max");
+//   increament.on("click", function () {
+//       console.log('test1')
+//     var oldValue = parseFloat(input.val());
+//
+//     if (oldValue >= maxValue) {
+//       var newVal = oldValue;
+//     } else {
+//       var newVal = oldValue + 1;
+//     }
+//     var inputQuantity = count.find("input");
+//     console.log(inputQuantity);
+//     console.log(inputQuantity.attr('name'));
+//     if(inputQuantity.prop('name') !== '_token') {
+//         console.log(inputQuantity);
+//         inputQuantity.val(newVal);
+//         // inputQuantity.trigger("change");
+//     }
+//   });
+//   decreament.on("click", function () {
+//     var oldValue = parseFloat(input.val());
+//
+//     if (oldValue <= minValue) {
+//       var newVal = oldValue;
+//     } else {
+//       var newVal = oldValue - 1;
+//     }
+//     var inputQuantity = count.find("input");
+//     if(inputQuantity.prop('name') !== '_token') {
+//         inputQuantity.val(newVal);
+//         inputQuantity.trigger("change");
+//     }
+//   });
+// }); // SscrollUp
 $.scrollUp({scrollName:"scrollUp",// Element ID
 scrollDistance:400,// Distance from top/bottom before showing element (px)
 scrollFrom:"top",// 'top' or 'bottom'

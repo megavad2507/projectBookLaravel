@@ -76,4 +76,47 @@ form.add-to-basket {
     background-position:center;
     margin:-36px 0 0 -36px; /* is width and height divided by two */
 }
+.text-right {
+    text-align: right !important;
+}
+.coupon_form {
+    max-width: 620px;
+    margin: auto;
+}
+.coupon-set-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 12px;
+    border-left: 2px solid #ebebeb;
+    padding: 0 30px;
+    line-height: 30px;
+    height: 30px;
+    font-weight: 600;
+    color: #292929;
+    border-radius: 0px;
+}
+
+@media screen and (max-width: 991px) {
+    .coupon-set-button {
+        padding: 0 20px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .coupon-set-button {
+        padding: 0 15px;
+    }
+}
+
+.theme1 .coupon-set-button:hover {
+    color: #2caf4e;
+}
+.old-price {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+.props_block {
+    text-align: left;
+}
 

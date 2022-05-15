@@ -18,7 +18,7 @@ Breadcrumbs::register('register',function ($breadcrumbs) {
 
 Breadcrumbs::register('basket', function ($breadcrumbs) {
     $breadcrumbs->parent('home');
-    $breadcrumbs->push(__('main.basket'), route('basket'));
+    $breadcrumbs->push(__('cart.title'), route('basket'));
 });
 
 Breadcrumbs::register('checkout', function ($breadcrumbs) {

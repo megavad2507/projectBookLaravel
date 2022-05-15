@@ -84,6 +84,8 @@ class Basket
     }
 
     public function addSku(Sku $sku,$quantity) {
+        $test = $this->order->skus;
+        $test1 = $sku->id;
         if($this->order->skus->contains($sku->id)) {
             $orderSku = $this->getOrderSku($sku);
             $newQuantity = $orderSku->quantityInOrder + $quantity;
@@ -102,15 +104,38 @@ class Basket
     }
 
     public function removeSku(Sku $sku) {
-
         if($this->order->skus->contains($sku)) {
             $orderSku = $this->getOrderSku($sku);
             if($orderSku->quantityInOrder > 1) {
                 $orderSku->quantityInOrder--;
             }
             else {
-                $this->order->skus->pop();
+                $this->order->skus = $this->order->skus->reject(function($value,$key) use ($sku) {
+                    return $sku->id == $value->id;
+                });
             }
+        }
+    }
+
+    public function removeSkuFromBasket(Sku $sku) {
+        if($this->order->skus->contains($sku)) {
+            $this->order->skus = $this->order->skus->reject(function($value,$key) use ($sku) {
+                return $sku->id == $value->id;
+            });
+            return true;
+//            $this->order->skus->pop();
+        }
+        return false;
+    }
+
+    public function setQuantity(Sku $sku,$quantity) {
+        if($sku->quantity >= $quantity) {
+            $orderSku = $this->getOrderSku($sku);
+            $orderSku->quantityInOrder = $quantity;
+            return true;
+        }
+        else {
+            return false;
         }
     }
 

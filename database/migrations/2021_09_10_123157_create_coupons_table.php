@@ -15,7 +15,7 @@ class CreateCouponsTable extends Migration
     {
         Schema::create('coupons', function (Blueprint $table) {
             $table->id();
-            $table->string('code',8);
+            $table->string('code',20);
             $table->double('value');
             $table->unsignedTinyInteger('type')->default(0);
             $table->unsignedInteger('currency_id')->nullable();

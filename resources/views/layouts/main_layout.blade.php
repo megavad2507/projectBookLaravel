@@ -56,14 +56,14 @@
         <div class="border-bottom mb-4 pb-4 text-end">
             <button class="offcanvas-close">×</button>
         </div>
-        <div class="offcanvas-head mb-4">
+        <div class="offcanvas-head mb-4 cart-block-links">
             <nav class="offcanvas-top-nav">
                 <ul class="d-flex justify-content-center align-items-center">
-                    <li class="mx-3"><a href="compare.html"><i class="ion-ios-loop-strong"></i> Compare <span>(0)</span>
-                        </a></li>
-                    <li class="mx-3">
-                        <a href="wishlist.html"> <i class="ion-android-favorite-outline"></i> Wishlist
-                            <span>(0)</span></a>
+                    <li class="mx-3 cart-block position-relative d-sm-block">
+                        <a href="{{ route('basket') }}">
+                            <i class="ion-bag"></i>
+                            <span class="badge cbdg1">{{ $quantityInBasket }}</span>
+                        </a>
                     </li>
                 </ul>
             </nav>
@@ -100,96 +100,6 @@
 </div>
 <!-- offcanvas-mobile-menu end -->
 
-<!-- OffCanvas Wishlist Start -->
-<div id="offcanvas-wishlist" class="offcanvas offcanvas-wishlist theme1">
-    <div class="inner">
-        <div class="head d-flex flex-wrap justify-content-between">
-            <span class="title">Wishlist</span>
-            <button class="offcanvas-close">×</button>
-        </div>
-        <ul class="minicart-product-list">
-            <li>
-                <a href="single-product.html" class="image"><img src="{{asset('img/product/4.jpg')}}"
-                                                                 alt="Cart product Image"></a>
-                <div class="content">
-                    <a href="single-product.html" class="title">Walnut Cutting Board</a>
-                    <span class="quantity-price">1 x <span class="amount">$100.00</span></span>
-                    <a href="#" class="remove">×</a>
-                </div>
-            </li>
-            <li>
-                <a href="single-product.html" class="image"><img src="{{asset('img/product/5.jpg')}}"
-                                                                 alt="Cart product Image"></a>
-                <div class="content">
-                    <a href="single-product.html" class="title">Lucky Wooden Elephant</a>
-                    <span class="quantity-price">1 x <span class="amount">$35.00</span></span>
-                    <a href="#" class="remove">×</a>
-                </div>
-            </li>
-            <li>
-                <a href="single-product.html" class="image"><img src="{{asset('img/product/6.jpg')}}"
-                                                                 alt="Cart product Image"></a>
-                <div class="content">
-                    <a href="single-product.html" class="title">Fish Cut Out Set</a>
-                    <span class="quantity-price">1 x <span class="amount">$9.00</span></span>
-                    <a href="#" class="remove">×</a>
-                </div>
-            </li>
-        </ul>
-        <a href="wishlist.html" class="btn theme--btn1 btn--lg text-uppercase  d-block d-sm-inline-block mt-30">view
-            wishlist</a>
-    </div>
-</div>
-<!-- OffCanvas Wishlist End -->
-
-<!-- OffCanvas Cart Start -->
-<div id="offcanvas-cart" class="offcanvas offcanvas-cart theme1">
-    <div class="inner">
-        <div class="head d-flex flex-wrap justify-content-between">
-            <span class="title">Cart</span>
-            <button class="offcanvas-close">×</button>
-        </div>
-        <ul class="minicart-product-list">
-            <li>
-                <a href="single-product.html" class="image"><img src="{{asset('img/product/1.jpg')}}"
-                                                                 alt="Cart product Image"></a>
-                <div class="content">
-                    <a href="single-product.html" class="title">Walnut Cutting Board</a>
-                    <span class="quantity-price">1 x <span class="amount">$100.00</span></span>
-                    <a href="#" class="remove">×</a>
-                </div>
-            </li>
-            <li>
-                <a href="single-product.html" class="image"><img src="{{asset('img/product/2.jpg')}}"
-                                                                 alt="Cart product Image"></a>
-                <div class="content">
-                    <a href="single-product.html" class="title">Lucky Wooden Elephant</a>
-                    <span class="quantity-price">1 x <span class="amount">$35.00</span></span>
-                    <a href="#" class="remove">×</a>
-                </div>
-            </li>
-            <li>
-                <a href="single-product.html" class="image"><img src="{{asset('img/product/3.jpg')}}"
-                                                                 alt="Cart product Image"></a>
-                <div class="content">
-                    <a href="single-product.html" class="title">Fish Cut Out Set</a>
-                    <span class="quantity-price">1 x <span class="amount">$9.00</span></span>
-                    <a href="#" class="remove">×</a>
-                </div>
-            </li>
-        </ul>
-        <div class="sub-total d-flex flex-wrap justify-content-between">
-            <strong>Subtotal :</strong>
-            <span class="amount">$144.00</span>
-        </div>
-        <a href="cart.html" class="btn theme--btn1 btn--lg text-uppercase  d-block d-sm-inline-block me-sm-2">view
-            cart</a>
-        <a href="checkout.html"
-           class="btn theme--btn1 btn--lg text-uppercase  d-block d-sm-inline-block mt-4 mt-sm-0">checkout</a>
-        <p class="minicart-message">Free Shipping on All Orders Over $100!</p>
-    </div>
-</div>
-<!-- OffCanvas Cart End -->
 
 <!-- offcanvas-setting Start -->
 <div id="offcanvas-setting" class="offcanvas offcanvas-cart theme1">
@@ -278,14 +188,8 @@
                                         <i class="ion-ios-search-strong"></i>
                                     </a>
                                 </li>
-                                <li class="position-relative d-none d-sm-block">
-                                    <a class="offcanvas-toggle" href="#offcanvas-wishlist">
-                                        <i class="ion-android-favorite-outline"></i>
-                                        <span class="badge cbdg1">4</span>
-                                    </a>
-                                </li>
                                 <li class="cart-block position-relative d-none d-sm-block">
-                                    <a class="offcanvas-toggle" href="#offcanvas-cart">
+                                    <a href="{{ route('basket') }}">
                                         <i class="ion-bag"></i>
                                         <span class="badge cbdg1">{{ $quantityInBasket }}</span>
                                     </a>

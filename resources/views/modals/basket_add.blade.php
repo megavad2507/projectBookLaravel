@@ -78,18 +78,30 @@
 </div>
 @isset($product)
     <script>
+        if(typeof setAxiosPreloader !== "function") {
+            function setAxiosPreloader() {
+                axios.interceptors.request.use((config) => {
+                    $('#preloader').show();
+                    $('#status').show();
+                    return config;
+                });
+            }
+        }
         $('.product-properties select').change(function() {
             let prepareData = {};
             $('.product-properties select').each(function() {
                 prepareData[$(this).attr('id')] = $(this).val();
             })
+            setAxiosPreloader();
             axios.get('/basket/modal/get-sku',{
                 params: {
                     data: prepareData,
-                    product_id: {{ $product->id }}
+                    product_id: {{ $product->id }},
+                    quantity: $('#set-quantity-modal').val()
                 }
             })
             .then((response) => {
+                console.log(response.data.SKU)
                 $('h5 .price-value').html(response.data.SKU.price);
                 let actionHref = $('.add-to-basket').attr('action');
                 $('.add-to-basket').attr('action',actionHref.replaceAll(/(\d)+$/g,response.data.SKU.id));
@@ -97,6 +109,7 @@
                 if(response.data.SKU.quantity < quantityInput.val()) {
                     quantityInput.val(response.data.SKU.quantity);
                 }
+                $('.add-to-basket').prop('action',response.data.HREF);
                 quantityInput.attr('max',response.data.SKU.quantity);
                 let productData = response.data.PRODUCT;
                 Object.keys(productData).forEach(function(key) {
@@ -114,6 +127,11 @@
                     });
                 });
             })
+            .finally(() => {
+                // $('#preloader').hide();
+                $('#status').fadeOut();
+                $('#preloader').delay(350).fadeOut('slow');
+            });
         })
     </script>
     <script>
@@ -121,10 +139,7 @@
             function addToBasketChangeQuantity(value) {
                 const addToBasketButton = $('.add-to-basket');
                 const addToBasketHref = addToBasketButton.prop('action');
-                console.log(addToBasketHref);
-                console.log(addToBasketButton);
                 const newHref = addToBasketHref.replace(/\d+$/,value);
-                console.log(newHref);
                 addToBasketButton.prop('action',newHref);
             }
         }
