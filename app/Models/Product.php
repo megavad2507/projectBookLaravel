@@ -44,7 +44,17 @@ class Product extends Model
         return $query->where('code',$code);
     }
     public function scopeByName($query,$name) {
-        return $query->where('name','ilike','%'.$name.'%');
+        if(!is_array($name))
+            return $query->where('name','ilike','%'.$name.'%');
+        else {
+            foreach($name as $i => $searchQuery) {
+                if($i == 0)
+                    $query->where('name','ilike','%'.$searchQuery.'%');
+                else
+                    $query->orWhere('name','ilike','%'.$searchQuery.'%');
+            }
+            return $query;
+        }
     }
 
     public function setNewAttribute($value) {
@@ -83,7 +93,7 @@ class Product extends Model
         $properties = $this->properties()->with(['properties','skus']);
         $tmp = array();
         $tmpPickedIds = array();
-        foreach($this->skus->map->leadProductPageForm($propertiesArray) as $sku) {
+        foreach($this->skus()->orderBy('id','asc')->get()->map->leadProductPageForm($propertiesArray) as $sku) {
             foreach($sku['properties'] as $code => $prop) {
                 if(!in_array($code,array_keys($tmp))) {
                     $tmpPickedIds[] = $prop['values']['id'];
@@ -96,6 +106,13 @@ class Product extends Model
                 }
             }
 
+        }
+        foreach($tmp as &$prop) {//сортиврока значений по id
+            uasort($prop['values'],
+                function($first,$second) {
+                    return $first['id'] > $second['id'];
+                }
+            );
         }
         $this->skus_properties = $tmp;
         return $this;

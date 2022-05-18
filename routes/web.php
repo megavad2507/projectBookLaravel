@@ -27,6 +27,7 @@ Route::get('reset','ResetController@reset')->name('resetProject');
 
 Route::middleware(['auth'])->group(function() {
     Route::get('/logout','Auth\LoginController@logout')->name('get-logout');
+    Route::post('/review/add/{sku}','ReviewController@add')->name('addReview');
     Route::group([
         'prefix' => 'person',
         'namespace' => 'Person',
@@ -55,6 +56,7 @@ Route::middleware(['auth'])->group(function() {
         Route::resource('coupons','CouponController');
         Route::resource('merchants','MerchantController');
         Route::resource('banners','BannerController');
+        Route::resource('reviews','ReviewController');
         Route::get('merchants/{merchant}/update_token','MerchantController@updateToken')->name('merchants.update_token');
     });
 });
@@ -96,5 +98,6 @@ Route::group([
 });
 
 Route::get('/search/','MainController@search')->name('search');
+
 
 

@@ -37617,8 +37617,13 @@ function detailSkuChanged() {
 
   setAxiosPreloader();
   axios.get('/get-sku/' + productId + '/' + JSON.stringify(data)).then(function (response) {
+    console.log(response.data);
     $('.product-prices .current-price span.value').html(response.data.price);
     $('#product-footer').html(response.data.htmlProductFooter);
+    var reviewForm = $("#review_add_form");
+    var reviewFormAction = reviewForm.prop('action');
+    var newAction = reviewFormAction.replace(/\d+$/, response.data.skuId);
+    reviewForm.prop('action', newAction);
   })["finally"](function () {
     // $('#preloader').hide();
     $('#status').fadeOut();
@@ -37663,8 +37668,6 @@ $('.basket-block .set-quantity').on('change', function () {
   var skuId = $(this).attr('sku-id');
   var quantityVal = $(this).val();
   axios.get('/basket/setQuantity/' + skuId + '/' + quantityVal).then(function (response) {
-    console.log(response.data);
-
     if (response.data.success === true) {
       $('.basket-block').html(response.data.html);
     }
@@ -37677,13 +37680,8 @@ $('.basket-block .set-quantity').on('change', function () {
 $('.delete-from-basket').on('click', function (e) {
   e.preventDefault();
   setAxiosPreloader();
-  var skuId = $(this).attr('sku-id');
-  var quantityVal = $(this).val();
   var href = $(this).prop('href');
-  console.log(href);
   axios.get(href).then(function (response) {
-    console.log(response.data);
-
     if (response.data.success === true) {
       $('.basket-block').html(response.data.html);
     }
@@ -37752,6 +37750,18 @@ $('#product-filter').submit(function () {
   $('#product-filter input[type=checkbox][filter-name]').each(function () {
     setValuesMultipleInput($(this));
   });
+});
+$(".proceed-checkout-button").click(function () {
+  $('#submit-checkout-form').trigger("click");
+});
+$("#search-query").on('input', function () {
+  $("#hidden-search-query").val($(this).val());
+});
+$("#button_add_review").click(function () {
+  $("#review_add_form").toggle();
+});
+$("#review_add_button_top").click(function () {
+  $("#review_add_form").show();
 });
 })();
 

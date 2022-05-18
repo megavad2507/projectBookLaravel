@@ -354,8 +354,8 @@
 <!-- search-box and overlay start -->
 <div class="overlay">
     <div class="scale"></div>
-    <form class="search-box" action="#">
-        <input type="text" name="search" placeholder="Search products..." />
+    <form class="search-box" action="{{ route('search') }}">
+        <input id="search_input" value="{{ request()->query('searchQuery') }}" type="text" name="searchQuery" placeholder="@lang('search.input_placeholder')" />
         <button id="close" type="submit"><i class="ion-ios-search-strong"></i></button>
     </form>
     <button class="btn-close"><i class="ion-android-close"></i></button>

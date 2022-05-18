@@ -1,7 +1,7 @@
 @extends('layouts.main_layout')
-@section('title',$category->__('name'))
+@section('title','Поиск: ' . $query)
 @section('content')
-    {{ Breadcrumbs::render('category',$category) }}
+    {{ Breadcrumbs::render('search') }}
     <!-- product tab start -->
     <div class="product-tab pb-40">
         <div class="container grid-wraper">
@@ -16,7 +16,6 @@
                                             <a class="nav-link" id="pills-home-tab" data-bs-toggle="pill" href="#pills-home"
                                                role="tab" aria-controls="pills-home" aria-selected="true">
                                                 <i class="fa fa-th"></i>
-
                                             </a>
                                         </li>
                                         <li class="nav-item me-0">
@@ -57,28 +56,25 @@
                             </div>
                         </div>
                     </div>
-                    {{ $products->appends([ 'price_from' => request()->price_from, 'price_to' => request()->price_to, 'hit' => request()->hit, 'new' => request()->new, 'recommend' => request()->recommend])->links('layouts.pagination',['category' => $category]) }}
                 </div>
                 <div class="col-lg-3 mb-30 order-lg-first">
                     <aside class="left-sidebar theme1">
                         <!-- search-filter start -->
                         <div class="search-filter">
                             <div class="check-box-inner pt-0">
-                                <h4 class="title">{{ $category->__('name') }}</h4>
+                                <form method="GET" action="{{ route('search') }}" class="position-relative">
+                                    <input id="search-query" name="searchQuery" class="form-control" value="{{ $query }}" type="text" placeholder="@lang('search.input_placeholder')">
+                                    <button class="btn coupon-set-button" type="submit">
+                                        @lang('search.title_button')
+                                    </button>
+                                </form>
                             </div>
 
                         </div>
 
-                        <ul id="offcanvas-menu2" class="blog-ctry-menu">
-                            @foreach($categories as $categ)
-                                <li @if($categ->id == $category->id) class="active"@endif>
-                                    <a href="{{ route('category',$categ->code) }}">{{ $categ->__('name') }}</a>
-                                </li>
-                            @endforeach
-                        </ul>
-
                         <div class="search-filter border-top mt-45 pt-45">
                             <form action="/{{ Request::path() }}" method="GET" id="product-filter">
+                                <input type="hidden" name="searchQuery" id="hidden-search-query" value="{{ $query }}">
                                 <!-- check-box-inner -->
                                 <div class="check-box-inner mt-10">
                                     <h4 class="sub-title">@lang('main.filter_price')</h4>
@@ -136,4 +132,21 @@
         </div>
     </div>
     <!-- product tab end -->
+{{--    <div class="row">--}}
+{{--        <div class="products products_search">--}}
+{{--            <div class="container">--}}
+{{--                {{ $products->withQueryString()->links('layouts.pagination') }}--}}
+{{--                <div class="row">--}}
+{{--                    <div class="col">--}}
+{{--                        <div class="product_grid">--}}
+{{--                            @foreach($products as $product)--}}
+{{--                                @include('layouts.card_sku',compact('product'))--}}
+{{--                            @endforeach--}}
+
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 @endsection

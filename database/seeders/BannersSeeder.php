@@ -28,7 +28,7 @@ class BannersSeeder extends Seeder
             [
                 'title' => 'Лучшие цены!',
                 'title_en' => 'Best prices!',
-                'description' => 'У нас в машазине только честные и справедливые цены!',
+                'description' => 'У нас в магазине только честные и справедливые цены!',
                 'description_en' => 'We have only honest and fair prices in our store!',
                 'button_text' => 'За покупками',
                 'button_href' => '/catalog/categories/',

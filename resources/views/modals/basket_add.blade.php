@@ -17,7 +17,14 @@
                 <div class="col-lg-5 divide-right">
                     <div class="row">
                         <div class="col-md-6">
-                            <img src="{{ Storage::url($product->picture) }}" alt="{{ $product->__('name') }}">
+                            <img src="
+                                @if(Storage::exists($sku->product->picture))
+                                    {{ Storage::url($sku->product->picture) }}
+                                @else
+                                    {{ Storage::url('no_photo.jpeg') }}
+                                @endif
+                                    "
+                                 alt="{{ $sku->product->__('name') }}">
                         </div>
                         <div class="col-md-6 mb-2 mb-md-0">
                             <h4 class="product-name">{{ $product->__('name') }}</h4>

@@ -16,5 +16,11 @@ return [
         'email' => __('auth.email_field'),
         'name' => __('auth.name_field'),
         'password' => __('auth.password_field')
+    ],
+    'mimes' => 'Файлы должны быть только типов :values',
+    'attributes' => [
+        'text' => 'Текст отзыва',
+        'author_name' => 'Имя автора',
+        'grade' => 'Оценка'
     ]
 ];

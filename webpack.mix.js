@@ -36,7 +36,10 @@ mix.babel([
 // mix.js(js_resource_path + 'bootstrap.bundle.min.js', js_compile_path);
 // mix.js(js_resource_path + 'plugins/plugins.js', js_compile_path + '/plugins');
 mix.js(js_resource_path + 'main-map.js', js_compile_path);
-mix.js(js_resource_path + 'app.js',js_compile_path + '/vendor/app.js');
+mix.js([
+    js_resource_path + 'app.js',
+    // js_resource_path + 'search.js'
+],js_compile_path + '/vendor/app.js');
 // mix.js(js_resource_path + 'main.js', js_compile_path);
 
 

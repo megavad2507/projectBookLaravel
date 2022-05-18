@@ -26,7 +26,15 @@
                                                    href="{{ route('product',[isset($category) ? $category->code : $product->category->code,$product->code]) }}"
                                                 @endif
                                             >
-                                                <img class="first-img" src="{{ Storage::url($product->picture) }}" alt="{{ $product->__('name') }}">
+                                                <img class="first-img"
+                                                     src="
+                                                        @if(Storage::exists($product->picture))
+                                                            {{ Storage::url($product->picture) }}
+                                                        @else
+                                                            {{ Storage::url('no_photo.jpeg') }}
+                                                        @endif
+                                                            "
+                                                     alt="{{ $product->__('name') }}">
                                             </a>
                                             <!-- product links -->
 

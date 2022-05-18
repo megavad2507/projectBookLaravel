@@ -37,6 +37,7 @@
                         <li class="nav-item @routeActive('properties.*')"><a href="{{ route('properties.index') }}" class="nav-link">Свойства</a></li>
                         <li class="nav-item @routeActive('coupons.*')"><a href="{{ route('coupons.index') }}" class="nav-link">Купоны</a></li>
                         <li class="nav-item @routeActive('banners.*')"><a href="{{ route('banners.index') }}" class="nav-link">Баннеры</a></li>
+                        <li class="nav-item @routeActive('reviews.*')"><a href="{{ route('reviews.index') }}" class="nav-link">Отзывы</a></li>
                     @else
                         <li class="nav-item @routeActive('person.orders*')"><a href="{{ route('person.orders.index') }}" class="nav-link">Мои заказы</a></li>
                     @endifAdmin

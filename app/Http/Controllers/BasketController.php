@@ -58,13 +58,12 @@ class BasketController extends Controller
             foreach($jsonData as $data) {
                 $propData[$data['name']] = $data['value'];
             }
-            $sku = Sku::where('product_id',$productId)->getByProperties($propData)->first();
+            $sku = Sku::where('product_id',$productId)->getByProperties($propData)->getAvailable()->orderBy('id','asc')->first();
         }
         else {
-            $sku = Sku::where('product_id',$productId)->getAvailable()->first();
+            $sku = Sku::where('product_id',$productId)->getAvailable()->orderBy('id','asc')->first();
         }
         $product->groupSku($sku->getCurrentProperties());
-
         return view('modals.basket_add',compact('product','sku','quantity'));
     }
 
@@ -88,7 +87,7 @@ class BasketController extends Controller
 
         $query = Sku::query()->with('properties')->with('propertyOptions');
         $query->where('product_id',$productId);
-        $query->getByProperties($data);
+        $query->getOneByProperties($data);
         return $query->first();
     }
 

@@ -19,48 +19,59 @@ class ContentSeeder extends Seeder
             [
                 'name' => 'Цвет',
                 'name_en' => 'Color',
+                'code' => 'color',
                 'options' => [
                     [
                         'name' => 'Белый',
                         'name_en' => 'White',
+                        'code' => 'white'
                     ],
                     [
                         'name' => 'Черный',
                         'name_en' => 'Black',
+                        'code' => 'black'
                     ],
                     [
                         'name' => 'Серебристый',
                         'name_en' => 'Silver',
+                        'code' => 'silver'
                     ],
                     [
                         'name' => 'Золотой',
                         'name_en' => 'Gold',
+                        'code' => 'gold'
                     ],
                     [
                         'name' => 'Красный',
                         'name_en' => 'Red',
+                        'code' => 'red'
                     ],
                     [
                         'name' => 'Синий',
                         'name_en' => 'Blue',
+                        'code' => 'blue'
                     ],
                 ],
             ],
             [
                 'name' => 'Внутренняя память',
                 'name_en' => 'Memory',
+                'code' => 'memory',
                 'options' => [
                     [
                         'name' => '32гб',
                         'name_en' => '32gb',
+                        'code' => '32gb',
                     ],
                     [
                         'name' => '64гб',
                         'name_en' => '64gb',
+                        'code' => '64gb'
                     ],
                     [
                         'name' => '128гб',
                         'name_en' => '128gb',
+                        'code' => '128gb'
                     ],
                 ],
             ],

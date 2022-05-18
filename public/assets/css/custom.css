@@ -119,4 +119,69 @@ form.add-to-basket {
 .props_block {
     text-align: left;
 }
+.review-grade {
+    display: flex;
+    overflow:hidden;
+    position: relative;
+    list-style: none;
+    font-size: 3em;
+    line-height: 1;
+}
+.review-grade, .review-grade li {
+    margin:0;
+    padding:0;
+}
+.review-grade li {
+    margin-right:.25em;
+}
+.review-grade input {
+    display:none;
+}
+.review-grade label {
+    display: block;
+    color: transparent;
+    width: 1em;
+    height: 1em;
+    cursor: pointer;
+}
+.review-grade label::before {
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #404849;
+    letter-spacing: .25em;
+    z-index: 1;
+}
+.review-grade input:checked + label::before {
+    color:#fdd835;
+    z-index:2;
+}
+
+.review-grade label:hover::before {
+    color:#F8B84E;
+    z-index:3;
+    text-shadow:0 0 .125em #F5D27C;
+}
+
+
+.review-grade li:nth-child(1) label::before {
+    content:'★';
+}
+
+.review-grade li:nth-child(2) label::before {
+    content:'★★';
+}
+
+.review-grade li:nth-child(3) label::before {
+    content:'★★★';
+}
+
+.review-grade li:nth-child(4) label::before {
+    content:'★★★★';
+}
+
+.review-grade li:nth-child(5) label::before {
+    content:'★★★★★';
+}
 

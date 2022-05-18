@@ -118,8 +118,13 @@ function detailSkuChanged() {
     setAxiosPreloader();
     axios.get('/get-sku/' + productId + '/' + JSON.stringify(data))
         .then((response) => {
+            console.log(response.data)
             $('.product-prices .current-price span.value').html(response.data.price);
             $('#product-footer').html(response.data.htmlProductFooter);
+            const reviewForm = $("#review_add_form");
+            const reviewFormAction = reviewForm.prop('action');
+            const newAction = reviewFormAction.replace(/\d+$/,response.data.skuId);
+            reviewForm.prop('action',newAction);
         })
         .finally(() => {
             // $('#preloader').hide();
@@ -244,5 +249,17 @@ $('#product-filter').submit(function() {
     $('#product-filter input[type=checkbox][filter-name]').each(function() {
         setValuesMultipleInput($(this));
     });
+});
+$(".proceed-checkout-button").click(function() {
+    $('#submit-checkout-form').trigger("click");
+});
+$("#search-query").on('input',function() {
+    $("#hidden-search-query").val($(this).val());
+});
+$("#button_add_review").click(function() {
+    $("#review_add_form").toggle();
+});
+$("#review_add_button_top").click(function() {
+    $("#review_add_form").show();
 })
 

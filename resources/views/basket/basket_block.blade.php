@@ -36,9 +36,9 @@
                                 </div>
                             </td>
                             <td class="text-center">
-                                        <span class="whish-list-price">
-                                            {{ $sku->price }} {{ $currencySymbol }}
-                                        </span>
+                                <span class="whish-list-price">
+                                    {{ $sku->price }} {{ $currencySymbol }}
+                                </span>
                             </td>
                             <td class="text-center">
                                 <div class="product-count style">
@@ -129,7 +129,7 @@
                     </tr>
                     <tr>
                         <td class="text-right" colspan="6">
-                            <a href="#" class="btn theme-btn--dark1 btn--xl text-uppercase">@lang('cart.go_to_checkout')</a>
+                            <a href="{{ route('checkout') }}" class="btn theme-btn--dark1 btn--xl text-uppercase">@lang('cart.go_to_checkout')</a>
                         </td>
                     </tr>
                     </tbody>

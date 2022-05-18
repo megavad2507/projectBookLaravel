@@ -1,111 +1,146 @@
-@extends('layouts.app')
-@push('css')
-    <link rel="stylesheet" type="text/css" href="/styles/checkout.css">
-    <link rel="stylesheet" type="text/css" href="/styles/checkout_responsive.css">
-@endpush
+@extends('layouts.main_layout')
+@section('title',__('checkout.title'))
 @section('content')
-    <!-- Home -->
-
-    <div class="home">
-        <div class="home_container">
-            <div class="home_background" style="background-image:url(/images/cart.jpg)"></div>
-            <div class="home_content_container">
-                <div class="container">
-                    <div class="row">
-                        <div class="col">
-                            <div class="home_content">
-                                <div class="breadcrumbs">
-                                    <ul>
-                                        <li><a href="index.html">Home</a></li>
-                                        <li><a href="cart.html">Shopping Cart</a></li>
-                                        <li>Checkout</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Checkout -->
-
-    <div class="checkout">
-        <div class="container">
+    {{ Breadcrumbs::render('checkout') }}
+    <section class="check-out-section pb-40">
+        <div class="container grid-wraper">
             <div class="row">
-
-                <!-- Billing Info -->
-                <div class="col-lg-6">
-                    <div class="billing checkout_section">
-                        <div class="section_title">Billing Address</div>
-                        <div class="section_subtitle">Enter your address info</div>
-                        <div class="checkout_form_container">
-                            <form action="{{ route('confirmOrder') }}" id="checkout_form" class="checkout_form" method="POST">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-xl-12">
-                                        <!-- Name -->
-                                        <label for="checkout_name">Имя*</label>
-                                        <input type="text" name="name" id="checkout_name" class="checkout_input" value="{{ $user->name }}" required="required">
+                <div class="col-lg-8 mb-30">
+                    <div id="accordion">
+                        <div class="card">
+                            <div class="card-header" id="headingProducts">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#productsCollapse"
+                                            aria-expanded="true" aria-controls="productsCollapse">
+                                        @lang('checkout.title_products_step')
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="productsCollapse" class="collapse show" aria-labelledby="headingProducts"
+                                 data-parent="#accordion">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table mb-0">
+                                            <thead class="thead-light">
+                                            <tr>
+                                                <th class="text-center" style="width:25%" scope="col-md-3">@lang('cart.product_image')</th>
+                                                <th class="text-center" style="width:25%" scope="col-md-3">@lang('cart.product_name')</th>
+                                                <th class="text-center" style="width:16%" scope="col-md-2">@lang('cart.price')</th>
+                                                <th class="text-center" style="width:16%" scope="col-md-2">@lang('cart.qty')</th>
+                                                <th class="text-center" style="width:16%" scope="col-md-2">@lang('cart.total')</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            @foreach($order->skus as $sku)
+                                                <tr>
+                                                    <th class="text-center" scope="row">
+                                                        <a href="{{ route('sku',[$sku->product->category->code,$sku->product->code,$sku]) }}">
+                                                            <img src="{{ Storage::url($sku->product->picture) }}" alt="{{ $sku->product->__('name') }}">
+                                                        </a>
+                                                    </th>
+                                                    <td class="text-center">
+                                                        <a href="{{ route('sku',[$sku->product->category->code,$sku->product->code,$sku]) }}">
+                                                            <span class="whish-title">{{ $sku->product->__('name') }}</span>
+                                                        </a>
+                                                        <div class="props_block">
+                                                            @foreach($sku->product->properties as $property)
+                                                                <div class="prop_block">
+                                                                    <span class="property-name">{{ $property->__('name') }}:</span>
+                                                                    <span class="property-option">{{ $sku->propertyOptions->where('property_id',$property->id)->first()->__('name') }}</span>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span class="whish-list-price">
+                                                            {{ $sku->price }} {{ $currencySymbol }}
+                                                        </span>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <div class="product-count style">
+                                                            <div class="count d-flex justify-content-center">
+                                                                <span>{{ $sku->quantityInOrder }}</span>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <span class="whish-list-price">
+                                                            {{ $sku->getAmountPrice() }} {{ $currencySymbol }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
-                                <div>
-                                    <!-- Phone no -->
-                                    <label for="checkout_phone">Номер телефона*</label>
-                                    <input type="tel" name="phone" id="checkout_phone" class="checkout_input" required="required">
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-header" id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-link" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+                                            aria-expanded="true" aria-controls="collapseOne">
+                                        @lang('checkout.personal_info')
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
+                                 data-parent="#accordion">
+                                <div class="card-body">
+                                    <form action="{{ route('confirmOrder') }}" id="checkout-form" method="POST">
+                                        @csrf
+                                        <div class="form-group row">
+                                            <label for="name" class="col-md-3 col-form-label">@lang('checkout.full_name')*</label>
+                                            <div class="col-md-6">
+                                                <input required name="name" type="text" id="name" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="email" class="col-md-3 col-form-label">Email*</label>
+                                            <div class="col-md-6">
+                                                <input required name="email" type="email" id="email" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="phone" class="col-md-3 col-form-label">@lang('checkout.telephone')*</label>
+                                            <div class="col-md-6">
+                                                <input required name="phone" type="tel" id="email" class="form-control">
+                                            </div>
+                                        </div>
+                                        <button id="submit-checkout-form" class="btn theme-btn--dark1 btn--md hidden" type="submit"></button>
+                                    </form>
                                 </div>
-                                <div>
-                                    <!-- Phone no -->
-                                    <label for="checkout_email">Email*</label>
-                                    <input type="email" name="email" id="checkout_email" value="{{ $user->email }}" class="checkout_input"  required="required">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <div class="sign-btn text-end">
+                                    <button class="btn theme-btn--dark1 btn--md proceed-checkout-button" type="submit">@lang('checkout.proceed')</button>
                                 </div>
-                                <div class="button order_button">
-                                    <button type="submit">Place Order</button>
-                                </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <!-- Order Info -->
-
-                <div class="col-lg-6">
-                    <div class="order checkout_section">
-                        <div class="section_title">Ваш заказ</div>
-                        <div class="section_subtitle">Подробности заказа</div>
-
-                        <!-- Order details -->
-                        <div class="order_list_container">
-                            <div class="order_list_bar d-flex flex-row align-items-center justify-content-start">
-                                <div class="order_list_title">Товар</div>
-                                <div class="order_list_value ml-auto">Стоимость</div>
-                            </div>
-                            <ul class="order_list">
-                                @foreach($order->skus as $sku)
-                                    <li class="d-flex flex-row align-items-center justify-content-start">
-                                        <div class="order_list_title">{{ $sku->product->__('name') }} x {{ $sku->quantityInOrder }}</div>
-                                        <div class="order_list_value ml-auto">{{ $sku->getAmountPrice() }} {{ $currencySymbol }}</div>
-                                    </li>
-                                @endforeach
-                                <li class="d-flex flex-row align-items-center justify-content-start">
-                                    <div class="order_list_title">Конечная стоимость</div>
-                                    <div class="order_list_value ml-auto">{{ $order->calculateOrderPrice(true) }} {{ $currencySymbol }}</div>
+                <div class="col-lg-4 mb-30">
+                    <ul class="list-group cart-summary rounded-0">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <ul class="items">
+                                <li>
+                                    @lang('checkout.total_items')
+                                    {{ $order->skus->count() }}
                                 </li>
                             </ul>
-                        </div>
-
-                        <!-- Order Text -->
-                        <div class="button order_button">
-                            <a type="submit" href="#">Place Order</a>
-                        </div>
-                    </div>
+                            <ul class="amount">
+                                <li>{{ $order->calculateOrderPrice(true) }} {{ $currencySymbol }}</li>
+                            </ul>
+                        </li>
+                        <li class="list-group-item text-center">
+                            <button class="btn theme-btn--dark1 btn--md proceed-checkout-button" type="submit">@lang('checkout.proceed')</button>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 @endsection
-@push('scripts')
-    <script src="/js/checkout.js"></script>
-@endpush
-

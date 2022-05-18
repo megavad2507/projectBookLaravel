@@ -23,7 +23,12 @@ Breadcrumbs::register('basket', function ($breadcrumbs) {
 
 Breadcrumbs::register('checkout', function ($breadcrumbs) {
     $breadcrumbs->parent('basket');
-    $breadcrumbs->push(__('main.checkout'), route('checkout'));
+    $breadcrumbs->push(__('checkout.title'), route('checkout'));
+});
+
+Breadcrumbs::register('categories',function($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push(__('main.categories'),route('categories'));
 });
 
 Breadcrumbs::register('category', function ($breadcrumbs, $category) {
@@ -39,4 +44,8 @@ Breadcrumbs::register('product', function ($breadcrumbs, $category, $product,$sk
         'product' => $product->code,
         'sku' => $sku->id
     ]));
+});
+Breadcrumbs::register('search',function($breadcrumbs) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push(__('search.title'),route('search'));
 });
