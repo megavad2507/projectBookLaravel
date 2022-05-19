@@ -24,7 +24,7 @@ class CouponRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'required|min:6|max:20',
+            'code' => 'required|min:6|max:20|unique:coupons',
             'value' => 'required|numeric|min:0',
             'currency_id' => 'required_with:type',
         ];

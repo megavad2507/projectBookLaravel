@@ -129,5 +129,28 @@ class Product extends Model
         $this->max_price = $maxPrice;
     }
 
+    public function adminFilterInputs() {
+        $categories = Category::get();
+        $categoriesValues = [];
+        foreach($categories as $category) {
+            $categoriesValues[$category->id] = $category->__('name');
+        }
+        return [
+            'name' => [
+                'name' => 'Название',
+                'type' => 'text'
+            ],
+            'code' => [
+                'name' => 'Код',
+                'type' => 'text'
+            ],
+            'category_id' => [
+                'name' => 'Категория',
+                'type' => 'select',
+                'values' => $categoriesValues
+            ]
+        ];
+    }
+
     use HasFactory;
 }

@@ -126,13 +126,25 @@
                     <ul class="list-group cart-summary rounded-0">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <ul class="items">
+                                @if($order->hasCoupon())
+                                    <li>Стоимость без скидки:</li>
+                                    <li>Стоимость со скидкой</li>
+                                @else
+                                    <li>Стоимость:</li>
+                                @endif
+
                                 <li>
                                     @lang('checkout.total_items')
-                                    {{ $order->skus->count() }}
+
                                 </li>
+
                             </ul>
                             <ul class="amount">
+                                @if($order->hasCoupon())
+                                    <li class="old-price">{{ $order->calculateOrderPrice(false) }} {{ $currencySymbol }}</li>
+                                @endif
                                 <li>{{ $order->calculateOrderPrice(true) }} {{ $currencySymbol }}</li>
+                                <li>{{ $order->skus->count() }}</li>
                             </ul>
                         </li>
                         <li class="list-group-item text-center">

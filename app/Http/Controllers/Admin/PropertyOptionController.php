@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Classes\AdminFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PropertyOptionRequest;
 use App\Models\Property;
 use App\Models\PropertyOption;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
+
 
 class PropertyOptionController extends Controller
 {
@@ -15,9 +18,16 @@ class PropertyOptionController extends Controller
      *
      * @return Response
      */
-    public function index(Property $property)
+    public function index(Property $property,Request $request)
     {
-        $propertyOptions = $property->options()->orderBy('id','asc')->paginate(10);
+        $itemsPerPage = 10;
+        if(count($request->all()) > 0) {
+            $adminFilter = new AdminFilter($request->all());
+            $propertyOptions = $adminFilter->getFilteredItems(PropertyOption::class)->orderBy('id','asc')->paginate($itemsPerPage);
+        }
+        else {
+            $propertyOptions = $property->options()->orderBy('id','asc')->paginate($itemsPerPage);
+        }
         return view('admin.property_options.index',compact('property','propertyOptions'));
     }
 

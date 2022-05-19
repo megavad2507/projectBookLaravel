@@ -4,11 +4,13 @@
     <div class="col-md-12">
         <h1>Варианты свойств {{ $property->name }}</h1>
         <table class="table">
+            @include('admin.layouts.admin_filter',['class' => new \App\Models\PropertyOption()])
+
             <thead>
             <tr>
                 <th>#</th>
-                <th>Свойство</th>
-                <th>Название</th>
+                <th>Название варианта</th>
+                <th>Код варианта</th>
                 <th>Действие</th>
             </tr>
             </thead>
@@ -16,8 +18,8 @@
                 @foreach($propertyOptions as $propertyOption)
                     <tr>
                         <td>{{ $propertyOption->id }}</td>
-                        <td>{{ $property->name }}</td>
                         <td>{{ $propertyOption->name }}</td>
+                        <td>{{ $propertyOption->code }}</td>
                         <td>
                             <div class="btn-group" role="group">
                                 <form action="{{ route('property_options.destroy',[$property,$propertyOption]) }}" method="POST">
@@ -35,5 +37,5 @@
         </table>
         <a href="{{ route('property_options.create',$property) }}" class="btn btn-success" type="button">Добавить вариант свойства</a>
     </div>
-    {{ $propertyOptions->links() }}
+    {{ $propertyOptions->withQueryString()->links() }}
 @endsection

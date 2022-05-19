@@ -221,6 +221,30 @@ class Sku extends Model
             'properties' => $propArray
         ];
     }
+    public function adminFilterInputs() {
+//        $properties = Property::get();
+//        $propertiesValues = ['' => 'Не выбрано'];
+//        foreach($properties as $property)  {
+//            $propertiesValues[$property->id] = $property->__('name');
+//        }
+        $propertiesOptionsValues = ['' => 'Не выбрано'];
+        $propertyOptions = PropertyOption::get();
+        foreach($propertyOptions as $propertyOption)  {
+            $propertiesOptionsValues[$propertyOption->id] = $propertyOption->__('name');
+        }
+        return [
+//            'property' => [
+//                'name' => 'Свойство',
+//                'type' => 'select',
+//                'values' => $propertiesValues
+//            ],
+            'property_option' => [
+                'name' => 'Значение свойства',
+                'type' => 'select',
+                'values' => $propertiesOptionsValues
+            ]
+        ];
+    }
 
     use HasFactory;
 }

@@ -4,13 +4,14 @@
     <div class="col-md-12">
         <h1>Купоны</h1>
         <table class="table">
+            @include('admin.layouts.admin_filter',['class' => new \App\Models\Coupon()])
             <thead>
             <tr>
                 <th>#</th>
                 <th>Код</th>
                 <th>Тип</th>
                 <th>Дата окончания</th>
-                <th>Описание</th>
+                <th>Значение</th>
                 <th>Действие</th>
             </tr>
             </thead>
@@ -21,7 +22,7 @@
                     <td>{{ $coupon->code }}</td>
                     <td>@if($coupon->isAbsolute()) {{ $coupon->currency->symbol }} @else % @endif</td>
                     <td>{{ isset($coupon->expired_at) ? $coupon->expired_at->format('d.m.Y') : 'Бессрочно' }}</td>
-                    <td>{{ $coupon->description }}</td>
+                    <td>{{ $coupon->value }}</td>
                     <td>
                         <div class="btn-group" role="group">
                             <form action="{{ route('coupons.destroy',$coupon) }}" method="POST">
@@ -40,5 +41,5 @@
         <a href="{{ route('coupons.create') }}" class="btn btn-success" type="button">Добавить купон</a>
 
     </div>
-    {{ $coupons->links() }}
+    {{ $coupons->withQueryString()->links() }}
 @endsection

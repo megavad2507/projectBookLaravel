@@ -24,6 +24,10 @@
                 <td>Название на английском</td>
                 <td>{{ $propertyOption->name_en }}</td>
             </tr>
+            <tr>
+                <td>Код</td>
+                <td>{{ $propertyOption->code }}</td>
+            </tr>
         </thead>
     </table>
     <a href="{{ route('property_options.index',[$property]) }}">Назад</a>

@@ -65,5 +65,41 @@ class Coupon extends Model
         }
     }
 
+    public function adminFilterInputs() {
+        $currencies = Currency::get();
+        $currenciesValues = ['' => 'Без валюты'];
+        foreach($currencies as $currency) {
+            $currenciesValues[$currency->id] = $currency->symbol;
+        }
+        return [
+            'code' => [
+                'name' => 'Код',
+                'type' => 'text'
+            ],
+            'value' => [
+                'name' => 'Значение',
+                'type' => 'text'
+            ],
+            'type' => [
+                'name' => 'Тип',
+                'type' => 'select',
+                'values' => [
+                    '' => 'Не выбрано',
+                    '0' => 'Процент',
+                    '1' => 'Абсолют'
+                ]
+            ],
+            'currency_id' => [
+                'name' => 'Валюта',
+                'type' => 'select',
+                'values' => $currenciesValues
+            ],
+            'expired_at' => [
+                'name' => 'Использовать до:',
+                'type' => 'date',
+            ]
+        ];
+    }
+
     use HasFactory;
 }

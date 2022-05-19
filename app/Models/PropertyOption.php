@@ -18,5 +18,18 @@ class PropertyOption extends Model
         return $this->belongsToMany(Sku::class,'sku_property_option');
     }
 
+    public function adminFilterInputs() {
+        return [
+            'name' => [
+                'name' => 'Название',
+                'type' => 'text'
+            ],
+            'code' => [
+                'name' => 'Код',
+                'type' => 'text'
+            ],
+        ];
+    }
+
     use HasFactory, SoftDeletes, Translatable;
 }

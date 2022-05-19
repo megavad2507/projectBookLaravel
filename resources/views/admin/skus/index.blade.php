@@ -4,6 +4,8 @@
     <div class="col-md-12">
         <h1>Товарные предложения {{ $product->name }}</h1>
         <table class="table">
+            @include('admin.layouts.admin_filter',['class' => new \App\Models\Sku()])
+
             <thead>
             <tr>
                 <th>#</th>
@@ -35,5 +37,5 @@
         </table>
         <a href="{{ route('skus.create',[$product]) }}" class="btn btn-success" type="button">Добавить торговое предложение</a>
     </div>
-    {{ $skus->links() }}
+    {{ $skus->withQueryString()->links() }}
 @endsection

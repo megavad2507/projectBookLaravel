@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Classes\AdminFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PropertyRequest;
 use App\Models\Property;
+use Illuminate\Http\Request;
 
 class PropertyController extends Controller
 {
@@ -13,9 +15,16 @@ class PropertyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $properties = Property::orderBy('id','asc')->paginate(10);
+        $itemsPerPage = 10;
+        if(count($request->all()) > 0) {
+            $adminFilter = new AdminFilter($request->all());
+            $properties = $adminFilter->getFilteredItems(Property::class)->orderBy('id','asc')->paginate($itemsPerPage);;
+        }
+        else {
+            $properties = Property::orderBy('id','asc')->paginate($itemsPerPage);
+        }
         return view('admin.properties.index',compact('properties'));
     }
 

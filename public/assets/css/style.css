@@ -6625,7 +6625,7 @@ select.form-control {
 }
 
 ul.items li {
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
   font-weight: 500;
   font-size: 14px;
   color: #292929;
@@ -6665,7 +6665,7 @@ ul.amount li {
 
 #accordion .card .card-header .btn-link {
   font-weight: 600;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
   color: #292929;
   line-height: 24px;
   font-size: 18px;

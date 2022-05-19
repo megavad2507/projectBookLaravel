@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Classes\AdminFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
@@ -17,9 +18,16 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::orderBy('id','asc')->with('category')->paginate(10);
+        $itemsPerPage = 10;
+        if(count($request->all()) > 0) {
+            $adminFilter = new AdminFilter($request->all());
+            $products = $adminFilter->getFilteredItems(Product::class)->orderBy('id','asc')->paginate($itemsPerPage);
+        }
+        else {
+            $products = Product::orderBy('id','asc')->with('category')->paginate($itemsPerPage);
+        }
         return view('admin.products.index',compact('products'));
     }
 

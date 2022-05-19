@@ -4,6 +4,7 @@
     <div class="col-md-12">
         <h1>Товары</h1>
         <table class="table">
+            @include('admin.layouts.admin_filter',['class' => new \App\Models\Product()])
             <thead>
             <tr>
                 <th>#</th>
@@ -41,5 +42,5 @@
         <a href="{{ route('products.create') }}" class="btn btn-success" type="button">Добавить товар</a>
 
     </div>
-    {{ $products->links() }}
+    {{ $products->withQueryString()->links() }}
 @endsection

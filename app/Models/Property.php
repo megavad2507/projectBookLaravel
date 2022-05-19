@@ -19,5 +19,18 @@ class Property extends Model
     public function products() {
         return $this->belongsToMany(Product::class);
     }
+
+    public function adminFilterInputs() {
+        return [
+            'name' => [
+                'name' => 'Название',
+                'type' => 'text'
+            ],
+            'code' => [
+                'name' => 'Код',
+                'type' => 'text'
+            ],
+        ];
+    }
     use HasFactory;
 }

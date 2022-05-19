@@ -17,7 +17,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($skus as $sku)
+                    @foreach($order->skus as $sku)
                         <tr>
                             <td>
                                 <a href="{{ route('sku',[$sku->product->category->code,$sku->product->code,$sku]) }}">

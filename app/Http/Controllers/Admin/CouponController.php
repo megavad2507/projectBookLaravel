@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Classes\AdminFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CouponRequest;
 use App\Models\Coupon;
@@ -16,9 +17,16 @@ class CouponController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $coupons = Coupon::paginate(10);
+        $itemsPerPage = 10;
+        if(count($request->all()) > 0) {
+            $adminFilter = new AdminFilter($request->all());
+            $coupons = $adminFilter->getFilteredItems(Coupon::class)->orderBy('id','asc')->paginate($itemsPerPage);
+        }
+        else {
+            $coupons = Coupon::orderBy('id','asc')->paginate($itemsPerPage);
+        }
         return view('admin.coupons.index',compact('coupons'));
     }
 

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Админка: @yield('title','Заказы')</title>
+    <title>@ifAdminАдминка:@endifAdmin @yield('title','Заказы')</title>
 
     <script src="/js/jquery-3.2.1.min.js"></script>
     <script src="/styles/bootstrap4/bootstrap.min.js"></script>

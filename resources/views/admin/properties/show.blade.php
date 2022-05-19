@@ -20,6 +20,10 @@
                 <td>Название на английском</td>
                 <td>{{ $property->name_en }}</td>
             </tr>
+            <tr>
+                <td>Код</td>
+                <td>{{ $property->code }}</td>
+            </tr>
         </thead>
     </table>
 @endsection

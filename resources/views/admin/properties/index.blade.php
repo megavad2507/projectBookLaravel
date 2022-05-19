@@ -4,10 +4,12 @@
     <div class="col-md-12">
         <h1>Свойства</h1>
         <table class="table">
+            @include('admin.layouts.admin_filter',['class' => new \App\Models\Property()])
             <thead>
             <tr>
                 <th>#</th>
                 <th>Название</th>
+                <th>Код</th>
                 <th>Действие</th>
             </tr>
             </thead>
@@ -16,6 +18,7 @@
                     <tr>
                         <td>{{ $property->id }}</td>
                         <td>{{ $property->name }}</td>
+                        <td>{{ $property->code }}</td>
                         <td>
                             <div class="btn-group" role="group">
                                 <form action="{{ route('properties.destroy',$property) }}" method="POST">
@@ -34,5 +37,5 @@
         </table>
         <a href="{{ route('properties.create') }}" class="btn btn-success" type="button">Добавить свойство </a>
     </div>
-    {{ $properties->links() }}
+    {{ $properties->withQueryString()->links() }}
 @endsection

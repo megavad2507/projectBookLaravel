@@ -4,6 +4,8 @@
     <div class="col-md-12">
         <h1>Категории</h1>
         <table class="table">
+            @include('admin.layouts.admin_filter',['class' => new \App\Models\Category()])
+
             <thead>
             <tr>
                 <th>#</th>
@@ -35,5 +37,5 @@
         </table>
         <a href="{{ route('categories.create') }}" class="btn btn-success" type="button">Добавить категорию </a>
     </div>
-    {{ $categories->links() }}
+    {{ $categories->withQueryString()->links() }}
 @endsection

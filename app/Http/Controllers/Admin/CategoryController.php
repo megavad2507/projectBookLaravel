@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Classes\AdminFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
@@ -15,9 +16,16 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::orderBy('id','asc')->paginate(10);
+        $itemsPerPage = 10;
+        if(count($request->all()) > 0) {
+            $adminFilter = new AdminFilter($request->all());
+            $categories = $adminFilter->getFilteredItems(Category::class)->orderBy('id','asc')->paginate($itemsPerPage);
+        }
+        else {
+            $categories = Category::orderBy('id','asc')->paginate($itemsPerPage);
+        }
         return view('admin.categories.index',compact('categories'));
     }
 

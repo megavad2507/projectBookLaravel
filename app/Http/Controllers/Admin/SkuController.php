@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Classes\AdminFilter;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SkuRequest;
 use App\Models\Product;
@@ -16,9 +17,17 @@ class SkuController extends Controller
      *
      * @return Response
      */
-    public function index(Product $product)
+    public function index(Product $product,Request $request)
     {
-        $skus = $product->skus()->orderBy('id','asc')->paginate(10);
+        $itemsPerPage = 10;
+        if(count($request->all()) > 0) {
+            $adminFilter = new AdminFilter($request->all());
+            $skus = $adminFilter->getFilteredItems(Sku::class)->where('product_id',$product->id)->orderBy('id','asc')->paginate($itemsPerPage);
+        }
+        else {
+            $skus = $product->skus()->orderBy('id','asc')->paginate($itemsPerPage);
+        }
+
         return view('admin.skus.index',compact('skus','product'));
     }
 
