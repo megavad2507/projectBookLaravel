@@ -76,7 +76,7 @@
                 <div class="">
                     <label for="name" class="col-sm col-form-label">Ссылка на кнопке: </label>
                     <div class="col-sm-6">
-                        @include('layouts.error', ['fieldName' => 'button_text'])
+                        @include('layouts.error', ['fieldName' => 'button_href'])
                         <input type="text" class="form-control" name="button_href" id="button_href" value="{{ old('button_href', isset($banner) ? $banner->button_href : null) }}">
                     </div>
                 </div>

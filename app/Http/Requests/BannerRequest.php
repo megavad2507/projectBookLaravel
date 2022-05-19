@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PropertyOptionRequest extends FormRequest
+class BannerRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,13 @@ class PropertyOptionRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:1|max:255',
-            'name_en' => 'required|min:1|max:255',
-            'code' => 'required|min:1|max:255|unique:property_options'
+            'title' => 'required|max:40',
+            'title_en' =>'required|max:40',
+            'description' => 'max:100',
+            'description_en' => 'max:100',
+            'button_text' => 'required|max:20',
+            'button_text_en' => 'required|max:20',
+            'button_href' => 'required|max:30',
         ];
     }
 }

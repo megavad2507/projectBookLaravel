@@ -42,11 +42,17 @@
                     </div>
                 </div>
                 <div class="">
-                    <label for="photo" class="col-sm col-form-label">Фото: </label>
+                    <label for="attachments" class="col-sm col-form-label">Вложения: </label>
                     <div class="col-sm-6">
-                        @if(!empty($review->photos))
-                            @foreach($review->photos as $photo)
-                                <img src="{{ Storage::url($photo) }}" alt="" style="max-width: 300px;max-height: 300px">
+                        @if(!empty($review->attachments))
+                            @foreach($review->attachments as $attachment)
+                                @if($attachment['isPhoto'])
+                                    <img src="{{ $attachment['path'] }}" alt="" style="max-width: 600px;max-height: 600px">
+                                @else
+                                    <video style="max-width: 300px;max-height: 300px" controls>
+                                        <source src="{{ $attachment['path'] }}" type="{{ $attachment['mimeType'] }}">
+                                    </video>
+                                @endif
                             @endforeach
                         @endif
                     </div>

@@ -24,9 +24,9 @@ class PropertyRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'name_en' => 'required',
-            'code' => 'required|unique:properties'
+            'name' => 'required|min:1|max:255',
+            'name_en' => 'required|min:1|max:255',
+            'code' => 'required|min:1|max:20|unique:properties'
         ];
     }
 }

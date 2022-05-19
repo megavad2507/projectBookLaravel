@@ -20,7 +20,7 @@ class CreateReviewTable extends Migration
             $table->text('text')->nullable();
             $table->integer('grade');
             $table->string('author_name');
-            $table->text('photos')->nullable();
+            $table->text('attachments')->nullable();
             $table->timestamps();
         });
     }

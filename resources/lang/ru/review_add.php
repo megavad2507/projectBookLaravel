@@ -5,5 +5,5 @@ return
     'input_text' => 'Текст отзыва',
     'grade_input' => 'Оценка',
     'submit' => 'Оставить отзыв',
-    'input_photos' => 'Фотографии товара(только bmp,jpeg,png и не более 3 штук)'
+    'input_photos' => 'Вложения (только bmp,jpeg,png,mp4. Не более 3 штук)'
 ];

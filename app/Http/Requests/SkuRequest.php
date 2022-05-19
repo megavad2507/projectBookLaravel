@@ -24,8 +24,8 @@ class SkuRequest extends FormRequest
     public function rules()
     {
         return [
-            'price' => 'required|numeric|min:1',
-            'quantity' => 'required|numeric|min:0'
+            'price' => 'required|numeric|min:1|max:10000000',
+            'quantity' => 'required|numeric|min:0|max:10000000'
         ];
     }
 }

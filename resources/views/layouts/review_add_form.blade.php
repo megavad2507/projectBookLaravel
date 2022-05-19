@@ -39,9 +39,9 @@
         </div>
     </div>
     <div class="form-group row">
-        <label for="name" class="col-md-3 col-form-label">@lang('review_add.input_photos')</label>
+        <label for="attachments" class="col-md-3 col-form-label">@lang('review_add.input_photos')</label>
         <div class="col-md-6">
-            <input type="file" name="photos[]" value="{{ old('photos') }}" multiple>
+            <input type="file" name="attachments[]" value="{{ old('enclosure') }}" multiple>
         </div>
     </div>
 

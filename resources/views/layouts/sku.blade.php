@@ -106,14 +106,19 @@
                                         <span class="grade">@lang('main.grade') </span>
                                         @for($i = 0; $i < $review->grade;$i++)
                                             <span class="star-on"><i class="ion-ios-star"></i> </span>
-
                                         @endfor
                                         <h6 class="sub-title">{{ $review->authour_name }}</h6>
                                         <p>{{ Carbon\Carbon::createFromDate($review->created_at)->format('d.m.y') }}</p>
                                         <p>{{ $review->text }}</p>
-                                        @if(!empty($review->photos))
-                                            @foreach($review->photos as $photo)
-                                                <img src="{{ Storage::url($photo) }}" alt="" style="max-width: 300px;max-height: 300px;">
+                                        @if(!empty($review->attachments))
+                                            @foreach($review->attachments as $attachment)
+                                                @if($attachment['isPhoto'])
+                                                    <img src="{{ $attachment['path'] }}" alt="" style="max-width: 600px;max-height: 600px">
+                                                @else
+                                                    <video style="max-width: 400px;max-height: 400px" controls>
+                                                        <source src="{{ $attachment['path'] }}" type="{{ $attachment['mimeType'] }}">
+                                                    </video>
+                                                @endif
                                             @endforeach
                                         @endif
                                     </div>

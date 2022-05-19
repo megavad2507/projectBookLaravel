@@ -29,13 +29,4 @@ class ReviewRequest extends FormRequest
             'author_name' => 'required|max:20'
         ];
     }
-
-    public function messages()
-    {
-        return [
-            'required' => 'Поле :attribute обязательно для заполнения',
-            'min' => 'Поле :attribute должно иметь как минимум :min знаков',
-            'max' => 'Поле :attribute должно иметь не более :max знаков'
-        ];
-    }
 }

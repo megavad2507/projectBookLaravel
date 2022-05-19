@@ -15,7 +15,7 @@ class ReviewController extends Controller
             'text' => 'required|max:3000',
             'grade' => 'required|min:1|max:5',
             'author_name' => 'required|max:20',
-            'photos.*' => 'mimes:jpg,bmp,png|max:10240',
+            'photos.*' => 'mimes:jpg,bmp,png,mp4|max:10240',
             'photos' => 'max:3'
         ],[
             'photos.max' => 'Вы можете загрузить не более :max файлов',
