@@ -35,7 +35,14 @@
                                                 <tr>
                                                     <th class="text-center" scope="row">
                                                         <a href="{{ route('sku',[$sku->product->category->code,$sku->product->code,$sku]) }}">
-                                                            <img src="{{ Storage::url($sku->product->picture) }}" alt="{{ $sku->product->__('name') }}">
+                                                            <img src="
+                                                                @if(Storage::exists($sku->product->picture))
+                                                                    {{ Storage::url($sku->product->picture) }}
+                                                                @else
+                                                                    {{ Storage::url('no_photo.jpeg') }}
+                                                                @endif
+                                                                    "
+                                                            alt="{{ $sku->product->__('name') }}">
                                                         </a>
                                                     </th>
                                                     <td class="text-center">
@@ -93,19 +100,34 @@
                                         <div class="form-group row">
                                             <label for="name" class="col-md-3 col-form-label">@lang('checkout.full_name')*</label>
                                             <div class="col-md-6">
-                                                <input required name="name" type="text" id="name" class="form-control">
+                                                <input required name="name" type="text" id="name" class="form-control" value="{{ $user->name }}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="email" class="col-md-3 col-form-label">Email*</label>
                                             <div class="col-md-6">
-                                                <input required name="email" type="email" id="email" class="form-control">
+                                                <input required name="email" type="email" id="email" class="form-control" value="{{ $user->email }}">
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label for="phone" class="col-md-3 col-form-label">@lang('checkout.telephone')*</label>
                                             <div class="col-md-6">
-                                                <input required name="phone" type="tel" id="email" class="form-control">
+                                                <input required name="phone" type="tel" id="phone" class="form-control"">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="payment_method" class="col-md-3 col-form-label">@lang('checkout.payment_method')*</label>
+                                            <div class="col-md-9">
+                                                @foreach($payments as $i => $payment)
+                                                    <input type="radio" name="payment_id" id="payment_{{ $payment->id }}" value="{{ $payment->id }}" @if($i == 0) checked @endif>
+                                                    <label for="payment_{{ $payment->id }}">{{ $payment->__('name') }}</label>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="address_delivery" class="col-md-3 col-form-label">@lang('checkout.address_delivery')*</label>
+                                            <div class="col-md-6">
+                                                <textarea required class="form-control" name="address_delivery" id="address_delivery" cols="30" rows="10"></textarea>
                                             </div>
                                         </div>
                                         <button id="submit-checkout-form" class="btn theme-btn--dark1 btn--md hidden" type="submit"></button>

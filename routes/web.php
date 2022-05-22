@@ -57,6 +57,7 @@ Route::middleware(['auth'])->group(function() {
         Route::resource('merchants','MerchantController');
         Route::resource('banners','BannerController');
         Route::resource('reviews','ReviewController');
+        Route::resource('payments','PaymentController');
         Route::get('merchants/{merchant}/update_token','MerchantController@updateToken')->name('merchants.update_token');
     });
 });

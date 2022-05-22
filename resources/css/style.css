@@ -4008,7 +4008,7 @@ input[type="number"]::-webkit-outer-spin-button {
 breadcrumb-section
  ****************************/
 .breadcrumb-bg1 {
-  background: url("/assets/img/bread-crumb/1.jpg") no-repeat center;
+  background: url("/assets/img/bread-crumb/bg_breadcrumbs.jpg") no-repeat center;
   background-size: auto;
   background-size: cover;
   padding: 100px 0 200px 0;
@@ -6311,7 +6311,7 @@ select.form-control {
   font-size: 14px;
   color: #292929;
   padding-top: 0.625rem;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
 }
 
 .contact-form .form-control {
@@ -6942,7 +6942,7 @@ ul.amount li {
   font-size: 14px;
   color: #292929;
   padding-top: 0.625rem;
-  text-transform: capitalize;
+  /*text-transform: capitalize;*/
 }
 
 .personal-information .form-group .form-control {

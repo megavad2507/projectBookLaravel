@@ -11,9 +11,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Product extends Model
 {
-//    public function getCategory() {
-//        return $category = Category::find($this->category_id);
-//    }
 
     use SoftDeletes, Translatable;
     protected $fillable = ['code','name','description','picture','price','category_id','new','hot','sale','quantity',

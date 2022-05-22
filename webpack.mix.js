@@ -27,7 +27,7 @@ mix.babel([
     js_resource_path + 'plugins/jquery-ui.min.js',
     js_resource_path + 'bootstrap.bundle.min.js',
     js_resource_path + 'plugins/plugins.js',
-    js_resource_path + 'main.js'
+    js_resource_path + 'main.js',
 ],js_compile_path + '/vendor/libs.js');
 // mix.js(js_resource_path + 'vendor/jquery-3.6.0.min.js', js_compile_path + '/vendor');
 // mix.js(js_resource_path + 'vendor/jquery-migrate-3.3.2.min.js', js_compile_path + '/vendor');

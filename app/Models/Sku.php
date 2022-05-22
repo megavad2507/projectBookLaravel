@@ -188,7 +188,7 @@ class Sku extends Model
 //            unset($tmp[$this->product->properties[$i]->id]);
             $tmp[$this->product->properties[$i]->id] = $option->id;
             $skuQuery = Sku::query();
-            $sku = $skuQuery->where('product_id',$this->product->id)->getByProperties($tmp)->orderBy('id','asc')->first();
+            $sku = $skuQuery->with('product')->where('product_id',$this->product->id)->getByProperties($tmp)->orderBy('id','asc')->first();
 
             $propId  = $this->product->properties[$i]->id;
             $current = false;//флаг, что проверяемые свойства являются выбранными пользователем на детальной странице товара

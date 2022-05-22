@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Mail;
 
 class Order extends Model
 {
-    protected $fillable = ['user_id','status','name','phone','email','currency_id','sum','coupon_id'];
+    protected $fillable = ['user_id','status','name','phone','email','currency_id','sum','coupon_id','payment_id','address_delivery'];
 
     public function skus() {
         return $this->belongsToMany(Sku::class)->withPivot(['quantity','price'])->withTimestamps()->orderBy('id');
@@ -25,6 +25,10 @@ class Order extends Model
 
     public function coupon() {
         return $this->belongsTo(Coupon::class);
+    }
+
+    public function payment() {
+        return $this->belongsTo(Payment::class);
     }
 
     public function calculateOrderPrice($withCoupon = false) {
@@ -55,7 +59,7 @@ class Order extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function saveOrder($name,$phone,$email) {
+    public function saveOrder($name,$phone,$email,$payment,$address) {
         $this->name = $name;
         $this->phone = $phone;
         $this->email = $email;
@@ -63,6 +67,8 @@ class Order extends Model
         $this->user_id = Auth::user()->id;
         $this->currency_id = CurrencyConversion::getCurrentCurrencyFromSession()->id;
         $this->sum = $this->calculateOrderPrice(true);
+        $this->payment_id = $payment;
+        $this->address_delivery = $address;
         $this->save();
         $skus = $this->skus;
         foreach($skus as $skuInOrder) {

@@ -6,6 +6,7 @@ use App\Classes\Basket;
 use App\Http\Requests\SetCouponRequest;
 use App\Models\Coupon;
 use App\Models\Order;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Sku;
 use Illuminate\Http\Request;
@@ -29,11 +30,12 @@ class BasketController extends Controller
         $basket = new Basket();
         $order = $basket->getOrder();
         $user = Auth::user();
-        return view('basket.checkout',compact('order','user'));
+        $payments = Payment::orderBy('id','asc')->get();
+        return view('basket.checkout',compact('order','user','payments'));
     }
 
     public function confirmOrder(Request $request) {
-        if((new Basket())->saveOrder($request->name,$request->phone,$request->email)) {
+        if((new Basket())->saveOrder($request->name,$request->phone,$request->email,$request->payment_id,$request->address_delivery)) {
             session()->flash('success','Ваш заказ принят в обработку!');
         }
         else {
@@ -87,7 +89,7 @@ class BasketController extends Controller
 
         $query = Sku::query()->with('properties')->with('propertyOptions');
         $query->where('product_id',$productId);
-        $query->getOneByProperties($data);
+        $query->getByProperties($data);
         return $query->first();
     }
 

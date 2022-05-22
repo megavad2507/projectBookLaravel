@@ -1,5 +1,5 @@
 @extends('admin.app')
-@section('title','Изменить товар '.$coupon->code)
+@section('title','Просмотр купона '.$coupon->code)
 @section('content')
     <h1>Купон {{ $coupon->code }}</h1>
     <table class="table">

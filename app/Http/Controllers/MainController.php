@@ -46,10 +46,6 @@ class MainController extends Controller
         foreach(['hot','new','sale'] as $attribute) {
             if($request->has($attribute)) {
                 $productQuery->$attribute();
-//                $skusQuery->whereHas(
-//                    'product', function ($query) use ($attribute) {
-//                    $query->$attribute();
-//                });//scope - дополненеи нашего запроса к бд, дежит в модели продукта называется scopeHit..
             }
         }
         $skuIds = array();
@@ -99,26 +95,8 @@ class MainController extends Controller
         $products->map(function($item) {
             return $item->getRangePrices();
         });
-        $maxPrice = 0;
-        foreach($products as $product) {
-            if(!isset($minPrice))
-                $minPrice = $product->min_price;
-            else
-                $minPrice = $product->min_price < $minPrice ? $product->min_price : $minPrice;
-            $maxPrice = $product->max_price > $maxPrice ? $product->max_price : $maxPrice;
-        }
 
-//        dd($properties);
         return view('category.index',compact(['category','products','properties','filterValues']));
-    }
-    public function product($categoryCode,$productCode) {
-        $product = Product::getSkus()->byCode($productCode)->first()->groupSku();
-//        dd($product);
-        if($product->code != $productCode || $product->category->code != $categoryCode) {
-            abort(404);
-        }
-
-        return view('layouts.product',compact('product'));
     }
     public function sku($categoryCode,$productCode,Sku $sku) {
         $product = $sku->product->groupSku($sku->getCurrentProperties());
@@ -126,7 +104,6 @@ class MainController extends Controller
             abort(404);
         }
         $sku->prop = $sku->getCurrentProperties();
-//        $sku->otherSkus = $sku->getOtherIdSkus($sku->getCurrentProperties());
         return view('layouts.sku',compact('sku','product'));
     }
     public function subscribe(SubscriptionRequest $request, Sku $sku) {
@@ -169,14 +146,11 @@ class MainController extends Controller
         $htmlProductFooter = view('layouts.product_footer',compact('product','sku'))->render()
             . '<script src="'.asset("js/vendor/app.js").'"></script>';
         ;
-//        $htmlForm = view('layouts.sku_variable_form',compact('product','sku'))->render();
-//        $htmlCartButton = view('layouts.add_to_cart_button',compact('product','sku'))->render();
         return array("price" => $sku->price,"quantity" => $sku->quantity,'skuId' => $sku->id,"htmlProductFooter" => $htmlProductFooter);
     }
     public function search(ProductFilterRequest $request) {
         $query = $request->input('searchQuery');
         if($query != '') {
-//            $products = Product::byName($query)->paginate(2);
             $queryWords = explode(' ',$query);
             $productQuery = Product::byName($queryWords)->with(['category','skus','properties']);
             if($request->filled('price_from')) {
@@ -194,10 +168,6 @@ class MainController extends Controller
             foreach(['hot','new','sale'] as $attribute) {
                 if($request->has($attribute)) {
                     $productQuery->$attribute();
-//                $skusQuery->whereHas(
-//                    'product', function ($query) use ($attribute) {
-//                    $query->$attribute();
-//                });//scope - дополненеи нашего запроса к бд, дежит в модели продукта называется scopeHit..
                 }
             }
             $skuIds = array();
@@ -269,16 +239,6 @@ class MainController extends Controller
                     }
                 }
             });
-
-            $maxPrice = 0;
-            foreach($products as $product) {
-                if(!isset($minPrice))
-                    $minPrice = $product->min_price;
-                else
-                    $minPrice = $product->min_price < $minPrice ? $product->min_price : $minPrice;
-                $maxPrice = $product->max_price > $maxPrice ? $product->max_price : $maxPrice;
-            }
-//            $skus = Sku::whereIn('product_id',$productsIds)->paginate(10);
             return view('layouts.search_page',compact(['products','properties','filterValues','query']));
         }
     }

@@ -31,7 +31,17 @@
                 <ul class="nav navbar-nav">
 
                     @ifAdmin
-                        <li class="nav-item @routeActive('home')"><a href="{{ route('home') }}" class="nav-link">Заказы</a></li>
+                        <li class="nav-item dropdown @routeActive('home')">
+                            <a id="navbarDropdownShop"  class="nav-link dropdown-toggle" href="#" role="button"
+                               data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
+                                Магазин
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownShop">
+                                <a class="dropdown-item" href="{{ route('home') }}">Заказы</a>
+                                <a class="dropdown-item" href="{{ route('payments.index') }}">Способы оплаты</a>
+                            </div>
+                        </li>
                         <li class="nav-item @routeActive('categories.*')"><a href="{{ route('categories.index') }}" class="nav-link">Категории</a></li>
                         <li class="nav-item @routeActive('products.*')"><a href="{{ route('products.index') }}" class="nav-link">Товары</a></li>
                         <li class="nav-item @routeActive('properties.*')"><a href="{{ route('properties.index') }}" class="nav-link">Свойства</a></li>
@@ -48,7 +58,7 @@
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                            data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false" v-pre>
+                           aria-haspopup="true" aria-expanded="false">
                             {{ Auth::user()->name }}
                         </a>
 

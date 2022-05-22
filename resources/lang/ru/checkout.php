@@ -8,5 +8,7 @@ return [
     'telephone' => 'Телефон',
     'proceed' => 'Оформить заказ',
     'total_items' => 'Всего товаров:',
+    'payment_method' => 'Способ оплаты',
+    'address_delivery' => 'Адрес доставки'
 
 ];

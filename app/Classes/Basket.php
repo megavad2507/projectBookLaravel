@@ -66,11 +66,11 @@ class Basket
     }
 
 
-    public function saveOrder($name,$phone,$email) {
+    public function saveOrder($name,$phone,$email,$payment,$address) {
         if(!$this->quantityAvailable(true)) {
             return false;
         }
-        $this->order->saveOrder($name,$phone,$email);
+        $this->order->saveOrder($name,$phone,$email,$payment,$address);
         Mail::to($email)->send(new OrderCreated($name,$this->getOrder()));
         return true;
     }
@@ -84,8 +84,6 @@ class Basket
     }
 
     public function addSku(Sku $sku,$quantity) {
-        $test = $this->order->skus;
-        $test1 = $sku->id;
         if($this->order->skus->contains($sku->id)) {
             $orderSku = $this->getOrderSku($sku);
             $newQuantity = $orderSku->quantityInOrder + $quantity;
@@ -123,7 +121,6 @@ class Basket
                 return $sku->id == $value->id;
             });
             return true;
-//            $this->order->skus->pop();
         }
         return false;
     }

@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Property extends Model
 {
-    use SoftDeletes, Translatable;
     protected $fillable = ['name','name_en','code'];
 
     public function options() {
@@ -32,5 +31,5 @@ class Property extends Model
             ],
         ];
     }
-    use HasFactory;
+    use HasFactory,SoftDeletes, Translatable;
 }

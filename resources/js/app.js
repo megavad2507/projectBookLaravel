@@ -161,6 +161,7 @@ $(function() {
     $('.detail-set-sku').change(detailSkuChanged);
     addQuantityInput();
     removeQuantityInput();
+    jQuery('#phone').inputmask('+7(999)-999-99-99');
 
 });
 $('.set-quantity').change(checkMaxQuantity);

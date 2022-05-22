@@ -77,7 +77,7 @@
                 </div>
             @else
                 <div class="col-sb-12 col-md-12">
-                    @lang('main.basket_add_unauthorized',['link' => route('register')])
+                    @lang('main.basket_add_unauthorized',['link_login' => route('login'),'link_register' => route('register')])
                 </div>
             @endisset
         </div>

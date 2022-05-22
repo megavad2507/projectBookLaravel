@@ -35,6 +35,6 @@ class OrderCreated extends Mailable
     public function build()
     {
         $fullSum = $this->order->calculateOrderPrice();
-        return $this->view('mail.order_created',['name' => $this->name,'order' => $this->order,'fullSum' => $fullSum]);
+        return $this->subject('Создан заказ №' . $this->order->id)->view('mail.order_created',['name' => $this->name,'order' => $this->order,'fullSum' => $fullSum]);
     }
 }

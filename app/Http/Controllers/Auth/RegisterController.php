@@ -77,14 +77,5 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-//        $user = User::create([
-//            'name' => $data['name'],
-//            'email' => $data['email'],
-//            'password' => Hash::make($data['password']),
-//        ]);
-//        if($user) {
-//            Auth::login($user);
-//            return redirect(route('index'));
-//        }
     }
 }

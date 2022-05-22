@@ -10,6 +10,8 @@
             <tr>
                 <th>#</th>
                 <th>Товарное предложение(свойства)</th>
+                <th>Цена</th>
+                <th>Количество</th>
                 <th>Действие</th>
             </tr>
             </thead>
@@ -20,6 +22,8 @@
                         <td>
                             {{ $product->name . ' ' . $sku->propertyOptions->map->name->implode(', ') }}
                         </td>
+                        <td>{{ $sku->price }}</td>
+                        <td>{{ $sku->quantity }}</td>
                         <td>
                             <div class="btn-group" role="group">
                                 <form action="{{ route('skus.destroy',[$product,$sku]) }}" method="POST">

@@ -31,6 +31,6 @@ class OrderController extends Controller
 
     public function showOrder(Order $order) {
         $skus = $order->skus;
-        return view('auth.orders.show',compact('order','skus'));
+        return view('admin.orders.show',compact('order','skus'));
     }
 }

@@ -12,11 +12,6 @@ use Illuminate\Http\Response;
 
 class SkuController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
     public function index(Product $product,Request $request)
     {
         $itemsPerPage = 10;
@@ -30,24 +25,10 @@ class SkuController extends Controller
 
         return view('admin.skus.index',compact('skus','product'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Response
-     */
     public function create(Product $product)
     {
         return view('admin.skus.form-create',compact('product'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function store(SkuRequest $request, Product $product)
     {
         $params = $request->all();
@@ -62,43 +43,16 @@ class SkuController extends Controller
             $postInformation = $_POST;
             return view('admin.skus.form-create',compact('product','postInformation'));
         }
-
-
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  Sku  $sku
-     *
-     * @return Response
-     */
     public function show(Product $product,Sku $sku)
     {
         return view('admin.skus.show',compact('product','sku'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  Sku  $sku
-     *
-     * @return Response
-     */
     public function edit(Product $product,Sku $sku)
     {
         return view('admin.skus.form-create',compact('product','sku'));
 
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Sku  $sku
-     *
-     * @return Response
-     */
     public function update(SkuRequest $request, Product $product,Sku $sku)
     {
         $params = $request->all();
@@ -115,14 +69,6 @@ class SkuController extends Controller
         }
 
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  Sku  $sku
-     *
-     * @return Response
-     */
     public function destroy(Product $product,Sku $sku)
     {
         $sku->delete();

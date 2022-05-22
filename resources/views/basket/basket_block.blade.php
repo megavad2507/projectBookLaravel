@@ -19,7 +19,14 @@
                         <tr>
                             <th class="text-center" scope="row">
                                 <a href="{{ route('sku',[$sku->product->category->code,$sku->product->code,$sku]) }}">
-                                    <img src="{{ Storage::url($sku->product->picture) }}" alt="{{ $sku->product->__('name') }}">
+                                    <img src="
+                                        @if(Storage::exists($sku->product->picture))
+                                            {{ Storage::url($sku->product->picture) }}
+                                        @else
+                                            {{ Storage::url('no_photo.jpeg') }}
+                                        @endif
+                                            "
+                                    alt="{{ $sku->product->__('name') }}">
                                 </a>
                             </th>
                             <td class="text-center">

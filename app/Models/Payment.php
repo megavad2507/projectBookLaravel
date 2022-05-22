@@ -6,24 +6,23 @@ use App\Models\Traits\Translatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class Payment extends Model
 {
-    protected $fillable = ['code','name','description','picture','name_en','description_en'];
-    public function products($queryBuilder = false) {
-        return $this->hasMany(Product::class);
+    protected $fillable = ['name','name_en','description','description_en'];
+
+    public function orders() {
+        return $this->hasMany(Order::class);
     }
+
     public function adminFilterInputs() {
         return [
             'name' => [
                 'name' => 'Название',
                 'type' => 'text'
-            ],
-            'code' => [
-                'name' => 'Код',
-                'type' => 'text'
-            ],
+            ]
         ];
     }
+
 
     use HasFactory, Translatable;
 }

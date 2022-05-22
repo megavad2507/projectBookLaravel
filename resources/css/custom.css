@@ -184,3 +184,9 @@ form.add-to-basket {
 .review-grade li:nth-child(5) label::before {
     content:'★★★★★';
 }
+span.logo {
+    font-size: 30px;
+}
+span.logo:hover {
+    color: inherit;
+}

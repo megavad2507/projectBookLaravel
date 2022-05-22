@@ -1,14 +1,14 @@
 @extends('admin.app')
 
 @isset($coupon)
-    @section('title','Редактировать товар '.$coupon->name)
+    @section('title','Редактировать купон '.$coupon->name)
 @else
     @section('title','Создать купон')
 @endisset
 @section('content')
     <div class="col-md-12">
         @isset($coupon)
-            <h1>Редактировать товар <b>{{ $coupon->name }}</b></h1>
+            <h1>Редактировать купон <b>{{ $coupon->name }}</b></h1>
         @else
             <h1>Добавить купон</h1>
         @endisset

@@ -6,7 +6,10 @@
             <div class="panel">
                 <h1>Заказ №{{ $order->id }}</h1>
                 <p>Заказчик: <b>{{ $order->name }}</b></p>
+                <p>Email: <b>{{ $order->email }}</b></p>
                 <p>Номер: <b>{{ $order->phone }}</b></p>
+                <p>Способ оплаты: <b>{{ $order->payment->__('name') }}</b></p>
+                <p>Адрес доставки: <b>{{ $order->address_delivery }}</b></p>
                 <table class="table table-stripped">
                     <thead>
                     <tr>
@@ -21,7 +24,14 @@
                         <tr>
                             <td>
                                 <a href="{{ route('sku',[$sku->product->category->code,$sku->product->code,$sku]) }}">
-                                    <img height="56px" src="{{ Storage::url($sku->product->picture) }}" alt="{{ $sku->product->name }}">
+                                    <img height="56px" src="
+                                        @if(Storage::exists($sku->product->picture))
+                                            {{ Storage::url($sku->product->picture) }}
+                                        @else
+                                            {{ Storage::url('no_photo.jpeg') }}
+                                        @endif
+                                            "
+                                         alt="{{ $sku->product->__('name') }}">
                                     {{ $sku->product->__('name') }}
                                     @isset($sku->product->properties)
                                         @foreach($sku->propertyOptions as $propertyOption)
@@ -52,10 +62,3 @@
         </div>
     </div>
 @endsection
-public function updating(Sku $sku) {
-$oldQuantity = $sku->getOriginal('quantity');
-Log::info($oldQuantity);
-if($oldQuantity == 0 && $sku->quantity > 0) {
-Subscription::sendEmailBySubscription($sku);
-}
-}

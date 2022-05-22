@@ -44,6 +44,9 @@
             <input type="file" name="attachments[]" value="{{ old('enclosure') }}" multiple>
         </div>
     </div>
-
-    <button class="btn theme-btn--dark1 btn--md" type="submit">@lang('review_add.submit')</button>
+    @auth
+        <button class="btn theme-btn--dark1 btn--md" type="submit">@lang('review_add.submit')</button>
+    @else
+        Для того, чтобы оставить отзыв вам не необходимо зарегистрироваться
+    @endauth
 </form>
