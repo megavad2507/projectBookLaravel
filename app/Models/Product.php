@@ -87,7 +87,7 @@ class Product extends Model
     }
 
     public function groupSku(array $propertiesArray) {
-        $properties = $this->properties()->with(['properties','skus']);
+//        $properties = $this->properties()->with(['properties','skus']);
         $tmp = array();
         $tmpPickedIds = array();
         foreach($this->skus()->orderBy('id','asc')->get()->map->leadProductPageForm($propertiesArray) as $sku) {

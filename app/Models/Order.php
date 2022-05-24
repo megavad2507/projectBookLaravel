@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Mail\OrderCreated;
+use App\Mail\OrderStatusEdited;
 use App\Models\Sku;
 use App\Services\CurrencyConversion;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +14,7 @@ use Illuminate\Support\Facades\Mail;
 
 class Order extends Model
 {
-    protected $fillable = ['user_id','status','name','phone','email','currency_id','sum','coupon_id','payment_id','address_delivery'];
+    protected $fillable = ['user_id','status','name','phone','email','currency_id','sum','coupon_id','payment_id','address_delivery','status_id'];
 
     public function skus() {
         return $this->belongsToMany(Sku::class)->withPivot(['quantity','price'])->withTimestamps()->orderBy('id');
@@ -31,6 +32,10 @@ class Order extends Model
         return $this->belongsTo(Payment::class);
     }
 
+    public function status() {
+        return $this->belongsTo(OrderStatus::class);
+    }
+
     public function calculateOrderPrice($withCoupon = false) {
         $sum = 0;
         foreach($this->skus as $sku) {
@@ -44,17 +49,6 @@ class Order extends Model
         return $sum;
     }
 
-    public  function getOrderPrice() : float {
-        $sum = 0;
-        foreach($this->skus as $sku) {
-            $sum += $sku->getAmountPrice();
-        }
-        return $sum;
-    }
-
-    public static function eraseOrderPrice() {
-        session()->forget('full_order_sum');
-    }
     public function getUser() {
         return $this->belongsTo(User::class);
     }
@@ -63,7 +57,7 @@ class Order extends Model
         $this->name = $name;
         $this->phone = $phone;
         $this->email = $email;
-        $this->status = 1;
+        $this->status_id = 1;
         $this->user_id = Auth::user()->id;
         $this->currency_id = CurrencyConversion::getCurrentCurrencyFromSession()->id;
         $this->sum = $this->calculateOrderPrice(true);
@@ -91,8 +85,11 @@ class Order extends Model
     }
 
     public function hasAvailableCoupon() {
-//        $coupon = Coupon::where('code',$this->coupon->code)->first();
         return isset($this->coupon) && $this->coupon->isAvailableForUse();
+    }
+
+    public function sendEmailAfterStatusEdit() {
+        Mail::to($this->email)->send(new OrderStatusEdited($this));
     }
     use HasFactory;
 }

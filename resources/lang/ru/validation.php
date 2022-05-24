@@ -18,6 +18,8 @@ return [
         'password' => __('auth.password_field')
     ],
     'mimes' => 'Файлы должны быть только типов :values',
+    'numeric' => 'Поле :attribute должно быть числом',
+    'email' => 'Поле :attribute должно быть email',
     'attributes' => [
         'text' => 'Текст отзыва',
         'author_name' => 'Имя автора',
@@ -33,6 +35,11 @@ return [
         'title_en' => 'Заголовок на английском',
         'button_href' => 'Ссылка на кнопке',
         'button_text' => 'Текст на кнопке',
-        'button_text_en' => 'Текст на кнопке на английском'
+        'button_text_en' => 'Текст на кнопке на английском',
+        'password' => 'Пароль',
+        'email' => 'Email',
+        'sort' => 'Сортировка',
+        'phone' => 'Телефон',
+        'address_delivery' => 'Адрес доставки'
     ]
 ];

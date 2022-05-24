@@ -38,10 +38,12 @@
                                 Магазин
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownShop">
-                                <a class="dropdown-item" href="{{ route('home') }}">Заказы</a>
-                                <a class="dropdown-item" href="{{ route('payments.index') }}">Способы оплаты</a>
+                                <a class="dropdown-item @routeActive('orders.*')" href="{{ route('orders.index') }}">Заказы</a>
+                                <a class="dropdown-item @routeActive('payments.*')" href="{{ route('payments.index') }}">Способы оплаты</a>
+                                <a class="dropdown-item @routeActive('order_statuses.*')" href="{{ route('order_statuses.index') }}">Статусы заказа</a>
                             </div>
                         </li>
+                        <li class="nav-item @routeActive('users.*')"><a href="{{ route('users.index') }}" class="nav-link">Пользователи</a></li>
                         <li class="nav-item @routeActive('categories.*')"><a href="{{ route('categories.index') }}" class="nav-link">Категории</a></li>
                         <li class="nav-item @routeActive('products.*')"><a href="{{ route('products.index') }}" class="nav-link">Товары</a></li>
                         <li class="nav-item @routeActive('properties.*')"><a href="{{ route('properties.index') }}" class="nav-link">Свойства</a></li>
@@ -50,7 +52,8 @@
                         <li class="nav-item @routeActive('reviews.*')"><a href="{{ route('reviews.index') }}" class="nav-link">Отзывы</a></li>
                     @else
                         <li class="nav-item @routeActive('person.orders*')"><a href="{{ route('person.orders.index') }}" class="nav-link">Мои заказы</a></li>
-                    @endifAdmin
+                        <li class="nav-item @routeActive('person.personal-info*')"><a href="{{ route('person.personal-info') }}" class="nav-link">Личные данные</a></li>
+                        @endifAdmin
                 </ul>
 
 

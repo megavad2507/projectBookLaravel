@@ -15,7 +15,7 @@
                      <div class="form-group row">
                          <label for="staticEmail" class="col-md-3 col-form-label">@lang('auth.email_field')</label>
                          <div class="col-md-6">
-                             <input type="email" class="form-control" id="staticEmail" name="email">
+                             <input type="email" class="form-control" id="staticEmail" name="email" value="{{ old('email') }}">
                          </div>
                      </div>
                      <div class="form-group row">

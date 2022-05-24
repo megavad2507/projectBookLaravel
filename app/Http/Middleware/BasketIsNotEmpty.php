@@ -18,7 +18,7 @@ class BasketIsNotEmpty
     public function handle(Request $request, Closure $next)
     {
         $order = session('order');
-        if(!is_null($order) && $order->getOrderPrice() > 0) {
+        if(!is_null($order) && $order->calculateOrderPrice() > 0) {
             return $next($request);
 
         }

@@ -35,6 +35,8 @@ Route::middleware(['auth'])->group(function() {
     ], function() {
         Route::get('/orders','OrderController@index')->name('orders.index');
         Route::get('/orders/{order}','OrderController@showOrder')->name('orders.show');
+        Route::get('/user-info','UserController@editInfo')->name('personal-info');
+        Route::post('/user-info','UserController@editInfoUpdate')->name('personal-info-update');
     });
 
     Route::group([
@@ -45,25 +47,26 @@ Route::middleware(['auth'])->group(function() {
         Route::group([
             'middleware' => 'is_admin'
         ],function() {
-            Route::get('/orders','OrderController@index')->name('home');
+            Route::get('/orders','OrderController@index')->name('orders.index');
+            Route::get('/orders/edit/{order}','OrderController@editOrder')->name('orders.edit');
+            Route::post('/orders/edit/{order}','OrderController@updateOrder')->name('orders.update');
             Route::get('/orders/{order}','OrderController@showOrder')->name('orders.show');
+            Route::resource('users','UserController');
+            Route::resource('categories','CategoryController');
+            Route::resource('products','ProductController');
+            Route::resource('products/{product}/skus','SkuController');
+            Route::resource('properties',"PropertyController");
+            Route::resource('properties/{property}/property_options',"PropertyOptionController");
+            Route::resource('coupons','CouponController');
+            Route::resource('merchants','MerchantController');
+            Route::resource('banners','BannerController');
+            Route::resource('reviews','ReviewController');
+            Route::resource('payments','PaymentController');
+            Route::resource('order_statuses','OrderStatusController');
         });
-        Route::resource('categories','CategoryController');
-        Route::resource('products','ProductController');
-        Route::resource('products/{product}/skus','SkuController');
-        Route::resource('properties',"PropertyController");
-        Route::resource('properties/{property}/property_options',"PropertyOptionController");
-        Route::resource('coupons','CouponController');
-        Route::resource('merchants','MerchantController');
-        Route::resource('banners','BannerController');
-        Route::resource('reviews','ReviewController');
-        Route::resource('payments','PaymentController');
         Route::get('merchants/{merchant}/update_token','MerchantController@updateToken')->name('merchants.update_token');
     });
 });
-
-
-
 
 Route::get('/','MainController@index')->name('index');
 Route::post('subscription/{sku}',"MainController@subscribe")->name("subscribe");
@@ -98,7 +101,7 @@ Route::group([
     Route::get('/{category}/{product}/','MainController@product')->name('product');
 });
 
-Route::get('/search/','MainController@search')->name('search');
+Route::get('/search/','SearchController@search')->name('search');
 
 
 

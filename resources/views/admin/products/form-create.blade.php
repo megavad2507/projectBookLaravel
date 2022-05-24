@@ -105,11 +105,11 @@
                         </div>
                         <div class="col-sm-6">
                             @include('layouts.error', ['fieldName' => $attribute])
-                        <input type="checkbox" class="form-control" name="{{ $attribute }}" id="{{ $attribute }}"
-                            @if(isset($product) && $product->$attribute === 1)
-                                checked="checked"
-                            @endif
-                        >
+                            <input type="checkbox" class="form-control" name="{{ $attribute }}" id="{{ $attribute }}"
+                                @if(isset($product) && $product->$attribute === 1)
+                                    checked="checked"
+                                @endif
+                            >
                         </div>
                     </div>
                     <br>
