@@ -42,7 +42,7 @@
                                     </div>
                                 @endforeach
                             </div>
-                            @if($sku->$quantity > 0)
+                            @if($sku->quantity > 0)
                                 <div class="product-count style">
                                     <h6 class="quantity mb-20"><strong>@lang('main.quantity'):</strong></h6>
                                     @php
