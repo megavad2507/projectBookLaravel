@@ -31,7 +31,7 @@
                 <ul class="nav navbar-nav">
 
                     @ifAdmin
-                        <li class="nav-item dropdown @routeActive('home')">
+                        <li class="nav-item dropdown">
                             <a id="navbarDropdownShop"  class="nav-link dropdown-toggle" href="#" role="button"
                                data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false">

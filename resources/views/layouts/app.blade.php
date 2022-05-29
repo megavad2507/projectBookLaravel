@@ -111,7 +111,7 @@
                                         @endguest
                                         @auth
                                             @ifAdmin
-                                                <li><a href="{{ route('home') }}">Админ панель</a></li>
+                                                <li><a href="{{ route('orders.index') }}">Админ панель</a></li>
                                             @else
                                                 <li><a href="{{ route('person.orders.index') }}">Личный кабинет</a></li>
                                             @endifAdmin
