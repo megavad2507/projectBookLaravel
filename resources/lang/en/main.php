@@ -43,5 +43,6 @@ return [
     'basket_add_unauthorized_title' => 'Authorisation Error',
     'basket_add_unauthorized' => 'In order to purchase goods, you must <a href=":link_login"><b>Login</b></a> or <a href=":link_register"><b>Register</b></a>',
     'out_of_stock' => 'The product is over!',
-    'watch_our_product' => 'Look at our products'
+    'watch_our_product' => 'Look at our products',
+    'subscribe_success' => 'Your application has been accepted'
 ];

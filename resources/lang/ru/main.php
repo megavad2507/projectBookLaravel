@@ -46,5 +46,6 @@ return [
     'grade' => 'Оценка',
     'write_review' => 'Оставьте свой отзыв!',
     'reviews' => 'Отзывы',
-    'watch_our_product' => 'Посмотрите на наши товары'
+    'watch_our_product' => 'Посмотрите на наши товары',
+    'subscribe_success' => 'Ваша заявка принята'
 ];

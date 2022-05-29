@@ -77,8 +77,8 @@ Route::group([
     'middleware' => 'auth'
 ], function() {
     Route::get('/modal/get-sku','BasketController@searchSku')->name('getSkuModal');
-    Route::post('/add/{sku}/{quantity}','BasketController@basketAdd')->name('basketAdd');
-    Route::get('/modal/{productId}/{quantity}/{serializeFormData?}','BasketController@basketAddModal')->name('basketAddModal');
+    Route::post('/add/{sku}/{quantity?}','BasketController@basketAdd')->name('basketAdd');
+    Route::get('/modal/{productId}/{quantity?}/{serializeFormData?}','BasketController@basketAddModal')->name('basketAddModal');
     Route::group([
         'middleware' => 'basket_not_empty'
     ], function() {

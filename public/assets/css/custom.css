@@ -60,7 +60,7 @@ form.add-to-basket {
     right:0;
     bottom:0;
     background-color:#fff;/* change if the mask should be a color other than white */
-    z-index:99; /* makes sure it stays on top */
+    z-index:99999999999; /* makes sure it stays on top */
     opacity: 0.7;
 }
 
@@ -189,5 +189,11 @@ span.logo {
 }
 span.logo:hover {
     color: inherit;
+}
+#cart-button-block {
+    width: 100%;
+}
+.form-pre-order input {
+    width: 100% !important;
 }
 

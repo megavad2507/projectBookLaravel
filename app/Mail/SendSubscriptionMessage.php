@@ -35,6 +35,6 @@ class SendSubscriptionMessage extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.subscription',["product" => $this->sku,"name" => $this->name]);
+        return $this->view('mail.subscription',["product" => $this->sku,"name" => $this->name,"sku" => $this->sku]);
     }
 }

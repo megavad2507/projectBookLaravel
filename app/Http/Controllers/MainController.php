@@ -11,6 +11,7 @@ use App\Models\Property;
 use App\Models\PropertyOption;
 use App\Models\Sku;
 use App\Models\Subscription;
+use App\Models\Traits\Translatable;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -113,7 +114,7 @@ class MainController extends Controller
             "name" => $name,
             "sku_id" => $sku->id
         ]);
-        return redirect()->back();
+        return redirect()->back()->with(['success_subscribe' => __('main.subscribe_success')]);
     }
 
     public function changeLocale($locale) {
@@ -149,5 +150,5 @@ class MainController extends Controller
         return array("price" => $sku->price,"quantity" => $sku->quantity,'skuId' => $sku->id,"htmlProductFooter" => $htmlProductFooter);
     }
 
-
+    use Translatable;
 }

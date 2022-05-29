@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Sku;
 use App\Observers\OrderObserver;
 use App\Observers\ProductObserver;
+use App\Observers\SkuObserver;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Blade;
@@ -40,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
 
         Paginator::useBootstrap();
 
-        Product::observe(ProductObserver::class);
+//        Product::observe(ProductObserver::class);
+        Sku::observe(SkuObserver::class);
     }
 }

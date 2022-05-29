@@ -170,17 +170,18 @@ class Sku extends Model
                     $current = true;
                 }
             }
-            $propArray[$this->product->properties[$i]->code] = [
-                'prop_id' => $this->product->properties[$i]->id,
-                'name' => $this->product->properties[$i]->__('name'),
-                'values' => [
-                    'id' => $option->id,
-                    'name' => $option->__('name'),
-                    'current' => $current,
-                    'available' => $exist ? $sku->isAvailable() : false,
-                    'exist' => $exist
-                ]
-            ];
+            if($exist) {
+                $propArray[$this->product->properties[$i]->code] = [
+                    'prop_id' => $this->product->properties[$i]->id,
+                    'name' => $this->product->properties[$i]->__('name'),
+                    'values' => [
+                        'id' => $option->id,
+                        'name' => $option->__('name'),
+                        'current' => $current,
+                        'available' => $sku->isAvailable()
+                    ]
+                ];
+            }
 
         }
         return [

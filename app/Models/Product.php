@@ -111,6 +111,11 @@ class Product extends Model
                 }
             );
         }
+        uasort($tmp,
+            function ($first,$second){
+                return $first['prop_id'] > $second['prop_id'];
+            }
+        );
         $this->skus_properties = $tmp;
         return $this;
     }

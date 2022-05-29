@@ -46,13 +46,13 @@ class BasketController extends Controller
         return redirect()->route('index');
     }
 
-    public function basketAdd(Sku $sku,$quantity){
+    public function basketAdd(Sku $sku,$quantity = 0){
         (new Basket(true))->addSku($sku,$quantity);
         return redirect()->route('basket');
 
     }
 
-    public function basketAddModal($productId,$quantity,$serializeFormData = null) {
+    public function basketAddModal($productId,$quantity = 0,$serializeFormData = null) {
         $product = Product::where('id',$productId)->first();
         if($serializeFormData != null) {
             $jsonData = (json_decode($serializeFormData,true));
@@ -81,12 +81,12 @@ class BasketController extends Controller
         $sku = self::searchSkuMethod($data,$productId);
         $product->groupSku($sku->getCurrentProperties());
         $href = route('basketAdd',[$sku->id,$quantity]);
+        $html = view('modals.basket_add',compact(['product','sku','quantity']))->render();
 
-        return array("PRODUCT" => $product->skus_properties,"SKU" => $sku,"HREF" => $href);
+        return array("PRODUCT" => $product->skus_properties,"SKU" => $sku,"HREF" => $href,"HTML" => $html);
     }
 
     private static function searchSkuMethod($data,$productId) {
-
         $query = Sku::query()->with('properties')->with('propertyOptions');
         $query->where('product_id',$productId);
         $query->getByProperties($data);

@@ -12,7 +12,7 @@ class Subscription extends Model
     protected $fillable = ['email','name','sku_id','status'];
 
     public function scopeActiveBySkuId($query,$skuId) {
-        return $query->where('status',0)->where('sku',$skuId);
+        return $query->where('status',0)->where('sku_id',$skuId);
     }
     public function sku() {
         return $this->belongsTo(Sku::class);

@@ -35,27 +35,22 @@
                                         <h6 class="title">
                                             <select name="{{ $prop_name }}" id="{{ $property['prop_id'] }}">
                                                 @foreach($property['values'] as $value)
-                                                    <option {{ $value['current'] === true ? 'selected' : '' }} value="{{ $value['id'] }}" {{ $value['available'] === true ? '' : 'disabled' }}>{{ $value['name'] }}</option>
+                                                    <option {{ $value['current'] === true ? 'selected' : '' }} value="{{ $value['id'] }}">{{ $value['name'] }}</option>
                                                 @endforeach
                                             </select>
                                         </h6>
                                     </div>
                                 @endforeach
                             </div>
-                            <div class="product-count style">
-                                <h6 class="quantity mb-20"><strong>@lang('main.quantity'):</strong></h6>
-                                @php
-                                    $buttonId = 'set-quantity-modal'
-                                @endphp
-                                @include('layouts.quantity_product_block',compact('buttonId'))
-{{--                                <div class="count d-flex">--}}
-{{--                                    <input id="set-quantity-modal" type="number" min="1" max="{{ $sku->quantity }}" step="1" value="{{ $quantity > $sku->quantity ? $sku->quantity : $quantity }}">--}}
-{{--                                    <div class="button-group">--}}
-{{--                                        <button class="count-btn increment"><i class="fas fa-chevron-up"></i></button>--}}
-{{--                                        <button class="count-btn decrement"><i class="fas fa-chevron-down"></i></button>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-                            </div>
+                            @if($sku->$quantity > 0)
+                                <div class="product-count style">
+                                    <h6 class="quantity mb-20"><strong>@lang('main.quantity'):</strong></h6>
+                                    @php
+                                        $buttonId = 'set-quantity-modal'
+                                    @endphp
+                                    @include('layouts.quantity_product_block',compact('buttonId'))
+                                </div>
+                            @endif
 
                         </div>
                     </div>
@@ -67,11 +62,15 @@
                         <div class="cart-content-btn">
                             <button type="button" class="btn theme-btn--dark1 btn--md mt-4"
                                     data-bs-dismiss="modal">@lang('main.basket_continue_shopping')</button>
-                            <form class="add-to-basket" action="{{ route('basketAdd',[$sku->id,$quantity]) }}" method="POST">
-                                @csrf
-                                <button class="btn theme-btn--dark1 btn--md mt-4"><i
-                                            class="ion-checkmark-round" type="submit"></i>@lang('main.basket_add_to_cart')</button>
-                            </form>
+                            @if($sku->quantity > 0)
+                                <form class="add-to-basket" action="{{ route('basketAdd',[$sku->id,$quantity]) }}" method="POST">
+                                    @csrf
+                                    <button class="btn theme-btn--dark1 btn--md mt-4"><i
+                                                class="ion-checkmark-round" type="submit"></i>@lang('main.basket_add_to_cart')</button>
+                                </form>
+                            @else
+                                @include('layouts.form_preorder')
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -108,31 +107,33 @@
                 }
             })
             .then((response) => {
-                console.log(response.data.SKU)
-                $('h5 .price-value').html(response.data.SKU.price);
-                let actionHref = $('.add-to-basket').attr('action');
-                $('.add-to-basket').attr('action',actionHref.replaceAll(/(\d)+$/g,response.data.SKU.id));
-                let quantityInput = $('#set-quantity-modal');
-                if(response.data.SKU.quantity < quantityInput.val()) {
-                    quantityInput.val(response.data.SKU.quantity);
-                }
-                $('.add-to-basket').prop('action',response.data.HREF);
-                quantityInput.attr('max',response.data.SKU.quantity);
-                let productData = response.data.PRODUCT;
-                Object.keys(productData).forEach(function(key) {
-                    let item = productData[key];
-                    let select = $('select[id=' + item["prop_id"] + ']')
-                    Object.keys(item["values"]).forEach(function(keyValue) {
-                        let prop = item["values"][keyValue];
-                        let option = select.find('option[value=' + prop.id + ']');
-                        if(prop['available'] && option.attr('disabled')) {
-                            option.removeAttr('disabled');
-                        }
-                        else if(!prop['available'] && !option.attr('disabled')) {
-                            option.attr('disabled','disabled');
-                        }
-                    });
-                });
+                console.log(response.data)
+                $('.modal-basket').html(response.data.HTML);
+                // $('h5 .price-value').html(response.data.SKU.price);
+                // let actionHref = $('.add-to-basket').attr('action');
+                // $('.add-to-basket').attr('action',actionHref.replaceAll(/(\d)+$/g,response.data.SKU.id));
+                // let quantityInput = $('#set-quantity-modal');
+                // if(response.data.SKU.quantity < quantityInput.val()) {
+                //     quantityInput.val(response.data.SKU.quantity);
+                // }
+                // $('.add-to-basket').prop('action',response.data.HREF);
+                // quantityInput.attr('max',response.data.SKU.quantity);
+                // let productData = response.data.PRODUCT;
+                // console.log(productData);
+                // Object.keys(productData).forEach(function(key) {
+                //     let item = productData[key];
+                //     let select = $('select[id=' + item["prop_id"] + ']')
+                //     Object.keys(item["values"]).forEach(function(keyValue) {
+                //         let prop = item["values"][keyValue];
+                //         let option = select.find('option[value=' + prop.id + ']');
+                //         if(prop['available'] && option.attr('disabled')) {
+                //             option.removeAttr('disabled');
+                //         }
+                //         else if(!prop['available'] && !option.attr('disabled')) {
+                //             option.attr('disabled','disabled');
+                //         }
+                //     });
+                // });
             })
             .finally(() => {
                 // $('#preloader').hide();

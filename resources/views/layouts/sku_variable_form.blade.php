@@ -7,7 +7,7 @@
                             @if($sku->propertyOptions()->with('property')->where('property_id',$sku_prop['prop_id'])->first()->id == $prop['id'])
                                 selected
                             @endif
-                            @if(!$prop['available']) disabled @endif>{{ $prop['name'] }}
+                            >{{ $prop['name'] }}
                         </option>
                 @endforeach
             </select>
