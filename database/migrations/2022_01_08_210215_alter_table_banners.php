@@ -28,7 +28,7 @@ class AlterTableBanners extends Migration
     public function down()
     {
         Schema::table('banners', function (Blueprint $table) {
-            $table->dropColumn(['name_en','description_en','button_text_en']);
+            $table->dropColumn(['title_en','description_en','button_text_en']);
         });
     }
 }
