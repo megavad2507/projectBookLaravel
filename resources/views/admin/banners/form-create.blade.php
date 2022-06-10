@@ -81,6 +81,14 @@
                     </div>
                 </div>
                 <br>
+                <div class="">
+                    <label for="name" class="col-sm col-form-label">Цвет текста описания: </label>
+                    <div class="col-sm-6">
+                        @include('layouts.error', ['fieldName' => 'hex'])
+                        <input type="text" class="form-control" name="hex" id="hex" value="{{ old('hex', isset($banner) ? $banner->hex : null) }}">
+                    </div>
+                </div>
+                <br>
                 <div class="input-group row">
                     <label for="picture" class="col-sm col-form-label">Картинка: </label>
                     <div class="col-sm-10">

@@ -12,9 +12,9 @@
                             <div class="slider-content">
 {{--                                <p class="text text-dark text-uppercase animated mb-25" data-animation-in="fadeInDown">--}}
 {{--                                    cleanse and refresh</p>--}}
-                                <h4 class="title text-dark animated mb-20" data-animation-in="fadeInLeft"
-                                    data-delay-in="1">{{ $banner->__('description') }}</h4>
-                                <h2 class="sub-title text-dark animated" data-animation-in="fadeInRight" data-delay-in="2">
+                                <h4 class="title animated mb-20" data-animation-in="fadeInLeft"
+                                    data-delay-in="1" @if($banner->hex) style="color:{{ $banner->hex }}" @endif>{{ $banner->__('description') }}</h4>
+                                <h2 class="sub-title animated" data-animation-in="fadeInRight" data-delay-in="2" @if($banner->hex) style="color:{{ $banner->hex }}" @endif>
                                     {{ $banner->__('title') }}</h2>
                                 <a href="{{ $banner->button_href }}"
                                    class="btn theme--btn1 btn--lg text-uppercase  animated mt-45 mt-sm-25"

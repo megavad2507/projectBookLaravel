@@ -31,6 +31,7 @@ class BannerRequest extends FormRequest
             'button_text' => 'required|max:20',
             'button_text_en' => 'required|max:20',
             'button_href' => 'required|max:30',
+            'hex' => 'min:4|max:7'
         ];
     }
 }
